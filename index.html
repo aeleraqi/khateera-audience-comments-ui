@@ -367,6 +367,10 @@ dialog.drawer[open] { animation:slidein .22s var(--ease); } @keyframes slidein {
 .su-n { width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:var(--surface2); font-weight:700; flex:none; font-size:.85rem; }
 .su-step.ok .su-n { background:var(--ok-soft); color:var(--ok); }
 .su-res { margin:8px 0 0; padding:0; list-style:none; font-size:.88rem; display:grid; gap:3px; }
+fieldset.keys { border:1px solid var(--line); border-radius:var(--rl); padding:12px 14px; margin:0; display:grid; gap:8px; background:var(--surface2); }
+fieldset.keys legend { font-weight:600; padding-inline:6px; }
+fieldset.keys label small { color:var(--fg3); font-weight:400; }
+.keyrow { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin-top:6px; } .keyrow input { flex:1 1 220px; min-width:0; }
 .setup.compact { padding:12px; } .setup.compact .su-step p { font-size:.82rem; }
 
 /* تشخيص الأخطاء */
@@ -528,7 +532,7 @@ header.top .brand b { padding-inline-start:10px; border-inline-start:1px solid r
       <details class="how"><summary>كيف أحصل على مفتاح الوصول؟</summary><ol>
         <li>افتح <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub ← Fine-grained token</a>.</li>
         <li>Repository access: <b>Only select repositories</b> ← <span class="num">khateera-audience-comments</span>.</li>
-        <li>Permissions: <b>Contents</b> = Read and write، <b>Actions</b> = Read and write.</li>
+        <li>Permissions: <b>Contents</b> = Read and write، <b>Actions</b> = Read and write، <b>Secrets</b> = Read and write (لحفظ مفاتيح Gemini وApify لكل مشروع).</li>
       </ol></details>
       <div class="field"><label for="repo">المستودع</label><input type="text" id="repo" dir="ltr" value="" placeholder="اسم-الحساب/khateera-audience-comments"></div>
       <div class="field"><label for="token">مفتاح الوصول</label><input type="password" id="token" dir="ltr" autocomplete="off" placeholder="github_pat_…"></div>
@@ -566,7 +570,7 @@ header.top .brand b { padding-inline-start:10px; border-inline-start:1px solid r
         <label class="own"><input type="checkbox" value="tiktok"><span class="dot" style="background:#111"></span><b>TikTok</b><input type="text" id="newTt" dir="ltr" placeholder="اسم الحساب · Apify"></label>
         <label class="own"><input type="checkbox" value="x"><span class="dot" style="background:#111"></span><b>X</b><input type="text" id="newX" dir="ltr" placeholder="اسم الحساب · Apify"></label>
       </div>
-      <small>يوتيوب وإنستجرام وفيسبوك بالـ API الرسمي ومجاناً. TikTok وX عبر Apify بتوكن خطيرة ومدفوعة حسب عدد التعليقات. بعد الإنشاء «الإعداد الأول» يرشدك لإضافة المفاتيح في أسرار المستودع ثم «فحص الاتصال».</small></div>
+      <small>يوتيوب وإنستجرام وفيسبوك بالـ API الرسمي ومجاناً. TikTok وX عبر Apify بتوكن خطيرة ومدفوعة حسب عدد التعليقات. مفتاحا Gemini وApify يُدخلان أدناه لهذا المشروع، وبعد الإنشاء «الإعداد الأول» يرشدك لباقي المفاتيح ثم «فحص الاتصال».</small></div>
     <p class="lead" id="newLead" style="margin:0">اكتب الاسم، واختر مصادر الجمع، والصق ملف الكلمات المفتاحية. المحرك يبني استعلامات الأخبار وإعدادات Apify لكل منصة تلقائياً، وتقدر تعدّل أي صف بعدها.</p>
     <div class="grid">
       <div class="field"><label for="newName">اسم المشروع</label><input type="text" id="newName" placeholder="تعليقات جمهور خطيرة — نوفمبر"></div>
@@ -581,6 +585,13 @@ header.top .brand b { padding-inline-start:10px; border-inline-start:1px solid r
       <textarea id="newKw" class="kw" spellcheck="false" placeholder="[الكلمات]&#10;&quot;خطيرة&quot;&#10;&quot;Khateera&quot;"></textarea>
       <small class="preview" id="kwPreview">الصق الملف بالتنسيق أعلاه، أو ملف JSON لمشروع كامل.</small>
     </div>
+    <fieldset class="keys" id="newKeysF"><legend>مفاتيح هذا المشروع</legend>
+      <div class="grid">
+        <div class="field"><label for="newGemini">مفتاح Gemini</label><input type="password" id="newGemini" dir="ltr" autocomplete="off" placeholder="AIza…"></div>
+        <div class="field"><label for="newApify">توكن Apify <small id="newApifyReq">(للسوشيال وTikTok وX)</small></label><input type="password" id="newApify" dir="ltr" autocomplete="off" placeholder="apify_api_…"></div>
+      </div>
+      <small class="preview">يُشفَّر كل مفتاح في المتصفح ثم يُحفظ في أسرار مستودع خطيرة باسم خاص بهذا المشروع، ولا يُكتب في أي ملف ولا يبقى في الواجهة. <a href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">مفتاح Gemini ↗</a> · <a href="https://console.apify.com/settings/integrations" target="_blank" rel="noopener">توكن Apify ↗</a></small>
+    </fieldset>
     <div class="field"><label for="newCtx">سياق الرصد (اختياري)</label><textarea id="newCtx" rows="4" placeholder="أنت محلل رصد إعلامي لحساب … قاعدة الصلة: …"></textarea></div>
     <div style="display:flex;gap:8px"><button class="btn primary" value="ok">إنشاء المشروع</button><button class="btn" value="cancel" formnovalidate>إلغاء</button></div>
   </form>
@@ -655,7 +666,34 @@ async function gh(path, opts = {}) {
   if (r.status === 404 && opts.allow404) return null;
   if (!r.ok) { let m = r.status + ""; try { m += " — " + (await r.json()).message; } catch {} throw new Error(m); }
   if (r.status === 204) return true;
-  return opts.raw ? r.text() : r.json();
+  if (opts.raw) return r.text();
+  const t = await r.text(); return t ? JSON.parse(t) : true;
+}
+// ── مفاتيح كل مشروع: تُشفَّر في المتصفح (sealed box) وتُحفظ في أسرار المستودع ──
+const secretSuffix = slug => String(slug).toUpperCase().replace(/[^A-Z0-9]+/g, "_");
+const projectSecret = (base, slug) => `${base}__${secretSuffix(slug)}`;
+let _crypto;
+async function sealLibs() {
+  if (!_crypto) _crypto = Promise.all([import("https://cdn.jsdelivr.net/npm/tweetnacl@1.0.3/+esm"), import("https://cdn.jsdelivr.net/npm/blakejs@1.2.1/+esm")])
+    .then(([n, b]) => ({ nacl: n.default || n, blake2b: (b.default || b).blake2b || b.blake2b }));
+  return _crypto;
+}
+async function setSecret(name, value) {
+  const { nacl, blake2b } = await sealLibs();
+  const pk = await gh(`/actions/secrets/public-key`);
+  const pub = Uint8Array.from(atob(pk.key), c => c.charCodeAt(0));
+  const eph = nacl.box.keyPair(), nin = new Uint8Array(64); nin.set(eph.publicKey); nin.set(pub, 32);
+  const box = nacl.box(new TextEncoder().encode(value), blake2b(nin, undefined, 24), pub, eph.secretKey);
+  const out = new Uint8Array(32 + box.length); out.set(eph.publicKey); out.set(box, 32);
+  let bin = ""; out.forEach(b => bin += String.fromCharCode(b));
+  await gh(`/actions/secrets/${name}`, { method: "PUT", body: JSON.stringify({ encrypted_value: btoa(bin), key_id: pk.key_id }) });
+}
+async function saveProjectKeys(slug, keys) {
+  const done = [];
+  for (const [base, v] of Object.entries(keys)) { const val = (v || "").trim(); if (!val) continue;
+    try { await setSecret(projectSecret(base, slug), val); done.push(base); }
+    catch (e) { throw new Error(`تعذّر حفظ ${base}: ${e.message}${/403|404/.test(e.message) ? " — تأكد أن مفتاح الوصول فيه صلاحية Secrets = Read and write" : ""}`); } }
+  return done;
 }
 const b64e = s => btoa(String.fromCharCode(...new TextEncoder().encode(s)));
 const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g, "")), c => c.charCodeAt(0)));
@@ -1082,7 +1120,12 @@ function setupCard(compact, only) {
   const llmSecret = prov.startsWith("claude") ? "ANTHROPIC_API_KEY" : "GEMINI_API_KEY";
   const ok = name => items.some(i => i.name.startsWith(name) && i.ok);
   const A = (href, t) => el("a", { href, target: "_blank", rel: "noopener" }, " " + t + " ↗");
-  const secretLink = name => el("span", {}, " ← السر ", el("code", { dir: "ltr" }, name), A(sec + "/new", "إضافة سر"));
+  const secretLink = name => ["GEMINI_API_KEY", "APIFY_TOKEN"].includes(name) ? keyInput(name) : el("span", {}, " ← السر ", el("code", { dir: "ltr" }, name), A(sec + "/new", "إضافة سر"));
+  const keyInput = name => { const inp = el("input", { type: "password", dir: "ltr", autocomplete: "off", placeholder: `${name} لمشروع «${S.cfg?.name || S.project}»` });
+    return el("div", { class: "keyrow" }, inp, el("button", { class: "btn", type: "button", onclick: async ev => {
+      if (!inp.value.trim()) return toast("الصق المفتاح أولاً"); ev.target.disabled = true;
+      try { await saveProjectKeys(S.project, { [name]: inp.value }); inp.value = ""; toast(`حُفظ ${name} لهذا المشروع ✓ — اضغط «فحص الاتصال»`, 4500); }
+      catch (e) { toast(e.message, 7000); } finally { ev.target.disabled = false; } } }, "حفظ للمشروع")); };
   const STEPS = {
     youtube: ["يوتيوب: مفتاح YouTube Data API", el("p", {}, "من Google Cloud Console: أنشئ مشروعاً، فعّل «YouTube Data API v3»، ثم Credentials ‹ Create credentials ‹ API key. مجاني بحصة 10,000 وحدة يومياً تكفي قناة كاملة. واكتب قناة خطيرة (@Khateera) في دائرة يوتيوب.",
       A("https://console.cloud.google.com/apis/library/youtube.googleapis.com", "تفعيل الـ API"), secretLink("YOUTUBE_API_KEY")), "قناة يوتيوب"],
@@ -1102,7 +1145,7 @@ function setupCard(compact, only) {
   rows.push(step("افحص الاتصال", el("div", {}, el("button", { class: "btn primary", type: "button", onclick: runCheck }, "فحص الاتصال"),
       c ? el("ul", { class: "su-res" }, items.filter(i => !only || i.name.startsWith(STEPS[only][2])).map(i => el("li", { class: i.ok ? "tone-pos" : "tone-neg" }, `${i.ok ? "✓" : "✗"} ${i.name}: ${i.note}`)), el("li", { class: "preview" }, "آخر فحص " + c.time)) : null), c?.ok));
   return el("section", { class: "setup" + (compact ? " compact" : "") },
-    el("header", {}, el("b", {}, only ? "الربط" : "الإعداد الأول"), el("span", {}, "المفاتيح تُحفظ في أسرار مستودعك على GitHub فقط — لا تُكتب في الواجهة ولا تظهر في الملفات.")),
+    el("header", {}, el("b", {}, only ? "الربط" : "الإعداد الأول"), el("span", {}, "المفاتيح تُحفظ مشفّرة في أسرار مستودع خطيرة على GitHub فقط — مفتاحا Gemini وApify خاصّان بكل مشروع، ولا يُكتب أي مفتاح في الملفات.")),
     el("ol", {}, rows),
     tok?.expires && (!only || only === "instagram") ? el("p", { class: "preview" }, `🔑 صلاحية توكن إنستجرام حتى ${tok.expires}` + (tok.note ? ` — ${tok.note}` : "") + " · تتمدد تلقائياً مع كل تشغيل.") : null);
 }
@@ -1247,7 +1290,7 @@ const CAUSES = [
   { k: "rate_limit", t: "Google News رفض جزءاً من الطلبات", re: /rate_limit|حظر مؤقت|تعذّر الجلب مرتين|صفحة تحقق/, stages: "news",
     fix: "Google يحدّ عدد الطلبات القادمة من خوادم GitHub. المحرك الآن يبطّئ تلقائياً، ثم يُكمل ما تعذّر من Bing بنفس الكلمات. لتقليلها: احذف الاستعلامات المكررة لنفس الكلمات في دول كثيرة (اترك 3–4 دول رئيسية)، أو كبّر «أيام كل جزء» في الإعدادات. الإعادة الآن آمنة: المكرر لا يُكتب مرتين." },
   { k: "key", t: "مفتاح ناقص في GitHub Secrets", re: /NEWSSCOPE_KEY|BROADCAST_API_KEY|APIFY_TOKEN|GEMINI_API_KEY|غير موجود/, stages: "news",
-    fix: "أضف المفتاح المذكور من صفحة أسرار المستودع ثم أعد التشغيل. المفاتيح لا تُكتب في الواجهة أبداً.", secrets: true },
+    fix: "أضف المفتاح المذكور: مفتاحا Gemini وApify من «الإعداد الأول» في تبويب سير العمل (لكل مشروع)، وباقي المفاتيح من صفحة أسرار المستودع، ثم أعد التشغيل.", secrets: true },
   { k: "auth", t: "رفض الصلاحية", re: /HTTP 40[13]\b/, stages: "",
     fix: "المفتاح موجود لكنه مرفوض (منتهٍ أو بلا صلاحية). جدّده من حساب الخدمة وحدّثه في أسرار المستودع.", secrets: true },
   { k: "timeout", t: "مصادر بطيئة لم تكتمل في الوقت", re: /انتهت المهلة|Timeout/i, stages: "social",
@@ -1939,6 +1982,7 @@ function openWizard(opts = {}) {
   dlg.querySelector("h2").textContent = opts.replace ? `استيراد كلمات إلى «${cur.name || S.project}»` : "مشروع رصد جديد";
   for (const id of ["newName", "newSlug", "newPeriod"]) $("#" + id).closest(".field").hidden = !!opts.replace;
   $("#newCtx").closest(".field").hidden = !!opts.replace;
+  $("#newKeysF").hidden = !!opts.replace; $("#newGemini").value = ""; $("#newApify").value = "";
   dlg.querySelector("button[value=ok]").textContent = opts.replace ? "استبدال الاستعلامات والمصادر" : "إنشاء المشروع";
   const preview = () => {
     const t = $("#newKw").value.trim(); if (!t) { $("#kwPreview").textContent = "الصق الملف بالتنسيق أعلاه، أو ملف JSON لمشروع كامل."; return; }
@@ -1974,9 +2018,12 @@ function openWizard(opts = {}) {
         if (h) src.input = src.input.replaceAll("اسم_الحساب", h); src.active = !!h && on.has(src.platform.toLowerCase()); });
       const plats = ["youtube", "instagram", "facebook"].filter(k => on.has(k)).concat(cfg.social.some(x => x.active) ? ["apify"] : []);
       if (!plats.length) return toast("اختر منصة واحدة على الأقل", 5000);
+      const keys = { GEMINI_API_KEY: $("#newGemini").value, APIFY_TOKEN: $("#newApify").value };
+      if (!keys.GEMINI_API_KEY.trim()) return toast("أدخل مفتاح Gemini لهذا المشروع", 5000);
+      if (plats.includes("apify") && !keys.APIFY_TOKEN.trim()) return toast("أدخل توكن Apify (مطلوب لـ TikTok وX)", 5000);
       Object.assign(cfg.settings, period, { project_name: name, owned_platforms: plats, ig_api: $("#newIgApi").value,
         yt_channel: $("#newYt").value.trim(), fb_page_id: $("#newFb").value.trim(), report_title: "انطباعات الجمهور — " + name });
-      try { await createProject(slug, cfg); S.dirty = false; fillProjects(); await loadProject(slug); goTab("flow"); toast("أُنشئ المشروع ✓ — أكمل «الإعداد الأول»", 5000); }
+      try { await saveProjectKeys(slug, keys); await createProject(slug, cfg); S.dirty = false; fillProjects(); await loadProject(slug); goTab("flow"); toast("أُنشئ المشروع وحُفظت مفاتيحه ✓ — أكمل «الإعداد الأول»", 5000); }
       catch (e) { toast("تعذّر الإنشاء: " + e.message, 6000); }
       return;
     }
@@ -1995,13 +2042,16 @@ function openWizard(opts = {}) {
     const name = $("#newName").value.trim() || built.name || "مشروع رصد";
     const slug = slugify($("#newSlug").value) || slugify(built.slug || "");
     if (!slug || S.projects.includes(slug)) return toast("اختر معرّفاً جديداً بحروف إنجليزية", 5000);
+    const keys = { GEMINI_API_KEY: $("#newGemini").value, APIFY_TOKEN: $("#newApify").value };
+    if (!keys.GEMINI_API_KEY.trim()) return toast("أدخل مفتاح Gemini لهذا المشروع", 5000);
+    if ((built.social || []).some(r => r.active !== false) && !keys.APIFY_TOKEN.trim()) return toast("أدخل توكن Apify (مطلوب لمصادر السوشيال)", 5000);
     const per = $("#newPeriod").value, period = per === "copy" ? {} : monthRange(per === "prev" ? -1 : 0);
     const base = structuredClone(S.cfg?.settings || {});
     const cfg = { name, settings: { ...base, ...(built.settings || {}), ...period, project_name: name, daily: false },
       news: built.news || [], social: built.social || [], exclusions: built.exclusions || [],
       taxonomy: built.taxonomy || DEFAULT_TAX, extra_fields: built.extra_fields || [],
       context: built.context || ($("#newCtx").value.trim() ? $("#newCtx").value.trim().split(/\n\s*\n/) : [`أنت محلل رصد إعلامي لمشروع «${name}». قاعدة الصلة: «نعم» إذا كانت المادة عن موضوع الرصد أو كياناته، و«لا» إذا كان التشابه في الاسم فقط.`]) };
-    try { await createProject(slug, cfg); S.dirty = false; fillProjects(); await loadProject(slug); goTab("flow"); toast("أُنشئ المشروع ✓", 4000); }
+    try { await saveProjectKeys(slug, keys); await createProject(slug, cfg); S.dirty = false; fillProjects(); await loadProject(slug); goTab("flow"); toast("أُنشئ المشروع وحُفظت مفاتيحه ✓", 4000); }
     catch (e) { toast("تعذّر الإنشاء: " + e.message, 6000); }
   };
 }
