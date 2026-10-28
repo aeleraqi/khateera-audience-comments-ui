@@ -1,0 +1,2066 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>خطيرة · تعليقات الجمهور</title>
+<link rel="icon" href="https://khateera.com/wp-content/uploads/cropped-K_logo_square-192x192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* layout: top bar (project + actions) · tab strip · one working panel per tab; results = KPI strip then paired charts then tables */
+:root {
+  --dot:#dededb; --edge:#b5b4ae;
+  --bg:#f6f1f1; --surface:#ffffff; --surface2:#f0efec; --fg:#1a1a1a; --fg2:#6b6960; --fg3:#9c9889;
+  --line:#e5e3db; --accent:#c9505f; --accent-soft:#fbe6e6; --ok:#1f7a55; --ok-soft:#e0f2e9; --warn:#a86a00; --warn-soft:#fbefd6;
+  --pos:#1f9d6b; --neu:#b7b4aa; --neg:#c0392b; --navy:#141414; --pink:#f38484; --sky:#f38484;
+  --font:"Tajawal", "Segoe UI", Tahoma, sans-serif; --mono:"IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
+  --bg:#111111; --surface:#1a1a1a; --surface2:#232322; --fg:#f0efeb; --fg2:#aaa79d; --fg3:#77756d;
+  --line:#2e2d2a; --accent:#f38484; --accent-soft:#3a1d20; --ok:#4ccc95; --ok-soft:#163327; --warn:#f0b54a; --warn-soft:#3a2d12;
+  --pos:#3fc48a; --neu:#5f5d57; --neg:#ef5b47; --dot:#262624; --edge:#55534d; color-scheme:dark; } }
+:root[data-theme="dark"] {
+  --bg:#111111; --surface:#1a1a1a; --surface2:#232322; --fg:#f0efeb; --fg2:#aaa79d; --fg3:#77756d;
+  --line:#2e2d2a; --accent:#f38484; --accent-soft:#3a1d20; --ok:#4ccc95; --ok-soft:#163327; --warn:#f0b54a; --warn-soft:#3a2d12;
+  --pos:#3fc48a; --neu:#5f5d57; --neg:#ef5b47; --dot:#262624; --edge:#55534d; color-scheme:dark; }
+:root[data-theme="light"] { color-scheme:light; }
+* { box-sizing:border-box; }
+[hidden] { display:none !important; }
+html,body { margin:0; }
+body { background:var(--bg); color:var(--fg); font-family:var(--font); font-size:14px; line-height:1.65; }
+a { color:var(--accent); }
+button, input, select, textarea { font:inherit; color:inherit; }
+.wrap { max-width:1180px; margin:0 auto; padding-inline:16px; }
+
+/* شريط علوي */
+header.top { background:var(--surface); border-bottom:1px solid var(--line); position:sticky; top:0; z-index:5; }
+.top .wrap { display:flex; flex-wrap:wrap; align-items:center; gap:12px; padding-block:10px; }
+.brand { display:flex; align-items:baseline; gap:8px; margin-inline-end:auto; }
+.brand b { font-size:1.15rem; letter-spacing:.2px; }
+.brand span { color:var(--fg3); font-size:.85rem; }
+.brand i { width:8px; height:8px; border-radius:50%; background:var(--accent); display:inline-block; transform:translateY(-1px); }
+select, input[type=text], input[type=password], input[type=date], input[type=number], textarea {
+  background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:7px 10px; min-width:0; }
+textarea { width:100%; resize:vertical; }
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline:2px solid var(--accent); outline-offset:1px; }
+.btn { border:1px solid var(--line); background:var(--surface); border-radius:var(--r); padding:7px 14px; cursor:pointer; white-space:nowrap; }
+.btn:hover { background:var(--surface2); }
+.btn.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+.btn.primary:hover { filter:brightness(1.05); }
+.btn:disabled { opacity:.5; cursor:default; }
+.chip { display:inline-flex; align-items:center; gap:6px; border-radius:999px; padding:3px 10px; font-size:.82rem; background:var(--surface2); color:var(--fg2); }
+.chip.ok { background:var(--ok-soft); color:var(--ok); } .chip.run { background:var(--warn-soft); color:var(--warn); } .chip.bad { background:var(--accent-soft); color:var(--accent); }
+.chip::before { content:""; width:7px; height:7px; border-radius:50%; background:currentColor; }
+
+nav.tabs { border-bottom:1px solid var(--line); background:var(--bg); }
+nav.tabs .wrap { display:flex; gap:2px; overflow-x:auto; }
+nav.tabs button { border:0; background:none; padding:11px 14px; cursor:pointer; color:var(--fg2); border-bottom:2px solid transparent; white-space:nowrap; }
+nav.tabs button[aria-selected="true"] { color:var(--fg); border-bottom-color:var(--accent); font-weight:600; }
+nav.tabs .count { color:var(--fg3); font-size:.8rem; margin-inline-start:4px; font-variant-numeric:tabular-nums; }
+
+main { padding-block:22px 60px; }
+h2 { font-size:1.05rem; margin:0 0 4px; text-wrap:balance; }
+.lead { color:var(--fg2); margin:0 0 16px; max-width:70ch; }
+.panel[hidden] { display:none !important; }
+
+/* الاستمارة */
+.form { display:grid; gap:18px; }
+fieldset { border:1px solid var(--line); border-radius:var(--r); background:var(--surface); padding:14px 16px 16px; margin:0; }
+legend { padding-inline:6px; font-weight:600; }
+.grid { display:grid; grid-template-columns:repeat(auto-fill, minmax(230px, 1fr)); gap:12px 16px; }
+.field { display:grid; gap:4px; min-width:0; }
+.field label { font-weight:500; font-size:.9rem; }
+.field small { color:var(--fg3); font-size:.78rem; line-height:1.5; }
+.check { display:flex; align-items:center; gap:8px; }
+.check input { width:18px; height:18px; accent-color:var(--accent); }
+
+/* الجداول القابلة للتحرير */
+.tablebar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin-bottom:10px; }
+.tablebar input[type=search] { background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:7px 10px; min-width:200px; }
+.scroll { overflow-x:auto; border:1px solid var(--line); border-radius:var(--r); background:var(--surface); }
+table { border-collapse:collapse; width:100%; }
+th, td { border-bottom:1px solid var(--line); padding:6px 8px; text-align:right; vertical-align:top; }
+th { background:var(--surface2); font-weight:600; font-size:.85rem; position:sticky; top:0; white-space:nowrap; }
+tr.off td:not(:first-child) { opacity:.45; text-decoration:line-through; }
+td input[type=text], td textarea, td select { width:100%; border-color:transparent; background:transparent; padding:4px 6px; }
+td input[type=text]:hover, td textarea:hover { border-color:var(--line); }
+td textarea { font-family:var(--mono); font-size:12px; direction:ltr; text-align:left; min-height:56px; }
+td.mono input { font-family:var(--mono); font-size:12.5px; direction:ltr; text-align:left; }
+td .del { border:0; background:none; color:var(--fg3); cursor:pointer; font-size:1rem; }
+td .del:hover { color:var(--accent); }
+.num { font-variant-numeric:tabular-nums; }
+
+/* النتائج */
+.progress { border:1px solid var(--line); border-radius:12px; background:var(--surface); padding:14px 16px; margin:0 0 16px; }
+.progress .pr-head { display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; } .progress .pr-head a { margin-inline-start:auto; font-size:.85rem; }
+.progress .pr-stage { margin:8px 0; color:var(--fg2); } .progress .pr-note { display:block; margin-top:10px; color:var(--fg2); }
+.pr-track { height:8px; border-radius:99px; background:var(--surface2); overflow:hidden; } .pr-track i { display:block; height:100%; background:var(--accent); transition:width .6s; }
+.btn.primary.stop { background:var(--fg); border-color:var(--fg); color:var(--bg); }
+.kpis { display:grid; grid-template-columns:repeat(4, minmax(0, 1fr)); gap:10px; margin-bottom:18px; }
+.kpi { background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:12px 14px; }
+.kpi .l { color:var(--fg2); font-size:.82rem; }
+.kpi .v { font-size:1.6rem; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.3; }
+.kpi.alert .v { color:var(--accent); }
+.cards { display:grid; grid-template-columns:repeat(auto-fit, minmax(340px, 1fr)); gap:14px; }
+.card { background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:14px 16px; min-width:0; }
+.card h3 { margin:0 0 10px; font-size:.95rem; }
+.legend { display:flex; gap:12px; font-size:.8rem; color:var(--fg2); margin-bottom:8px; }
+.legend span::before { content:""; display:inline-block; width:10px; height:10px; border-radius:2px; margin-inline-end:4px; background:var(--c); vertical-align:-1px; }
+.bars { display:grid; gap:7px; }
+.bar { display:grid; grid-template-columns:minmax(80px, 30%) 1fr auto; gap:8px; align-items:center; font-size:.85rem; }
+.bar .k { overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.bar .track { display:flex; height:14px; background:var(--surface2); border-radius:3px; overflow:hidden; }
+.bar .track i { display:block; height:100%; }
+.bar .n { color:var(--fg2); font-variant-numeric:tabular-nums; min-width:3ch; text-align:left; }
+svg text { fill:var(--fg2); font-family:var(--font); font-size:11px; }
+.empty { color:var(--fg3); padding:28px; text-align:center; border:1px dashed var(--line); border-radius:var(--r); }
+.tone-pos { color:var(--pos); } .tone-neg { color:var(--neg); font-weight:600; } .tone-neu { color:var(--fg2); }
+
+/* سير العمل — بأسلوب Make */
+.flow { position:relative; border:1px solid var(--line); border-radius:12px; overflow-x:auto; overflow-y:hidden;
+  background-color:var(--surface); background-image:radial-gradient(var(--dot) 1px, transparent 1px); background-size:18px 18px; }
+.flow svg { display:block; min-width:980px; width:100%; height:auto; }
+.flow .edge { fill:none; stroke:var(--edge); stroke-width:1.6; stroke-linecap:round; opacity:.7; }
+.flow .edge.live { stroke:var(--accent); stroke-width:2.2; opacity:1; }
+@keyframes dash { to { stroke-dashoffset:-16; } }
+.flow .node { cursor:pointer; }
+.flow .node circle.ring { fill:var(--surface); stroke:var(--line); stroke-width:1.5; }
+.flow .node:hover circle.ring, .flow .node:focus-visible circle.ring { stroke:var(--fg2); }
+.flow .node.off { opacity:.35; }
+.flow .node.live circle.ring { stroke:var(--accent); stroke-width:3; }
+.flow .node .ico { font-family:var(--font); font-weight:700; fill:#fff; text-anchor:middle; dominant-baseline:central; pointer-events:none; }
+.flow .node .lbl { fill:var(--fg); font-size:12px; text-anchor:middle; font-weight:600; }
+.flow .node .sub { fill:var(--fg3); font-size:10.5px; text-anchor:middle; }
+.flow .bub rect { fill:var(--accent); } .flow .bub text { fill:#fff; font-size:11px; font-weight:700; text-anchor:middle; dominant-baseline:central; font-family:var(--mono); }
+.flow .bub.done rect { fill:var(--ok); }
+.flow .branch { fill:var(--fg3); font-size:11px; text-anchor:middle; }
+.flowbar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; margin:12px 0 0; color:var(--fg2); font-size:.85rem; }
+.flowstats { display:grid; grid-template-columns:repeat(auto-fit, minmax(150px, 1fr)); gap:10px; margin-top:14px; }
+
+/* الصفحة الرئيسية */
+body.home .pj, body.home nav.tabs, body.home .panel, body.home #progressBox { display:none !important; }
+.brand { text-decoration:none; color:inherit; }
+.hero { display:grid; grid-template-columns:1.3fr 1fr; gap:24px; align-items:end; padding:18px 0 26px; border-bottom:1px solid var(--line); margin-bottom:26px; }
+.hero h1 { font-size:clamp(1.6rem, 3.2vw, 2.3rem); line-height:1.25; margin:0 0 8px; letter-spacing:-.2px; text-wrap:balance; }
+.hero p { color:var(--fg2); margin:0; max-width:56ch; }
+.hero .stats { display:grid; grid-template-columns:repeat(3, 1fr); gap:10px; }
+.hero .stat { border-inline-start:3px solid var(--accent); padding:2px 12px; }
+.hero .stat .v { font-size:1.7rem; font-weight:700; font-variant-numeric:tabular-nums; line-height:1.2; }
+.hero .stat .l { color:var(--fg2); font-size:.82rem; }
+.hero .actions { display:flex; gap:8px; margin-top:16px; flex-wrap:wrap; }
+.group { margin-bottom:30px; }
+.group > header { display:flex; align-items:baseline; gap:10px; margin-bottom:12px; }
+.group > header h2 { margin:0; } .group > header span { color:var(--fg3); font-size:.85rem; }
+.pcards { display:grid; grid-template-columns:repeat(auto-fill, minmax(290px, 1fr)); gap:14px; }
+.pcard { background:var(--surface); border:1px solid var(--line); border-radius:10px; padding:16px; display:grid; gap:10px; position:relative; }
+.pcard:hover { border-color:var(--fg3); }
+.pcard h3 { margin:0; font-size:1.02rem; line-height:1.45; }
+.pcard h3 a { color:inherit; text-decoration:none; } .pcard h3 a::after { content:""; position:absolute; inset:0; border-radius:10px; }
+.pcard .meta { display:flex; flex-wrap:wrap; gap:6px 10px; color:var(--fg2); font-size:.8rem; align-items:center; }
+.pcard .nums { display:grid; grid-template-columns:repeat(3, 1fr); gap:6px; }
+.pcard .nums div { background:var(--surface2); border-radius:6px; padding:6px 8px; }
+.pcard .nums b { display:block; font-size:1.05rem; font-variant-numeric:tabular-nums; } .pcard .nums span { font-size:.72rem; color:var(--fg2); }
+.pcard .tone { display:flex; height:6px; border-radius:99px; overflow:hidden; background:var(--surface2); }
+.pcard .tone i { display:block; height:100%; }
+.pcard .acts { display:flex; gap:6px; position:relative; z-index:1; flex-wrap:wrap; }
+.pcard .acts .btn { padding:5px 11px; font-size:.85rem; }
+.pcard.live { border-color:var(--warn); box-shadow:0 0 0 1px var(--warn) inset; }
+.tag { display:inline-block; border-radius:4px; padding:1px 7px; font-size:.75rem; background:var(--surface2); color:var(--fg2); }
+.tag.m { background:var(--accent-soft); color:var(--accent); } .tag.d { background:var(--ok-soft); color:var(--ok); } .tag.e { background:var(--warn-soft); color:var(--warn); }
+details.archive > summary { cursor:pointer; list-style:none; } details.archive > summary header { margin-bottom:12px; } details.archive > summary::-webkit-details-marker { display:none; }
+details.archive > summary h2::before { content:"▸ "; color:var(--fg3); } details.archive[open] > summary h2::before { content:"▾ "; }
+.pcard.arch { opacity:.85; border-style:dashed; }
+@media (max-width:760px) { .hero { grid-template-columns:1fr; } }
+
+/* الشهور */
+.months { display:flex; gap:10px; align-items:flex-end; height:210px; overflow-x:auto; padding-top:6px; }
+.mcol { flex:1 0 54px; display:grid; grid-template-rows:auto 1fr auto auto; height:100%; text-align:center; font-size:.8rem; }
+.mcol .stack { display:flex; flex-direction:column; justify-content:flex-end; width:28px; margin:0 auto; }
+.mcol .stack i { display:block; width:100%; }
+.mcol .n { color:var(--fg2); font-variant-numeric:tabular-nums; } .mcol .p { color:var(--pos); font-size:.72rem; }
+details.fails { margin-top:10px; font-size:.85rem; } details.fails summary { cursor:pointer; color:var(--fg2); } details.fails ul { margin:6px 0 0; padding-inline-start:18px; }
+
+/* معالج المشروع */
+dialog.wide { max-width:860px; }
+.src-grid { display:flex; flex-wrap:wrap; gap:8px; }
+.src-grid label { display:inline-flex; align-items:center; gap:6px; border:1px solid var(--line); border-radius:999px; padding:5px 12px; cursor:pointer; background:var(--surface); }
+.src-grid input { accent-color:var(--accent); }
+.src-grid .dot { width:10px; height:10px; border-radius:50%; }
+textarea.kw { font-family:var(--mono); font-size:12.5px; direction:rtl; min-height:260px; line-height:1.7; }
+.preview { font-size:.85rem; color:var(--fg2); }
+.row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+
+/* الاتصال */
+.connect { max-width:620px; margin:40px auto; background:var(--surface); border:1px solid var(--line); border-radius:var(--r); padding:22px 24px; display:grid; gap:14px; }
+.connect ol { margin:0; padding-inline-start:20px; color:var(--fg2); }
+.toast { position:fixed; inset-inline-start:16px; bottom:calc(16px + env(safe-area-inset-bottom, 0px)); background:var(--fg); color:var(--bg); padding:9px 14px; border-radius:var(--r); font-size:.9rem; z-index:20; max-width:calc(100% - 32px); }
+dialog { border:1px solid var(--line); border-radius:var(--r); background:var(--surface); color:var(--fg); max-width:520px; width:calc(100% - 32px); }
+dialog::backdrop { background:rgb(0 0 0 / .35); }
+@media (max-width:640px) { .kpis { grid-template-columns:repeat(2, minmax(0, 1fr)); } .bar { grid-template-columns:90px 1fr auto; } .cards { grid-template-columns:1fr; } }
+@media (prefers-reduced-motion: no-preference) { .bar .track i { transition:width .4s ease; } }
+
+/* ═══ طبقة التصميم: عرض العملاء ═══ */
+:root { --shadow-sm:0 1px 2px rgb(20 18 10 / .05), 0 1px 1px rgb(20 18 10 / .03); --shadow:0 1px 2px rgb(20 18 10 / .04), 0 8px 24px -12px rgb(20 18 10 / .14);
+  --shadow-lg:0 2px 4px rgb(20 18 10 / .05), 0 24px 48px -20px rgb(20 18 10 / .25); --rl:12px; --ease:cubic-bezier(.2,.7,.2,1); }
+@media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) { --shadow-sm:0 1px 2px rgb(0 0 0 / .4); --shadow:0 1px 2px rgb(0 0 0 / .35), 0 10px 30px -14px rgb(0 0 0 / .7); --shadow-lg:0 30px 60px -24px rgb(0 0 0 / .8); } }
+:root[data-theme="dark"] { --shadow-sm:0 1px 2px rgb(0 0 0 / .4); --shadow:0 1px 2px rgb(0 0 0 / .35), 0 10px 30px -14px rgb(0 0 0 / .7); --shadow-lg:0 30px 60px -24px rgb(0 0 0 / .8); }
+body { background:radial-gradient(1200px 420px at 85% -120px, color-mix(in oklab, var(--accent) 7%, transparent), transparent 70%), var(--bg); background-attachment:fixed; -webkit-font-smoothing:antialiased; }
+header.top { background:color-mix(in oklab, var(--surface) 82%, transparent); backdrop-filter:saturate(1.4) blur(14px); -webkit-backdrop-filter:saturate(1.4) blur(14px); }
+.brand { display:inline-flex; align-items:center; gap:9px; }
+.brand .logo { width:28px; height:28px; color:var(--fg); flex:none; }
+.brand .logo path { transform-origin:16px 16px; animation:sweep 6s linear infinite; }
+@keyframes sweep { to { transform:rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { .brand .logo path { animation:none; } }
+.brand > i { display:none; }
+.btn { border-radius:8px; transition:background .15s, border-color .15s, transform .08s, box-shadow .15s; display:inline-flex; align-items:center; gap:6px; }
+.btn:active { transform:translateY(1px); }
+.btn.primary { background:linear-gradient(180deg, color-mix(in oklab, var(--accent) 88%, #fff), var(--accent)); box-shadow:0 1px 0 rgb(255 255 255 / .2) inset, 0 6px 16px -8px var(--accent); }
+.btn.ghost { background:transparent; }
+.btn.ghost[aria-pressed="true"] { background:var(--fg); color:var(--bg); border-color:var(--fg); }
+.btn.big { padding:11px 18px; font-size:1rem; justify-content:center; }
+nav.tabs { background:color-mix(in oklab, var(--bg) 88%, transparent); backdrop-filter:blur(10px); position:sticky; top:57px; z-index:4; }
+nav.tabs button { display:inline-flex; align-items:center; gap:7px; border-radius:8px 8px 0 0; transition:color .15s, background .15s; }
+nav.tabs button:hover { color:var(--fg); background:var(--surface2); }
+nav.tabs .wrap { scrollbar-width:none; } nav.tabs .wrap::-webkit-scrollbar{display:none}
+@media (max-width:1400px){ nav.tabs button{padding:10px 10px;font-size:.92rem} }
+nav.tabs .ico { opacity:.7; display:inline-flex; } nav.tabs button[aria-selected="true"] .ico { opacity:1; color:var(--accent); }
+.panel:not([hidden]), #home:not([hidden]) { animation:rise .35s var(--ease) both; }
+@keyframes rise { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+@media (prefers-reduced-motion: reduce) { .panel, #home { animation:none !important; } }
+h2 { font-size:1.2rem; letter-spacing:-.1px; }
+.kpi, .card, fieldset, .pcard, .progress, .scroll { border-radius:var(--rl); box-shadow:var(--shadow-sm); }
+.kpi { padding:14px 16px; position:relative; overflow:hidden; }
+.kpi .v { font-size:1.75rem; letter-spacing:-.5px; }
+.kpi .s { color:var(--fg3); font-size:.78rem; }
+.kpi.big { background:linear-gradient(160deg, var(--surface), color-mix(in oklab, var(--accent) 6%, var(--surface))); }
+.spark { position:absolute; inset-inline-start:12px; bottom:10px; opacity:.9; }
+.spark .l { fill:none; stroke:var(--accent); stroke-width:1.8; } .spark .a { fill:var(--accent); opacity:.1; }
+.pcard { transition:transform .2s var(--ease), box-shadow .2s var(--ease), border-color .2s; }
+.pcard:hover { transform:translateY(-2px); box-shadow:var(--shadow); }
+.card { transition:box-shadow .2s; } .card:hover { box-shadow:var(--shadow); }
+.eyebrow { display:inline-block; color:var(--accent); font-size:.8rem; font-weight:600; letter-spacing:.2px; margin-bottom:6px; }
+.hero h1 { font-size:clamp(1.8rem, 3.6vw, 2.6rem); }
+.hero .stat .v { font-size:1.9rem; }
+/* حلقة النبرة */
+.res-hero { display:grid; grid-template-columns:minmax(250px, 300px) 1fr; gap:14px; margin-bottom:18px; }
+.res-hero .kpis { margin:0; grid-template-columns:repeat(3, minmax(0, 1fr)); }
+.res-hero .kpi.big { grid-row:span 2; display:flex; flex-direction:column; justify-content:center; }
+.res-hero .kpi.big .v { font-size:2.6rem; }
+.ring-card { display:flex; align-items:center; gap:18px; }
+div.ring { width:var(--s); height:var(--s); border-radius:50%; display:grid; place-items:center; flex:none; animation:spin-in .8s var(--ease) both; }
+@keyframes spin-in { from { transform:rotate(-90deg) scale(.85); opacity:0; } }
+div.ring .hole { width:72%; height:72%; border-radius:50%; background:var(--surface); display:grid; place-content:center; text-align:center; }
+div.ring .hole b { font-size:1.6rem; line-height:1.1; } div.ring .hole span { font-size:.75rem; color:var(--fg2); }
+.ring-legend { display:grid; gap:8px; font-size:.88rem; }
+.ring-legend div { display:flex; align-items:center; gap:7px; } .ring-legend i { width:10px; height:10px; border-radius:3px; } .ring-legend b { margin-inline-start:auto; padding-inline-start:12px; }
+/* هيكل التحميل */
+.skel-wrap { display:grid; gap:14px; padding-top:6px; }
+.skel { border-radius:10px; background:linear-gradient(90deg, var(--surface2) 25%, color-mix(in oklab, var(--surface2) 55%, var(--surface)) 50%, var(--surface2) 75%); background-size:200% 100%; animation:shimmer 1.2s linear infinite; }
+@keyframes shimmer { to { background-position:-200% 0; } }
+/* تقدير التكلفة */
+.est-total { display:grid; grid-template-columns:1.4fr 1fr 1fr; gap:12px; padding:14px; border-radius:var(--rl); background:var(--surface2); }
+.est-total .l { color:var(--fg2); font-size:.8rem; } .est-total .v { font-size:2rem; font-weight:700; } .est-total .v.sm { font-size:1.2rem; padding-top:10px; }
+.est-cap { margin-top:10px; padding:9px 12px; border-radius:8px; background:var(--ok-soft); color:var(--ok); font-size:.88rem; }
+.est-cap.over { background:var(--accent-soft); color:var(--accent); } .est-cap.muted { background:var(--surface2); color:var(--fg2); }
+.est-rows { display:grid; gap:4px; margin-top:12px; max-height:44vh; overflow:auto; }
+.est-row { display:grid; grid-template-columns:minmax(150px, 1.3fr) 1fr 110px; gap:10px; align-items:center; padding:6px 2px; border-bottom:1px solid var(--line); }
+.est-row .k b, .est-row .n b { display:block; font-size:.9rem; } .est-row small { color:var(--fg3); font-size:.75rem; }
+.est-row .bar { height:8px; border-radius:99px; background:var(--surface2); overflow:hidden; display:block; } .est-row .bar i { display:block; height:100%; background:var(--accent); border-radius:99px; }
+.est-row .n { text-align:left; }
+.capbar { display:grid; gap:6px; margin-bottom:12px; font-size:.88rem; }
+td input[type=number] { width:90px; border-color:transparent; background:transparent; padding:4px 6px; }
+td input[type=number]:hover, td input[type=number]:focus { border-color:var(--line); }
+td.mono { font-family:var(--mono); font-size:12px; }
+details.card > summary { cursor:pointer; }
+/* شاشة الدخول */
+body.signedout nav.tabs, body.signedout header .pj, body.signedout #homeBtn, body.signedout #presentBtn, body.signedout #newProject { display:none !important; }
+.connect { max-width:1080px; margin:36px auto; display:grid; grid-template-columns:1.25fr .9fr; gap:28px; background:none; border:0; box-shadow:none; padding:0; align-items:start; }
+.connect .pitch h1 { font-size:clamp(1.8rem, 3.6vw, 2.7rem); line-height:1.25; margin:0 0 12px; letter-spacing:-.3px; text-wrap:balance; }
+.connect .pitch > p { color:var(--fg2); font-size:1.05rem; max-width:56ch; margin:0 0 20px; }
+.feats { list-style:none; padding:0; margin:0 0 18px; display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.feats li { background:var(--surface); border:1px solid var(--line); border-radius:var(--rl); padding:12px 14px; box-shadow:var(--shadow-sm); }
+.feats b { display:block; margin-bottom:2px; } .feats span { color:var(--fg2); font-size:.85rem; }
+.pitch-flow { width:100%; max-width:440px; } .pitch-flow .e { fill:none; stroke:var(--edge); stroke-width:2.5; stroke-linecap:round; }
+.connect .login { background:var(--surface); border:1px solid var(--line); border-radius:16px; padding:24px; display:grid; gap:14px; box-shadow:var(--shadow-lg); position:sticky; top:90px; }
+.connect .how summary { cursor:pointer; color:var(--fg2); font-size:.9rem; } .connect .how ol { color:var(--fg2); font-size:.88rem; padding-inline-start:20px; }
+/* وضع العرض */
+body.present #save, body.present #run, body.present #newTop, body.present #settings, body.present #newProject, body.present .pr-note, body.present details.fails,
+body.present .tablebar .btn:not(:first-child), body.present #p-flow .lead { display:none !important; }
+body.present .brand span { display:none; }
+body.present #presentBtn { display:inline-flex !important; }
+body.present .hero .actions { display:none; }
+@media (max-width:860px) {
+  .connect { grid-template-columns:1fr; } .connect .login { position:static; } .feats { grid-template-columns:1fr; }
+  .res-hero { grid-template-columns:1fr; } .res-hero .kpis { grid-template-columns:repeat(2, minmax(0, 1fr)); }
+  .est-total { grid-template-columns:1fr 1fr; } .est-total > :first-child { grid-column:1/-1; }
+  nav.tabs { top:auto; position:static; } .brand span { display:none; }
+}
+
+/* شريط علوي مضغوط: المشروع والحالة والتشغيل ظاهرة، والباقي في القائمة */
+.top .wrap { flex-wrap:nowrap; gap:10px; }
+.brand { margin-inline-end:6px; flex:none; } .grow { flex:1; }
+header.top select#project { max-width:min(340px, 32vw); text-overflow:ellipsis; }
+header.top #state { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; max-width:300px; }
+#presentExit { display:none; } body.present #presentExit { display:inline-flex; }
+.home-only { display:none; } body.home .home-only { display:inline-flex; } body.signedout .home-only { display:none !important; }
+.menu { position:relative; }
+.menu-pop { position:absolute; inset-inline-end:0; top:calc(100% + 8px); min-width:220px; background:var(--surface); color:var(--fg); border:1px solid var(--line); border-radius:14px; padding:6px; box-shadow:var(--shadow-lg); z-index:20; display:grid; }
+.menu-pop[hidden] { display:none; }
+.menu-pop .mi { all:unset; display:flex; align-items:center; gap:8px; padding:9px 12px; border-radius:9px; cursor:pointer; font-size:.92rem; }
+.menu-pop .mi:hover, .menu-pop .mi:focus-visible { background:var(--surface2); }
+.menu-pop hr { border:0; border-top:1px solid var(--line); margin:4px 2px; }
+body.home #homeBtn { display:none; }
+body.present #presentBtn { display:flex !important; }
+@media (max-width:980px) { header.top #state { display:none; } header.top select#project { max-width:44vw; } }
+@media (max-width:640px) { .brand b { display:none; } #save { display:none; } }
+
+.res-tools { justify-content:space-between; align-items:center; margin-bottom:14px; } .res-tools .row { margin:0 !important; }
+.dedupe { display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+/* عرض التقرير */
+.report-view { position:fixed; inset:0; z-index:30; background:var(--bg); display:grid; grid-template-rows:auto 1fr; }
+.report-view[hidden] { display:none; }
+.rv-bar { display:flex; align-items:center; gap:10px; padding:10px 16px; background:var(--grad); color:#fff; }
+.rv-bar .btn { background:rgb(255 255 255 / .1); border-color:rgb(255 255 255 / .25); color:#fff; } .rv-bar .btn:hover { background:rgb(255 255 255 / .2); }
+.rv-bar #rvBack { background:#fff; color:#a63d4a; border-color:#fff; font-weight:600; }
+.rv-bar b { white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+#rvFrame { width:100%; height:100%; border:0; background:#fff; }
+body.reading { overflow:hidden; }
+@media (max-width:640px) { .rv-bar b { display:none; } #rvDownload { display:none; } }
+
+/* لوحة تعديل الوحدة */
+.flow .node:hover circle:not(.ring) { filter:brightness(1.08); } .flow .node:hover circle.ring { stroke:var(--accent); stroke-width:2; }
+dialog.drawer { margin:0; margin-inline-start:auto; height:100dvh; max-height:100dvh; width:min(460px, 100vw); max-width:100vw; border-radius:0 !important; border:0; border-inline-start:1px solid var(--line); padding:0; }
+dialog.drawer[open] { animation:slidein .22s var(--ease); } @keyframes slidein { from { transform:translateX(24px); opacity:0; } }
+[dir=rtl] dialog.drawer { margin-inline-start:0; margin-inline-end:auto; }
+.drawer-in { display:grid; grid-template-rows:auto 1fr auto; height:100%; }
+.drawer-h { display:flex; align-items:center; gap:12px; padding:16px 18px; border-bottom:1px solid var(--line); }
+.drawer-h h2 { margin:0; font-size:1.1rem; } .drawer-h small { color:var(--fg3); } .drawer-h .btn { margin-inline-start:auto; }
+.drawer-ico { width:38px; height:38px; border-radius:50%; display:grid; place-items:center; color:#fff; font-weight:700; flex:none; }
+.drawer-b { overflow:auto; padding:16px 18px; display:grid; gap:12px; align-content:start; }
+.drawer-b h3 { margin:6px 0 0; font-size:.95rem; }
+.drawer-f { display:flex; gap:8px; align-items:center; flex-wrap:wrap; padding:12px 18px; border-top:1px solid var(--line); }
+.nf { display:grid; gap:5px; } .nf span { font-size:.88rem; font-weight:500; } .nf small { color:var(--fg3); font-size:.78rem; }
+.nswitch { display:flex; gap:8px; align-items:center; } .nswitch input { width:18px; height:18px; accent-color:var(--accent); }
+.nrows { display:grid; gap:8px; } .nrow { display:flex; gap:8px; align-items:center; } .nrow.col { display:grid; gap:6px; padding:10px; border:1px solid var(--line); border-radius:12px; }
+.nrow input[type=text] { flex:1; min-width:0; } .nrow input.mini { flex:0 0 52px; text-align:center; } .nrow input[type=checkbox] { width:18px; height:18px; accent-color:var(--accent); flex:none; }
+.nrow textarea { font-family:var(--mono); font-size:12px; margin-top:6px; } .nrow details summary { cursor:pointer; color:var(--fg2); font-size:.85rem; }
+
+.seg { display:grid; grid-template-columns:1fr 1fr; gap:8px; }
+.seg label { display:flex; gap:10px; align-items:flex-start; border:1px solid var(--line); border-radius:14px; padding:12px; cursor:pointer; }
+.seg label:has(input:checked) { border-color:var(--accent); background:var(--accent-soft); }
+.seg input { margin-top:4px; accent-color:var(--accent); } .seg b { display:block; } .seg small { color:var(--fg2); font-size:.8rem; }
+@media (max-width:640px) { .seg { grid-template-columns:1fr; } }
+
+.own-grid { display:grid; gap:8px; }
+.own { display:grid; grid-template-columns:auto auto 90px 1fr; gap:8px; align-items:center; border:1px solid var(--line); border-radius:12px; padding:8px 12px; }
+.own:has(> input:checked) { border-color:var(--accent); background:var(--accent-soft); }
+.own > input[type=checkbox] { accent-color:var(--accent); width:17px; height:17px; } .own .dot { width:10px; height:10px; border-radius:50%; }
+.own input[type=text], .own select { min-width:0; }
+
+/* الإعداد الأول */
+.setup { border:1px solid var(--line); background:var(--surface); border-radius:var(--rl); padding:16px; display:grid; gap:10px; margin-bottom:14px; }
+.setup > header { display:flex; flex-wrap:wrap; gap:8px; align-items:baseline; } .setup > header span { color:var(--fg2); font-size:.88rem; }
+.setup ol { list-style:none; margin:0; padding:0; display:grid; gap:10px; }
+.su-step { display:flex; gap:12px; align-items:flex-start; } .su-step p { margin:4px 0 0; color:var(--fg2); font-size:.88rem; line-height:1.8; }
+.su-n { width:28px; height:28px; border-radius:50%; display:grid; place-items:center; background:var(--surface2); font-weight:700; flex:none; font-size:.85rem; }
+.su-step.ok .su-n { background:var(--ok-soft); color:var(--ok); }
+.su-res { margin:8px 0 0; padding:0; list-style:none; font-size:.88rem; display:grid; gap:3px; }
+.setup.compact { padding:12px; } .setup.compact .su-step p { font-size:.82rem; }
+
+/* تشخيص الأخطاء */
+.diag { border:1px solid color-mix(in oklab, var(--warn) 40%, var(--line)); background:color-mix(in oklab, var(--warn-soft) 55%, var(--surface)); border-radius:var(--rl); padding:16px; margin:0 0 16px; display:grid; gap:12px; }
+.diag > header { display:flex; flex-wrap:wrap; gap:8px; align-items:baseline; } .diag > header span { color:var(--fg2); font-size:.9rem; }
+.diag-item { background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:14px; display:grid; gap:8px; }
+.diag-item p { margin:0; color:var(--fg2); line-height:1.8; font-size:.93rem; }
+.diag-h { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+.diag-item .acts { display:flex; flex-wrap:wrap; gap:8px; } .diag-item a.btn { text-decoration:none; color:var(--fg); }
+.diag-item details summary { cursor:pointer; color:var(--fg3); font-size:.85rem; } .diag-item ul { margin:6px 0 0; padding-inline-start:18px; font-size:.85rem; color:var(--fg2); max-height:200px; overflow:auto; }
+.diag.compact { margin-top:12px; } .diag-ok { color:var(--ok); font-size:.9rem; }
+
+/* ═══ الهوية بأسلوب منصّات الرصد: شريط كحلي متدرّج، أزرار كبسولية، بطاقات واسعة ═══ */
+:root { --grad:linear-gradient(115deg, #141111 0%, #2a1c1d 42%, #8a3a44 78%, #f38484 115%); --rl:16px; }
+body { background:var(--bg); }
+header.top { background:var(--grad); border-bottom:0; color:#fff; backdrop-filter:none; -webkit-backdrop-filter:none; box-shadow:0 8px 30px -18px #000; }
+header.top .brand b { color:#fff; } header.top .brand span { color:rgb(255 255 255 / .62); }
+header.top .brand .logo { color:#fff; } header.top .brand .logo circle[fill] { fill:var(--sky); }
+header.top .btn { background:rgb(255 255 255 / .08); border-color:rgb(255 255 255 / .18); color:#fff; border-radius:999px; }
+header.top .btn:hover { background:rgb(255 255 255 / .18); }
+header.top .btn.primary { background:#fff; color:#8e2318; border-color:#fff; box-shadow:0 6px 18px -8px rgb(0 0 0 / .5); font-weight:600; }
+header.top .btn.primary:hover { background:#fbe6e6; }
+header.top .btn.ghost[aria-pressed="true"] { background:#fff; color:#a63d4a; }
+header.top select { background:rgb(255 255 255 / .1); border-color:rgb(255 255 255 / .22); color:#fff; border-radius:999px; padding-inline:14px; }
+header.top select option { color:#1a1a1a; background:#fff; }
+header.top .chip { background:rgb(255 255 255 / .14) !important; color:#fff !important; }
+header.top .chip.ok::before, header.top .chip.run::before { content:""; display:inline-block; width:7px; height:7px; border-radius:50%; margin-inline-end:6px; background:#34d3a4; }
+header.top .chip.run::before { background:#ffbe55; animation:pulse 1.2s ease-in-out infinite; }
+@keyframes pulse { 50% { opacity:.3; } }
+.btn { border-radius:999px; padding-inline:16px; }
+.btn.primary { background:var(--accent); border-color:var(--accent); box-shadow:0 8px 20px -10px var(--accent); }
+.btn.primary:hover { background:color-mix(in oklab, var(--accent) 85%, #000); }
+select, input[type=text], input[type=password], input[type=date], input[type=number], textarea { border-radius:10px; }
+nav.tabs { background:var(--surface); border-bottom:1px solid var(--line); top:60px; }
+nav.tabs button { border-radius:0; border-bottom-width:3px; font-weight:500; }
+nav.tabs button[aria-selected="true"] { color:var(--accent); border-bottom-color:var(--accent); }
+nav.tabs button:hover { background:transparent; color:var(--accent); }
+.kpi, .card, fieldset, .pcard, .progress, .scroll { border-color:var(--line); box-shadow:0 1px 2px rgb(20 18 10 / .04), 0 10px 30px -22px rgb(20 18 10 / .35); }
+.kpi .v, .hero .stat .v, div.ring .hole b { font-weight:600; letter-spacing:-.6px; }
+.kpi.big { background:var(--grad); color:#fff; border:0; }
+.kpi.big .l, .kpi.big .s { color:rgb(255 255 255 / .72); }
+.kpi.big .spark .l { stroke:#fff; } .kpi.big .spark .a { fill:#fff; opacity:.15; }
+.spark .l { stroke:var(--accent); } .spark .a { fill:var(--accent); }
+.eyebrow { color:var(--accent); text-transform:none; background:var(--accent-soft); padding:3px 10px; border-radius:999px; }
+.hero { background:var(--grad); color:#fff; border-radius:24px; padding:30px 30px 26px; margin-top:18px; position:relative; overflow:hidden; border:0; }
+.hero::after { content:""; position:absolute; inset:auto -80px -140px auto; width:380px; height:380px; border-radius:50%; background:radial-gradient(circle, rgb(232 96 60 / .35), transparent 65%); pointer-events:none; }
+.hero h1, .hero b { color:#fff; } .hero p, .hero .muted, .hero .stat .l, .hero small { color:rgb(255 255 255 / .75) !important; }
+.hero .eyebrow { background:rgb(255 255 255 / .14); color:#fff; }
+.hero .stat { border-inline-start-color:var(--sky); }
+.hero .btn { background:rgb(255 255 255 / .1); color:#fff; border-color:rgb(255 255 255 / .25); }
+.hero .btn.primary { background:#fff; color:#8e2318; border-color:#fff; }
+.pcard { border-radius:18px; } .pcard:hover { border-color:color-mix(in oklab, var(--accent) 40%, var(--line)); }
+.tag.m { background:var(--accent-soft); color:var(--accent); }
+.flow .bub rect { fill:var(--accent); }
+.connect .pitch h1 { background:linear-gradient(100deg, var(--fg) 30%, var(--accent) 75%, var(--pink)); -webkit-background-clip:text; background-clip:text; color:transparent; }
+.connect .login { border-radius:22px; border-top:4px solid var(--accent); }
+.feats li { border-radius:16px; }
+.pr-track i { background:linear-gradient(90deg, var(--accent), var(--pink)); }
+.est-row .bar i { background:linear-gradient(90deg, var(--accent), var(--sky)); }
+dialog { border-radius:22px !important; }
+.btn.danger { background:var(--neg); border-color:var(--neg); color:#fff; } .btn.danger:disabled { opacity:.45; cursor:not-allowed; }
+.btn.danger-ghost { color:var(--neg); } .btn.danger-ghost:hover { background:var(--accent-soft); border-color:var(--neg); }
+.btn.icon-only { padding-inline:10px; }
+.danger-h { color:var(--neg); }
+.del-modes { display:grid; gap:8px; }
+.del-opt { display:flex; gap:10px; align-items:flex-start; padding:12px 14px; border:1px solid var(--line); border-radius:14px; cursor:pointer; }
+.del-opt:has(input:checked) { border-color:var(--neg); background:var(--accent-soft); }
+.del-opt input { margin-top:5px; accent-color:var(--neg); } .del-opt b { display:block; } .del-opt span { color:var(--fg2); font-size:.86rem; }
+@media (max-width:1500px) { header.top .brand span { display:none; } header.top .btn { padding-inline:12px; } header.top .top .wrap, .top .wrap { gap:8px; } }
+nav.tabs { position:static; }
+@media (max-width:860px) { .hero { padding:22px 18px; border-radius:18px; } nav.tabs { top:auto; } }
+/* ═══ صفحة الدخول ═══ */
+.connect { margin:44px auto 60px; gap:40px; }
+.connect .pitch h1 { font-size:clamp(2rem, 4vw, 3rem); margin:10px 0 14px; }
+.connect .pitch > p { font-size:1.08rem; line-height:1.9; margin-bottom:18px; }
+.plats { display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+.plats span { display:inline-flex; align-items:center; gap:7px; padding:5px 12px; border-radius:999px; border:1px solid var(--line); background:var(--surface); font-size:.88rem; }
+.plats span::before { content:""; width:8px; height:8px; border-radius:50%; background:var(--c); }
+.plats .opt { color:var(--fg2); border-style:dashed; } .plats .opt::after { content:"اختياري"; font-size:.72rem; color:var(--fg3); }
+.demo { margin:0 0 24px; }
+.demo figcaption { font-size:.8rem; color:var(--fg3); margin-bottom:8px; }
+.demo-c { background:var(--surface); border:1px solid var(--line); border-radius:18px; padding:16px 18px; box-shadow:var(--shadow); position:relative; }
+.demo-c::before { content:""; position:absolute; inset-block:16px; inset-inline-start:0; width:3px; border-radius:3px; background:var(--accent); }
+.demo-h { display:flex; align-items:center; gap:10px; } .demo-h b { display:block; font-size:.92rem; } .demo-h small { color:var(--fg3); font-size:.78rem; }
+.demo-h .av { width:34px; height:34px; border-radius:50%; display:grid; place-items:center; font-style:normal; font-weight:600; background:var(--surface2); color:var(--fg2); }
+.demo-c > p { margin:12px 0 14px; line-height:1.9; }
+.tags { list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap; gap:6px; }
+.tags li { font-size:.8rem; padding:3px 10px; border-radius:999px; background:var(--surface2); color:var(--fg2); }
+.tags .t-pos { background:var(--ok-soft); color:var(--ok); font-weight:600; }
+.tags .t-reply { background:var(--accent-soft); color:var(--accent); font-weight:600; }
+.steps { list-style:none; margin:0 0 18px; padding:0; display:grid; grid-template-columns:repeat(3, minmax(0, 1fr)); gap:12px; counter-reset:st; }
+.steps li { counter-increment:st; padding:14px; border-radius:16px; border:1px solid var(--line); background:var(--surface); }
+.steps li::before { content:counter(st, arabic-indic); display:grid; place-items:center; width:26px; height:26px; border-radius:50%; background:var(--accent); color:#fff; font-weight:700; font-size:.85rem; margin-bottom:8px; }
+.steps b { display:block; margin-bottom:2px; } .steps span { color:var(--fg2); font-size:.85rem; line-height:1.7; }
+.connect .pitch > p.trust { color:var(--fg3); font-size:.85rem; margin:4px 0 0; line-height:1.6; display:flex; align-items:center; gap:8px; }
+.trust svg { flex:none; }
+@media (max-width:860px) { .steps { grid-template-columns:1fr; gap:8px; } .steps li { display:grid; grid-template-columns:26px 1fr; column-gap:12px; padding:12px 14px; } .steps li::before { grid-row:span 2; margin:0; } .connect { margin-top:24px; } }
+.brand .klogo { height:30px; width:auto; display:block; filter:brightness(0); }
+header.top .brand .klogo { filter:brightness(0) invert(1); }
+header.top .brand b { padding-inline-start:10px; border-inline-start:1px solid rgb(255 255 255 / .3); font-weight:500; }
+@media (max-width:520px) { .brand .klogo { height:22px; } header.top .brand b { font-size:.95rem; } }
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="wrap">
+    <a class="brand" id="homeLink" href="#" title="كل المشاريع"><img class="klogo" src="https://khateera.com/wp-content/uploads/logo_website-960x229.png" alt="خطيرة"><b>تعليقات الجمهور</b></a>
+    <select id="project" aria-label="المشروع" class="pj"></select>
+    <span class="chip pj" id="state">غير متصل</span>
+    <span class="grow"></span>
+    <button class="btn pj" id="save" type="button" disabled>حفظ الإعدادات</button>
+    <button class="btn primary pj" id="run" type="button" disabled>▶ تشغيل الرصد</button>
+    <button class="btn home-only" id="newTop" type="button">＋ مشروع جديد</button>
+    <button class="btn" id="presentExit" type="button">إنهاء العرض</button>
+    <div class="menu">
+      <button class="btn icon-only" id="menuBtn" type="button" aria-haspopup="menu" aria-expanded="false" aria-controls="menuPop" title="القائمة">☰</button>
+      <div class="menu-pop" id="menuPop" role="menu" hidden>
+        <button class="mi" id="homeBtn" type="button" role="menuitem">⌂ كل المشاريع</button>
+        <button class="mi" id="newProject" type="button" role="menuitem">＋ مشروع جديد</button>
+        <button class="mi" id="presentBtn" type="button" role="menuitem" aria-pressed="false" title="إخفاء أدوات التعديل لعرض النتائج على العميل"><span aria-hidden="true">◱</span><span> وضع العرض</span></button>
+        <hr>
+        <button class="mi" id="theme" type="button" role="menuitem">◐ الوضع الداكن</button>
+        <button class="mi" id="settings" type="button" role="menuitem">⚙ إعدادات الاتصال</button>
+      </div>
+    </div>
+  </div>
+</header>
+<nav class="tabs pj"><div class="wrap" role="tablist" id="tabs"></div></nav>
+
+<main class="wrap" id="main">
+  <section class="connect" id="connect" hidden>
+    <div class="pitch">
+      <span class="eyebrow">تحليل تعليقات الجمهور</span>
+      <h1>صورة دقيقة لما يقوله جمهوركم عن كل برنامج.</h1>
+      <p>نجمع تعليقات الجمهور على حساباتكم الرسمية، ونصنّف كلاً منها وفق الانطباع، ونوع التعليق، والجانب الذي يتناوله، والبرنامج المعني، ومدى حاجته إلى رد. وتصلكم النتائج في لوحة تفاعلية وتقرير شهري جاهز للعرض.</p>
+      <div class="plats" aria-label="المنصات">
+        <span style="--c:#ff0033">يوتيوب</span><span style="--c:#d62976">إنستجرام</span><span style="--c:#1877f2">فيسبوك</span><span class="opt" style="--c:#25f4ee">TikTok</span><span class="opt" style="--c:#8a8a8a">X</span>
+      </div>
+      <figure class="demo" aria-label="مثال لتعليق بعد التصنيف">
+        <figcaption>نموذج لتعليق بعد التحليل</figcaption>
+        <div class="demo-c">
+          <div class="demo-h"><i class="av">م</i><div><b>مشاهد</b><small>يوتيوب · الحلقة ١٢</small></div></div>
+          <p>«الحلقة جميلة والضيف كان فاهم كويس، بس الصوت كان واطي في النص التاني. ياريت تظبطوه المرة الجاية.»</p>
+          <ul class="tags">
+            <li class="t-pos">الانطباع: إيجابي</li><li>النوع: نقد بنّاء</li><li>الجانب: جودة الصوت</li><li>البرنامج: الحلقة الأسبوعية</li><li class="t-reply">يتطلب رداً</li>
+          </ul>
+        </div>
+      </figure>
+      <ol class="steps">
+        <li><b>ربط الحساب</b><span>إدخال اسم المستودع ومفتاح الوصول مرة واحدة.</span></li>
+        <li><b>تحديد النطاق</b><span>اختيار الحسابات والفترة، مع تقدير للتكلفة قبل التشغيل.</span></li>
+        <li><b>قراءة النتائج</b><span>تحليل لكل برنامج ومنصة، وتقرير شهري، وملف بيانات CSV.</span></li>
+      </ol>
+      <p class="trust"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>تُحفظ الشيفرة ومفاتيح الوصول والبيانات في حسابكم وحدكم، ولا يطّلع عليها أي طرف آخر.</p>
+    </div>
+    <div class="login">
+      <h2>تسجيل الدخول</h2>
+      <p class="lead" style="margin:0">يُحفظ مفتاح الوصول في متصفحكم فقط، وتستخدمه الواجهة لقراءة الإعدادات والنتائج من مستودعكم.</p>
+      <details class="how"><summary>كيف أحصل على مفتاح الوصول؟</summary><ol>
+        <li>افتح <a href="https://github.com/settings/personal-access-tokens/new" target="_blank" rel="noopener">GitHub ← Fine-grained token</a>.</li>
+        <li>Repository access: <b>Only select repositories</b> ← <span class="num">khateera-audience-comments</span>.</li>
+        <li>Permissions: <b>Contents</b> = Read and write، <b>Actions</b> = Read and write.</li>
+      </ol></details>
+      <div class="field"><label for="repo">المستودع</label><input type="text" id="repo" dir="ltr" value="" placeholder="اسم-الحساب/khateera-audience-comments"></div>
+      <div class="field"><label for="token">مفتاح الوصول</label><input type="password" id="token" dir="ltr" autocomplete="off" placeholder="github_pat_…"></div>
+      <button class="btn primary big" id="connectBtn" type="button">دخول</button>
+    </div>
+  </section>
+
+  <section id="home" hidden></section>
+  <section class="progress" id="progressBox" hidden aria-live="polite"></section>
+  <section class="panel" id="p-flow" hidden></section>
+  <section class="panel" id="p-settings" hidden></section>
+  <section class="panel" id="p-news" hidden></section>
+  <section class="panel" id="p-social" hidden></section>
+  <section class="panel" id="p-exclusions" hidden></section>
+  <section class="panel" id="p-taxonomy" hidden></section>
+  <section class="panel" id="p-context" hidden></section>
+  <section class="panel" id="p-results" hidden></section>
+  <section class="panel" id="p-reports" hidden></section>
+  <section class="panel" id="p-cost" hidden></section>
+  <section class="panel" id="p-runs" hidden></section>
+</main>
+
+<dialog id="newDlg" class="wide">
+  <form method="dialog" style="display:grid;gap:14px">
+    <h2>مشروع رصد جديد</h2>
+    <div class="field" id="newTypeF"><label>نوع المشروع</label><div class="seg" role="radiogroup" id="newType">
+      <label><input type="radio" name="ntype" value="media" checked><span><b>رصد إعلامي</b><small>أخبار وسوشيال بكلمات مفتاحية</small></span></label>
+      <label><input type="radio" name="ntype" value="ig"><span><b>تعليقات حساباتنا</b><small>انطباعات الجمهور على محتوى المؤسسة في يوتيوب وإنستجرام وفيسبوك وغيرها — بمفاتيحها هي</small></span></label></div></div>
+    <div class="field" id="newIgF" hidden><label>المنصات</label>
+      <div class="own-grid">
+        <label class="own"><input type="checkbox" value="youtube" checked><span class="dot" style="background:#FF0000"></span><b>يوتيوب</b><input type="text" id="newYt" dir="ltr" placeholder="@channel"></label>
+        <label class="own"><input type="checkbox" value="instagram" checked><span class="dot" style="background:#E1306C"></span><b>إنستجرام</b>
+          <select id="newIgApi"><option value="instagram">Instagram Login</option><option value="facebook">Facebook Login</option></select></label>
+        <label class="own"><input type="checkbox" value="facebook"><span class="dot" style="background:#1877F2"></span><b>فيسبوك</b><input type="text" id="newFb" dir="ltr" placeholder="معرّف الصفحة (اختياري)"></label>
+        <label class="own"><input type="checkbox" value="tiktok"><span class="dot" style="background:#111"></span><b>TikTok</b><input type="text" id="newTt" dir="ltr" placeholder="اسم الحساب · Apify"></label>
+        <label class="own"><input type="checkbox" value="x"><span class="dot" style="background:#111"></span><b>X</b><input type="text" id="newX" dir="ltr" placeholder="اسم الحساب · Apify"></label>
+      </div>
+      <small>يوتيوب وإنستجرام وفيسبوك بالـ API الرسمي ومجاناً. TikTok وX عبر Apify بتوكن العميل ومدفوعة حسب عدد التعليقات. بعد الإنشاء «الإعداد الأول» يرشدك لإضافة المفاتيح في أسرار المستودع ثم «فحص الاتصال».</small></div>
+    <p class="lead" id="newLead" style="margin:0">اكتب الاسم، واختر مصادر الجمع، والصق ملف الكلمات المفتاحية. المحرك يبني استعلامات الأخبار وإعدادات Apify لكل منصة تلقائياً، وتقدر تعدّل أي صف بعدها.</p>
+    <div class="grid">
+      <div class="field"><label for="newName">اسم المشروع</label><input type="text" id="newName" placeholder="تعليقات جمهور خطيرة — نوفمبر"></div>
+      <div class="field"><label for="newSlug">المعرّف (حروف إنجليزية وشرطات)</label><input type="text" id="newSlug" dir="ltr" placeholder="khateera-nov"></div>
+      <div class="field"><label for="newPeriod">الفترة</label><select id="newPeriod"><option value="prev">الشهر الماضي</option><option value="this">الشهر الحالي</option><option value="copy">نفس فترة المشروع الحالي</option></select></div>
+    </div>
+    <div class="field"><label>مصادر الجمع</label><div class="src-grid" id="newSources"></div></div>
+    <div class="field">
+      <div class="row"><label for="newKw" style="margin-inline-end:auto">ملف الكلمات المفتاحية</label>
+        <button class="btn" type="button" id="kwTemplate">إدراج نموذج</button>
+        <label class="btn" style="cursor:pointer">فتح ملف .txt<input type="file" id="kwFile" accept=".txt,.md,.json,text/plain" hidden></label></div>
+      <textarea id="newKw" class="kw" spellcheck="false" placeholder="[الكلمات]&#10;&quot;خطيرة&quot;&#10;&quot;Khateera&quot;"></textarea>
+      <small class="preview" id="kwPreview">الصق الملف بالتنسيق أعلاه، أو ملف JSON لمشروع كامل.</small>
+    </div>
+    <div class="field"><label for="newCtx">سياق الرصد (اختياري)</label><textarea id="newCtx" rows="4" placeholder="أنت محلل رصد إعلامي لحساب … قاعدة الصلة: …"></textarea></div>
+    <div style="display:flex;gap:8px"><button class="btn primary" value="ok">إنشاء المشروع</button><button class="btn" value="cancel" formnovalidate>إلغاء</button></div>
+  </form>
+</dialog>
+<section id="reportView" class="report-view" hidden aria-label="عرض التقرير">
+  <div class="rv-bar">
+    <button class="btn" type="button" id="rvBack">→ رجوع للتقارير</button>
+    <b id="rvTitle"></b><span class="grow"></span>
+    <button class="btn" type="button" id="rvPrint">طباعة / PDF</button>
+    <button class="btn" type="button" id="rvDownload">تنزيل HTML</button>
+    <button class="btn" type="button" id="rvTab" title="فتح في تبويب جديد">↗</button>
+  </div>
+  <iframe id="rvFrame" title="التقرير الشهري"></iframe>
+</section>
+<dialog id="nodeDlg" class="drawer" aria-labelledby="nodeTitle">
+  <div class="drawer-in">
+    <header class="drawer-h"><span class="drawer-ico" id="nodeIco"></span><div><h2 id="nodeTitle"></h2><small id="nodeSub"></small></div>
+      <button class="btn icon-only" type="button" id="nodeClose" aria-label="إغلاق">✕</button></header>
+    <div id="nodeBody" class="drawer-b"></div>
+    <footer class="drawer-f"><button class="btn primary" type="button" id="nodeDone">تم</button><button class="btn" type="button" id="nodeFull">فتح التبويب الكامل</button>
+      <span class="preview" id="nodeHint"></span></footer>
+  </div>
+</dialog>
+<dialog id="delDlg" class="wide">
+  <form method="dialog" style="display:grid;gap:14px">
+    <h2 class="danger-h">حذف المشروع نهائياً</h2>
+    <div id="delBody"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap"><button class="btn danger" value="ok" id="delOk" disabled>حذف نهائي</button><button class="btn" value="cancel">إلغاء</button></div>
+  </form>
+</dialog>
+<dialog id="runDlg" class="wide">
+  <form method="dialog" style="display:grid;gap:14px">
+    <h2>قبل التشغيل: التكلفة المتوقعة</h2>
+    <div id="runBody"></div>
+    <div style="display:flex;gap:8px"><button class="btn primary" value="ok">▶ تشغيل الرصد</button><button class="btn" value="cancel">إلغاء</button></div>
+  </form>
+</dialog>
+<dialog id="importDlg" class="wide">
+  <form method="dialog" style="display:grid;gap:12px">
+    <h2>استيراد مشاريع</h2>
+    <p class="lead" style="margin:0" id="importLead"></p>
+    <div class="scroll"><table><thead><tr><th>إنشاء</th><th>المشروع</th><th>المعرّف</th><th>أخبار</th><th>سوشيال</th></tr></thead><tbody id="importRows"></tbody></table></div>
+    <div style="display:flex;gap:8px"><button class="btn primary" value="ok">استيراد المحدد</button><button class="btn" value="cancel">إلغاء</button></div>
+  </form>
+</dialog>
+
+<script>
+"use strict";
+const $ = (s, r = document) => r.querySelector(s);
+const el = (tag, attrs = {}, ...kids) => {
+  const e = document.createElement(tag);
+  for (const [k, v] of Object.entries(attrs)) {
+    if (k === "class") e.className = v; else if (k === "html") e.innerHTML = v;
+    else if (k.startsWith("on")) e.addEventListener(k.slice(2), v); else if (v !== false && v != null) e.setAttribute(k, v === true ? "" : v);
+  }
+  for (const c of kids.flat()) if (c != null) e.append(c.nodeType ? c : document.createTextNode(c));
+  return e;
+};
+const store = { get: k => { try { return localStorage.getItem("khateera-comments:" + k); } catch { return null; } },
+                set: (k, v) => { try { localStorage.setItem("khateera-comments:" + k, v); } catch {} } };
+const fmt = n => (n || 0).toLocaleString("en-US");
+const pct = x => Math.round((x || 0) * 100) + "%";
+function toast(msg, ms = 3200) { const t = el("div", { class: "toast", role: "status" }, msg); document.body.append(t); setTimeout(() => t.remove(), ms); }
+
+// ── GitHub API ─────────────────────────────────────────────
+const S = { repo: store.get("repo") || "", token: store.get("token") || "", project: store.get("project") || "",
+            projects: [], cfg: null, sha: null, dirty: false, tab: store.get("tab") || "flow", status: {}, runs: [] };
+async function gh(path, opts = {}) {
+  const r = await fetch(`https://api.github.com/repos/${S.repo}${path}`, { cache: "no-store", ...opts, headers: {
+    Authorization: `Bearer ${S.token}`, Accept: opts.raw ? "application/vnd.github.raw" : "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28", ...(opts.body ? { "Content-Type": "application/json" } : {}) } });
+  if (r.status === 404 && opts.allow404) return null;
+  if (!r.ok) { let m = r.status + ""; try { m += " — " + (await r.json()).message; } catch {} throw new Error(m); }
+  if (r.status === 204) return true;
+  return opts.raw ? r.text() : r.json();
+}
+const b64e = s => btoa(String.fromCharCode(...new TextEncoder().encode(s)));
+const b64d = s => new TextDecoder().decode(Uint8Array.from(atob(s.replace(/\n/g, "")), c => c.charCodeAt(0)));
+async function readJSON(path, fallback) { const t = await gh(`/contents/${encodeURI(path)}`, { raw: true, allow404: true }); return t == null ? fallback : JSON.parse(t); }
+
+// ── تحميل ───────────────────────────────────────────────────
+async function connect() {
+  S.repo = $("#repo").value.trim(); S.token = $("#token").value.trim() || S.token;
+  if (!S.token) return toast("الصق الـ token أولاً");
+  try {
+    const list = await gh(`/contents/config/projects`);
+    S.projects = list.filter(f => f.name.endsWith(".json")).map(f => f.name.slice(0, -5));
+    store.set("repo", S.repo); store.set("token", S.token);
+    $("#connect").hidden = true; $("#save").disabled = false; $("#run").disabled = false; document.body.classList.remove("signedout");
+    await loadMeta(true); fillProjects();
+    await loadProject(S.projects.includes(S.project) ? S.project : S.projects[0]);
+    await pollRuns(); setInterval(pollRuns, 15000);
+    S.homeLive = S.runs.filter(r => r.status !== "completed" && r.event !== "push").length;
+    showHome(store.get("view") !== "project");
+    if (S.present) setPresent(true);
+  } catch (e) { $("#connect").hidden = false; setState("bad", "فشل الاتصال"); toast("تعذّر الاتصال: " + e.message, 6000); }
+}
+function fillProjects() {
+  const sel = $("#project"), meta = S.meta || {};
+  const label = p => meta[p]?.cfg?.name || p, arch = p => !!meta[p]?.cfg?.settings?.archived;
+  const act = S.projects.filter(p => !arch(p)), old = S.projects.filter(arch);
+  sel.replaceChildren(...act.map(p => el("option", { value: p }, label(p))),
+    old.length ? el("optgroup", { label: "الأرشيف" }, old.map(p => el("option", { value: p }, label(p)))) : null);
+  sel.value = S.project;
+}
+async function loadProject(p) {
+  if (S.dirty && !confirmLeave()) { $("#project").value = S.project; return; }
+  S.project = p; store.set("project", p); $("#project").value = p;
+  const f = await gh(`/contents/config/projects/${p}.json`);
+  S.cfg = JSON.parse(b64d(f.content)); S.sha = f.sha; S.dirty = false;
+  if (S.meta?.[p]) { S.meta[p].cfg = S.cfg; S.meta[p].sha = f.sha; }
+  S.status = await readJSON(`data/${p}/status.json`, {});
+  renderAll(); loadResults();
+}
+function confirmLeave() { toast("احفظ التعديلات أولاً أو أعد تحميل الصفحة لتجاهلها", 5000); return false; }
+function markDirty() { if (!S.dirty) { S.dirty = true; $("#save").textContent = "حفظ الإعدادات •"; } }
+
+// ── الحفظ والتشغيل ─────────────────────────────────────────
+async function save(msg) {
+  const st = S.cfg.settings || {};  // «اجمع حتى» لا يسبق نهاية الفترة (بقايا شهر سابق كانت تُفرغ النتائج)
+  if (st.collect_until && st.window_end && st.collect_until < st.window_end) st.collect_until = st.window_end;
+  const body = JSON.stringify(S.cfg, null, 2) + "\n";
+  const r = await gh(`/contents/config/projects/${S.project}.json`, { method: "PUT", body: JSON.stringify({
+    message: msg || `تحديث إعدادات ${S.project} من الواجهة`, content: b64e(body), sha: S.sha }) });
+  S.sha = r.content.sha; S.dirty = false; $("#save").textContent = "حفظ الإعدادات"; toast("حُفظت الإعدادات ✓");
+  if (S.meta?.[S.project]) { S.meta[S.project].cfg = structuredClone(S.cfg); S.meta[S.project].sha = S.sha; fillProjects(); }
+}
+function renderProgress() {
+  const box = $("#progressBox"); if (!box) return;
+  if (!S.live) { box.hidden = true; return; }
+  const p = S.progress, ratio = p && p.total ? Math.min(1, p.done / p.total) : 0;
+  box.hidden = false;
+  box.replaceChildren(el("div", { class: "pr-head" }, el("strong", {}, "التشغيل جارٍ"), el("span", {}, "منذ " + ago(S.live.run_started_at || S.live.created_at)),
+      el("a", { href: S.live.html_url, target: "_blank", rel: "noopener" }, "السجل التفصيلي على GitHub")),
+    el("div", { class: "pr-stage" }, p ? (p.stage || "") + (p.total ? ` — ${fmt(p.done)} من ${fmt(p.total)}` : "") : "يبدأ… (تظهر الأرقام بعد أول دقيقة)"),
+    el("div", { class: "pr-track" }, el("i", { style: `width:${ratio * 100}%` })),
+    el("div", { class: "kpis", style: "margin:12px 0 0" },
+      [["الأخبار", "أخبار"], ["السوشيال", "سوشيال"], ["التعليقات", "تعليقات"]].map(([c, w]) =>
+        el("div", { class: "kpi" }, el("div", { class: "l" }, c + ": سُحب / كُتب"),
+          el("div", { class: "v" }, fmt((p && p.collected || {})[c] || 0), el("span", { style: "color:var(--fg3);font-size:1rem" }, " / " + fmt((p && p.written || {})[w] || 0))))),
+      el("div", { class: "kpi" }, el("div", { class: "l" }, "إجمالي ما سُحب"), el("div", { class: "v" }, fmt(Object.values((p && p.collected) || {}).reduce((a, b) => a + b, 0)))),
+      el("div", { class: "kpi" }, el("div", { class: "l" }, "التكلفة حتى الآن"), el("div", { class: "v" }, usd(p && p.cost ? p.cost.usd : 0, 3)),
+        p && p.cost && p.cost.caps && (p.cost.caps.run || p.cost.caps.month) ? el("div", { class: "s" }, "السقف " + usd(p.cost.caps.run || p.cost.caps.month)) : null)),
+    failuresList(p && p.failures),
+    el("small", { class: "pr-note" }, "تُحفظ النتائج على دفعات من 100 مادة. لو أوقفت التشغيل يبقى ما اكتمل حفظه في ملف CSV. المصدر الذي يفشل بسبب المهلة أو حد الاستخدام يُعاد وحده في آخر المرحلة."));
+}
+async function stopRun() {
+  if (!S.live || !confirm("إيقاف التشغيل الجاري؟ ما اكتمل حفظه يبقى في ملف CSV.")) return;
+  try { await gh(`/actions/runs/${S.live.id}/cancel`, { method: "POST" }); toast("أُرسل طلب الإيقاف… يتوقف خلال ثوانٍ ويحفظ ما اكتمل"); setTimeout(pollRuns, 5000); }
+  catch (e) { toast("تعذّر الإيقاف: " + e.message, 6000); }
+}
+async function run() {
+  if (S.live) return stopRun();
+  if (S.cfg?.settings?.archived) return toast("المشروع مؤرشف — استعده من الصفحة الرئيسية أولاً", 5000);
+  if (!(await confirmRun(S.project, S.cfg))) return;
+  try {
+    if (S.dirty) await save();
+    await gh(`/actions/workflows/monitor.yml/dispatches`, { method: "POST", body: JSON.stringify({ ref: "main", inputs: { project: S.project, action: "run" } }) });
+    setState("run", "أُرسل طلب التشغيل…"); toast("بدأ التشغيل على GitHub — تتحدث الحالة هنا تلقائياً");
+    setTimeout(pollRuns, 6000);
+  } catch (e) { toast("تعذّر التشغيل: " + e.message, 6000); }
+}
+function setState(kind, text, when) { const s = $("#state"); s.className = "chip pj " + (kind || ""); s.replaceChildren(text, when ? el("bdi", { dir: "ltr" }, " " + when) : ""); }
+async function pollRuns() {
+  try {
+    const r = await gh(`/actions/workflows/monitor.yml/runs?per_page=10`);
+    S.runs = r.workflow_runs || [];
+    const live = S.runs.find(x => x.status !== "completed" && x.event !== "push");
+    S.live = live || null;
+    if (live) {
+      const pr = await readJSON(`progress/${S.project}.json`, null).catch(() => null);
+      S.progress = pr && String(pr.run_id) === String(live.id) ? pr : null;
+      const pp = S.progress; setState("run", pp && pp.total ? `يعمل · ${Math.round(pp.done / pp.total * 100)}%` : "يعمل منذ " + ago(live.run_started_at || live.created_at));
+    }
+    else if (S.status.status_state) setState(S.status.status_state.startsWith("✅") ? "ok" : S.status.status_state.startsWith("❌") ? "bad" : "",
+                                             S.status.status_state.replace(/^[^\p{L}]+/u, "") + " ·", S.status.status_updated || "");
+    else setState("", "لم يُشغّل بعد");
+    if (S.wasLive && !live) { const prevD = S.status?.dedupe?.time, prevC = S.status?.check?.time; S.status = await readJSON(`data/${S.project}/status.json`, {}); loadResults();
+      const d = S.status.dedupe, ck = S.status.check; if (S.tab === "flow") renderFlow();
+      if (ck && ck.time !== prevC) toast(ck.ok ? "✓ فحص الاتصال: كل المفاتيح تعمل" : "✗ فحص الاتصال: " + (ck.items || []).filter(i => !i.ok).map(i => i.note).join(" · "), 8000); else toast(d && d.time !== prevD ? `🧹 تنظيف التكرار: حُذف ${fmt(d.removed || 0)} سجل، وبقي ${fmt(d.kept || 0)}` : "انتهى التشغيل — حُدّثت النتائج", 6000); }
+    S.wasLive = !!live; S.progress = live ? S.progress : null;
+    const rb = $("#run"); rb.textContent = live ? "⏹ إيقاف التشغيل" : "▶ تشغيل الرصد"; rb.classList.toggle("stop", !!live);
+    renderProgress(); if (S.tab === "flow") renderFlow();
+    if (S.view === "home" && S.meta) { const was = S.homeLive, now = S.runs.filter(r => r.status !== "completed" && r.event !== "push").length; S.homeLive = now; if (was !== undefined && was !== now) renderHome(was > now); }
+    if (S.tab === "runs") renderRuns();
+  } catch {}
+}
+function ago(t) { const m = Math.round((Date.now() - new Date(t)) / 60000); return m < 1 ? "لحظات" : m + " دقيقة"; }
+
+// ── التبويبات ───────────────────────────────────────────────
+const isIG = c => ["instagram", "owned"].includes(String((c || S.cfg || {}).settings?.mode || ""));
+const ownedPlats = c => { const v = (c || S.cfg || {}).settings?.owned_platforms; const a = Array.isArray(v) ? v : String(v || "").split(/[,،\s]+/);
+  const out = a.map(x => x.trim().toLowerCase()).filter(Boolean); return out.length ? out : ["instagram"]; };
+const OWN = { youtube: { lbl: "قناتنا على يوتيوب", ico: "▶", c: "#FF0000", sub: "YouTube Data API الرسمي", stage: "يوتيوب" },
+  instagram: { lbl: "حسابنا على إنستجرام", ico: "◎", c: "#E1306C", sub: "Instagram API الرسمي", stage: "إنستجرام" },
+  facebook: { lbl: "صفحتنا على فيسبوك", ico: "f", c: "#1877F2", sub: "Graph API الرسمي", stage: "فيسبوك" },
+  apify: { lbl: "TikTok وX", ico: "♪", c: "#111111", sub: "عبر Apify · اختياري", stage: "السوشيال" } };
+const IG_TEMPLATE = {"name": "انطباعات الجمهور على حساباتنا", "settings": {"project_name": "انطباعات الجمهور على حساباتنا", "mode": "owned", "cadence": "حدث", "window_start": "", "window_end": "", "ig_api": "instagram", "ig_api_version": "", "ig_user_id": "", "ig_max_wait_minutes": 20, "daily": false, "llm_provider": "gemini", "llm_model": "gemini-3.5-flash-lite", "batch_size": 40, "keep_irrelevant": false, "monthly_report": "نعم", "report_title": "انطباعات الجمهور على حساباتنا", "report_brand": "", "stages": ["social", "comments"], "owned_platforms": ["youtube", "instagram"], "yt_channel": "", "fb_page_id": "", "fb_api_version": "v25.0", "owned_max_posts": 0, "owned_max_comments_per_post": 0, "comments_top_posts": 200, "comments_per_post": 200}, "news": [], "social": [{"active": false, "platform": "TikTok", "label": "TikTok – حسابنا", "actor": "clockworks~tiktok-scraper", "input": "{\"profiles\": [\"اسم_الحساب\"], \"profileSorting\": \"latest\", \"resultsPerPage\": 100, \"oldestPostDateUnified\": \"{START}\"}", "comment_actor": "clockworks~tiktok-comments-scraper", "comment_key": "webVideoUrl", "comment_sep": "\",\"", "comment_input": "{\"postURLs\":[\"{ITEMS}\"],\"commentsPerPost\":200,\"maxRepliesPerComment\":20}"}, {"active": false, "platform": "X", "label": "X – حسابنا", "actor": "kaitoeasyapi~twitter-x-data-tweet-scraper-pay-per-result-cheapest", "input": "{\"searchTerms\": [\"from:اسم_الحساب since:{START}_00:00:00_UTC until:{END}_00:00:00_UTC\"], \"maxItems\": 300, \"queryType\": \"Latest\"}", "comment_actor": "kaitoeasyapi~twitter-x-data-tweet-scraper-pay-per-result-cheapest", "comment_key": "id", "comment_sep": "\",\"conversation_id:", "comment_input": "{\"searchTerms\":[\"conversation_id:{ITEMS}\"],\"maxItems\":{MAX},\"queryType\":\"Latest\"}"}], "exclusions": [], "taxonomy": {"النبرة": ["إيجابي", "محايد", "سلبي"], "العاطفة": ["إعجاب", "امتنان", "حماس", "فرح", "فضول", "تعاطف", "حياد", "ملل", "استياء", "غضب", "حزن", "سخرية"], "اللغة": ["العربية", "الإنجليزية", "الفرنسية", "أخرى"]}, "extra_fields": [{"label": "نوع التعليق", "for": "تعليق", "choices": ["مدح وإشادة", "نقد", "سؤال أو استفسار", "طلب أو اقتراح", "شكوى", "رأي في الضيف", "رأي في المذيع أو المقدم", "إضافة معلومة أو تجربة شخصية", "منشن أو تفاعل اجتماعي", "خارج الموضوع", "إساءة أو تنمر"]}, {"label": "الجانب المقصود", "for": "تعليق", "choices": ["المحتوى والموضوع", "الضيف", "المذيع أو المقدم", "التصوير والمونتاج", "الطول والتوقيت", "دقة المعلومة", "المؤسسة نفسها", "لا ينطبق"]}, {"label": "يحتاج رداً", "for": "تعليق", "choices": ["نعم", "لا"], "desc": "نعم لو فيه سؤال مباشر أو شكوى أو معلومة خاطئة تستحق رد فريق السوشيال"}], "context": ["أنت محلل جمهور لمؤسسة إعلامية تنشر محتواها وبرامجها على يوتيوب وإنستجرام وفيسبوك ومنصات أخرى. الهدف: معرفة انطباعات الجمهور عن المحتوى والبرامج من تعليقاته.", "", "المنشورات والفيديوهات (مواد) هي محتوى المؤسسة نفسها على حساباتها:", "- relevant = \"نعم\" دائماً.", "- segment = اسم البرنامج أو الفقرة أو السلسلة كما يظهر في عنوان الفيديو أو الكابشن أو الهاشتاج أو الوصف (مثال: #اسم_البرنامج ← اسم البرنامج بلا #). لو لا يظهر أي برنامج اكتب \"محتوى عام\". استخدم نفس الاسم حرفياً لكل منشورات البرنامج الواحد.", "- topic = موضوع الحلقة أو المنشور في 2 إلى 5 كلمات.", "- tone = \"محايد\" للمنشورات (الانطباع يُقاس من التعليقات).", "", "التعليقات:", "- tone = انطباع المعلّق عن المنشور أو البرنامج أو المؤسسة أو صانعي المحتوى — وليس رأيه في موضوع الخبر نفسه. مثال: تعليق يهاجم قراراً حكومياً ورد في الخبر لكنه لا يقيّم المحتوى = \"محايد\"؛ تعليق يشكر البرنامج على طرح الموضوع = \"إيجابي\"؛ تعليق يتهم المنشور بالتحيز أو عدم الدقة = \"سلبي\".", "- الإيموجي وحدها لها معنى: ❤️😍👏🔥 إيجابي، 😡👎🤮 سلبي، 😂 حسب السياق.", "- relevant = \"لا\" للسبام والإعلانات وروابط الترويج والحسابات الوهمية والتعليقات بلا أي معنى؛ وإلا \"نعم\".", "- summary = خلاصة التعليق بالعربية في عبارة قصيرة حتى لو كان بلغة أخرى أو بالعامية."]};
+const IG_HIDDEN_TABS = new Set(["news", "social"]);
+const TABS = [["flow", "سير العمل"], ["settings", "الإعدادات"], ["news", "الأخبار"], ["social", "السوشيال"], ["exclusions", "الاستثناءات"],
+              ["taxonomy", "التصنيف"], ["context", "السياق"], ["results", "النتائج"], ["reports", "التقارير"], ["cost", "التكلفة"], ["runs", "السجل"]];
+function renderTabs() {
+  const counts = { news: S.cfg.news.filter(r => r.active).length + "/" + S.cfg.news.length,
+                   social: S.cfg.social.filter(r => r.active).length + "/" + S.cfg.social.length, exclusions: S.cfg.exclusions.length };
+  $("#tabs").replaceChildren(...TABS.filter(([k]) => (!S.present || PRESENT_TABS.has(k)) && !(isIG() && IG_HIDDEN_TABS.has(k) && !(k === "social" && ownedPlats().includes("apify")))).map(([k, label]) => el("button", { role: "tab", type: "button", "aria-selected": String(S.tab === k),
+    onclick: () => goTab(k) }, icon(k), label, counts[k] != null && !S.present ? el("span", { class: "count" }, counts[k]) : null)));
+}
+function showTab() { for (const [k] of TABS) $("#p-" + k).hidden = k !== S.tab; if (S.tab === "runs") renderRuns(); if (S.tab === "flow") renderFlow(); if (S.tab === "reports") renderReports(); if (S.tab === "cost") renderCost(); }
+function goTab(k) { S.tab = k; store.set("tab", k); renderTabs(); showTab(); window.scrollTo({ top: 0 }); }
+function renderAll() { renderTabs(); renderFlow(); renderSettings(); renderNews(); renderSocial(); renderExclusions(); renderTaxonomy(); renderContext(); showTab(); }
+
+// الإعدادات
+const FORM = [
+  ["المشروع والفترة", [
+    ["project_name", "اسم المشروع", "text", "يظهر في عنوان النتائج"],
+    ["cadence", "نوع المشروع", "select:شهري,يومي,حدث", "يحدد مكانه في الصفحة الرئيسية: المشاريع الشهرية، اليومية، أو الأحداث والحملات"],
+    ["window_start", "بداية الفترة", "date", "أول يوم في فترة الرصد"],
+    ["window_end", "نهاية الفترة", "date", "آخر يوم في الحدث نفسه (لعمود «داخل الفترة»)"],
+    ["collect_until", "اجمع حتى", "date", "لالتقاط التغطية اللاحقة. فارغ = نهاية الفترة"],
+    ["tz_offset_hours", "فرق التوقيت عن UTC", "number", "القاهرة في أكتوبر = 3"],
+    ["daily", "تشغيل يومي تلقائي", "check", "كل يوم 23:45 بتوقيت القاهرة"]]],
+  ["ماذا يُجمع", [
+    ["stage_news", "الأخبار", "stage", "الاستعلامات في تبويب «الأخبار»"],
+    ["stage_social", "السوشيال (Apify)", "stage", "المصادر في تبويب «السوشيال»"],
+    ["stage_comments", "تعليقات الجمهور", "stage", "على أعلى المواد تفاعلاً"],
+    ["comments_top_posts", "مواد تُجمع تعليقاتها", "number", "الأعلى تفاعلاً في كل تشغيل"],
+    ["comments_per_post", "حد التعليقات لكل مادة", "number", ""],
+    ["news_lookback_days", "أيام إضافية قبل البداية", "number", "في بحث جوجل نيوز فقط"],
+    ["news_chunk_days", "تقسيم بحث الأخبار (أيام)", "number", "Google News يعيد 100 نتيجة بحد أقصى لكل بحث، فنقسّم الفترة: 7 = أسبوع"]]],
+  ["التصنيف بالذكاء الاصطناعي", [
+    ["llm_provider", "مزوّد النموذج", "select:gemini,claude", ""],
+    ["llm_model", "النموذج", "text", "مثل gemini-3.5-flash-lite أو claude-haiku-4-5"],
+    ["batch_size", "مواد في كل نداء", "number", "كلما زاد قلّت التكلفة وطال النداء"],
+    ["keep_irrelevant", "احتفظ بغير المرتبط", "check", "اكتب المواد التي صنّفها النموذج «غير مرتبطة»"],
+    ["apify_timeout", "مهلة كل actor (ثانية)", "number", "التشغيل الأول متزامن حتى 300 ثانية"],
+    ["retry_minutes", "مهلة إعادة المحاولة (دقيقة)", "number", "ما يفشل بسبب المهلة أو حد الاستخدام يُعاد وحده في آخر المرحلة بتشغيل طويل"]]],
+  ["الميزانية", [
+    ["budget_run_usd", "سقف التشغيلة ($)", "number", "يوقف الجمع لو تكلفة التشغيلة قربت من الرقم ده. فارغ = بلا سقف"],
+    ["budget_month_usd", "سقف المشروع الشهري ($)", "number", "مجموع تشغيلات المشروع في الشهر. سقف الحساب كله في تبويب «التكلفة»"]]],
+  ["التقرير الشهري", [
+    ["monthly_report", "تقرير شهري تلقائي", "check1", "صفحة لكل شهر في تبويب «التقارير»: الأرقام، المقارنة بالشهر السابق، أعلى المواد، وقراءة تحليلية"],
+    ["report_title", "عنوان التقرير", "text", "مثل «مصر كما تُروى». فارغ = اسم المشروع"],
+    ["report_brand", "العلامة في رأس التقرير", "text", "نص مثل 4labs، أو فارغ"],
+    ["report_logo_url", "رابط الشعار (اختياري)", "text", "صورة تظهر بدل النص"]]],
+  ["حسابات العميل", [
+    ["owned_platforms", "المنصات", "text", "مفصولة بفاصلة: youtube, instagram, facebook, apify"],
+    ["yt_channel", "قناة يوتيوب", "text", "@handle أو معرّف القناة UC… أو رابطها"],
+    ["ig_api", "ربط إنستجرام", "select:instagram,facebook", "instagram = Instagram Login (الأبسط) · facebook = عبر صفحة فيسبوك مرتبطة"],
+    ["ig_user_id", "معرّف حساب إنستجرام", "text", "مطلوب مع ربط facebook فقط"],
+    ["fb_page_id", "معرّف صفحة فيسبوك", "text", "فارغ = الصفحة صاحبة التوكن"],
+    ["owned_max_posts", "حد المنشورات لكل منصة", "number", "0 = كل منشورات الفترة"],
+    ["owned_max_comments_per_post", "حد التعليقات لكل منشور", "number", "0 = كل التعليقات"],
+    ["ig_max_wait_minutes", "أقصى انتظار عند حد الاستخدام (دقيقة)", "number", "بعده يُحفظ ما اكتمل والتشغيلة التالية تكمل"]]],
+  ["مصدر التلفزيون (API)", [
+    ["broadcast_api_url", "رابط الـ API", "text", "يقبل {QUERY} {START} {END} {KEY}. المفتاح في Secret باسم BROADCAST_API_KEY. أضف صفاً مصدره api في «الأخبار»"],
+    ["broadcast_items_path", "مسار القائمة في الرد", "text", "مثل data.items — فارغ = اكتشاف تلقائي"]]]];
+const PH = { news_chunk_days: "7", retry_minutes: "20", apify_timeout: "290", batch_size: "25", comments_top_posts: "40", comments_per_post: "50", news_lookback_days: "1", llm_model: "gemini-3.5-flash-lite" };
+function renderSettings() {
+  const st = S.cfg.settings, stages = new Set(st.stages || []);
+  const IG_SKIP = new Set(["ماذا يُجمع", "مصدر التلفزيون (API)"]);
+  const sets = FORM.filter(([t]) => isIG() ? !IG_SKIP.has(t) : t !== "حسابات العميل").map(([title, fields]) => el("fieldset", {}, el("legend", {}, title), el("div", { class: "grid" }, fields.map(([k, label, type, help]) => {
+    const id = "f-" + k; let input;
+    if (type === "check" || type === "check1" || type === "stage") {
+      input = el("input", { type: "checkbox", id, checked: type === "stage" ? stages.has(k.slice(6)) : type === "check1" ? st[k] !== false && st[k] !== "لا" : !!st[k],
+        onchange: e => { if (type === "stage") { e.target.checked ? stages.add(k.slice(6)) : stages.delete(k.slice(6));
+          st.stages = ["news", "social", "comments"].filter(x => stages.has(x)); } else st[k] = e.target.checked; markDirty(); } });
+      return el("div", { class: "field" }, el("div", { class: "check" }, input, el("label", { for: id }, label)), help ? el("small", {}, help) : null);
+    }
+    if (type.startsWith("select:")) input = el("select", { id, onchange: e => { st[k] = e.target.value; markDirty(); } },
+      type.slice(7).split(",").map(o => el("option", { value: o, selected: (k === "cadence" ? cadenceOf(S.cfg) : st[k]) === o }, o)));
+    else input = el("input", { type, id, value: st[k] ?? "", placeholder: PH[k] ?? null, dir: type === "text" && k !== "project_name" ? "ltr" : null,
+      oninput: e => { st[k] = type === "number" ? Number(e.target.value) : e.target.value; if (k === "project_name") S.cfg.name = e.target.value; markDirty(); } });
+    return el("div", { class: "field" }, el("label", { for: id }, label), input, help ? el("small", {}, help) : null);
+  }))));
+  const s = S.status;
+  const status = el("fieldset", {}, el("legend", {}, "آخر تشغيل"), el("div", { class: "grid" },
+    [["الحالة", s.status_state], ["آخر تحديث", s.status_updated], ["الفترة", s.status_period], ["الملخص", s.status_summary]]
+      .map(([l, v]) => el("div", { class: "field" }, el("label", {}, l), el("bdi", { class: "num" }, v || "—")))), diagnosisPanel(s.failures, true));
+  const preset = (label, fn) => el("button", { class: "btn", type: "button", onclick: () => { Object.assign(st, fn()); markDirty(); renderSettings(); } }, label);
+  const presets = el("div", { class: "row" }, el("span", { class: "preview" }, "الفترة بسرعة:"),
+    preset("الشهر الماضي", () => monthRange(-1)), preset("الشهر الحالي", () => monthRange(0)), preset("آخر 7 أيام", () => lastDays(7)));
+  $("#p-settings").replaceChildren(el("h2", {}, S.cfg.name || S.project),
+    el("p", { class: "lead" }, "عدّل القيم ثم «حفظ الإعدادات». زر «تشغيل الرصد» يحفظ تلقائياً قبل البدء."), el("div", { class: "form" }, status, presets, ...sets));
+}
+
+// جدول عام قابل للتحرير
+function editableTable(host, title, lead, rows, cols, make, opts = {}) {
+  let q = "";
+  const body = el("tbody");
+  const draw = () => {
+    body.replaceChildren(...rows.map((r, i) => ({ r, i })).filter(({ r }) => !q || JSON.stringify(r).includes(q)).map(({ r, i }) => {
+      const tr = el("tr", { class: r.active === false ? "off" : "" });
+      for (const c of cols) {
+        let cell;
+        if (c.key === "active") cell = el("input", { type: "checkbox", checked: r.active !== false, "aria-label": "مفعّل",
+          onchange: e => { r.active = e.target.checked; tr.className = r.active ? "" : "off"; markDirty(); renderTabs(); } });
+        else if (c.area) cell = el("textarea", { rows: 3, "aria-label": c.label, spellcheck: "false", oninput: e => { r[c.key] = e.target.value; markDirty(); } }, r[c.key] || "");
+        else if (c.options) cell = el("select", { "aria-label": c.label, onchange: e => { r[c.key] = e.target.value; markDirty(); } },
+          c.options.map(o => el("option", { value: o, selected: (r[c.key] || c.options[0]) === o }, o)));
+        else cell = el("input", { type: "text", value: r[c.key] ?? "", "aria-label": c.label, oninput: e => { r[c.key] = e.target.value; markDirty(); } });
+        tr.append(el("td", { class: c.mono ? "mono" : "", style: c.w ? `min-width:${c.w}px` : null }, cell));
+      }
+      tr.append(el("td", {}, el("button", { class: "del", type: "button", title: "حذف الصف", "aria-label": "حذف الصف",
+        onclick: () => { rows.splice(i, 1); markDirty(); draw(); renderTabs(); } }, "✕")));
+      return tr;
+    }));
+  };
+  draw();
+  host.replaceChildren(el("h2", {}, title), el("p", { class: "lead" }, lead),
+    el("div", { class: "tablebar" },
+      el("button", { class: "btn", type: "button", onclick: () => { rows.push(make()); markDirty(); draw(); renderTabs(); } }, "＋ صف"),
+      opts.toggle ? el("button", { class: "btn", type: "button", onclick: () => { const on = !rows.every(r => r.active !== false); rows.forEach(r => r.active = on); markDirty(); draw(); renderTabs(); } }, "تفعيل/إيقاف الكل") : null,
+      ...(opts.extra || []),
+      el("input", { type: "search", placeholder: "بحث في الصفوف…", "aria-label": "بحث", oninput: e => { q = e.target.value.trim(); draw(); } })),
+    el("div", { class: "scroll" }, el("table", {}, el("thead", {}, el("tr", {}, cols.map(c => el("th", {}, c.label)), el("th", {}, ""))), body)));
+}
+function renderNews() {
+  editableTable($("#p-news"), "استعلامات الأخبار", "صف لكل بحث. المصدر: google = Google News · bing = Bing News · newsscope = NewsScope · rss = خلاصة موقع (ضع الرابط في خانة الاستعلام) · api = مصدر التلفزيون (رابطه في الإعدادات). hl/gl لغة وبلد النتائج، وتاريخ الفترة يُضاف تلقائياً.", S.cfg.news, [
+    { key: "active", label: "مفعّل" }, { key: "source", label: "المصدر", options: ["google", "bing", "newsscope", "rss", "api"], w: 110 }, { key: "language", label: "اللغة", w: 90 }, { key: "region", label: "المنطقة", w: 100 },
+    { key: "hl", label: "hl", mono: true, w: 60 }, { key: "gl", label: "gl", mono: true, w: 50 }, { key: "query", label: "الاستعلام", w: 280 }],
+    () => ({ active: true, source: "google", language: "العربية", region: "مصر", hl: "ar", gl: "EG", query: "" }), { toggle: true, extra: kwButtons() });
+}
+function renderSocial() {
+  editableTable($("#p-social"), "مصادر السوشيال (Apify)", "صف لكل actor. input يقبل {START} و{END}. comment_input يقبل {ITEMS} و{MAX}.", S.cfg.social, [
+    { key: "active", label: "مفعّل" }, { key: "platform", label: "المنصة", options: ["Facebook", "X", "YouTube", "TikTok", "Instagram", "LinkedIn"], w: 128 },
+    { key: "label", label: "الوصف", w: 170 }, { key: "actor", label: "actor", mono: true, w: 200 }, { key: "input", label: "input (JSON)", area: true, w: 320 },
+    { key: "comment_actor", label: "comment_actor", mono: true, w: 180 }, { key: "comment_key", label: "comment_key", mono: true, w: 90 },
+    { key: "comment_sep", label: "comment_sep", mono: true, w: 100 }, { key: "comment_input", label: "comment_input", area: true, w: 300 }],
+    () => ({ active: true, platform: "Facebook", label: "", actor: "", input: "{}", comment_actor: "", comment_key: "url", comment_sep: "", comment_input: "" }), { toggle: true, extra: kwButtons() });
+}
+function renderExclusions() {
+  editableTable($("#p-exclusions"), "الاستثناءات", "تُستبعد قبل التصنيف فلا ندفع ثمن تصنيفها. نص = كلمة في العنوان أو النص · حساب = اسم الحساب · نطاق = موقع.",
+    S.cfg.exclusions, [{ key: "type", label: "النوع", options: ["نص", "حساب", "نطاق"], w: 90 }, { key: "value", label: "القيمة", w: 300 }],
+    () => ({ type: "نص", value: "" }));
+}
+function renderTaxonomy() {
+  const tax = S.cfg.taxonomy;
+  const rows = Object.entries(tax).map(([k, v]) => el("div", { class: "field" }, el("label", {}, k),
+    el("input", { type: "text", value: v.join("، "), oninput: e => { tax[k] = e.target.value.split(/[،,]/).map(x => x.trim()).filter(Boolean); markDirty(); } })));
+  S.cfg.extra_fields = S.cfg.extra_fields || [];
+  const extraHost = el("div");
+  editableTable(extraHost, "حقول إضافية", "أعمدة خاصة بهذا المشروع تُضاف في آخر ملف CSV ويملؤها النموذج، مثل الملكية (مملوك/مكتسب) أو الدرجة الخماسية أو السوق. الخيارات مفصولة بفاصلة، واتركها فارغة لنص حر.",
+    S.cfg.extra_fields, [{ key: "label", label: "اسم العمود", w: 160 }, { key: "for", label: "يُطبَّق على", options: ["مادة", "تعليق"], w: 100 }, { key: "choices", label: "الخيارات", w: 300 }, { key: "desc", label: "تعليمات للنموذج", w: 260 }],
+    () => ({ label: "", choices: "", desc: "" }));
+  $("#p-taxonomy").replaceChildren(el("h2", {}, "قوائم التصنيف"),
+    el("p", { class: "lead" }, "القيم المسموحة لكل حقل، مفصولة بفاصلة. البرومبت يُبنى منها تلقائياً، و«المحور» هو التقسيم الرئيسي للمشروع (المحطة، الشركة التابعة، الكيان…)."),
+    el("fieldset", {}, el("div", { class: "form" }, rows)), el("div", { style: "margin-top:22px" }, extraHost));
+}
+function renderContext() {
+  const ta = el("textarea", { id: "ctx", rows: 14, style: "font-family:var(--font);font-size:14px;direction:rtl;text-align:right;line-height:1.8",
+    oninput: e => { S.cfg.context = e.target.value.split(/\n\s*\n/).map(x => x.trim()).filter(Boolean); markDirty(); } }, (S.cfg.context || []).join("\n\n"));
+  $("#p-context").replaceChildren(el("h2", {}, "سياق الرصد"),
+    el("p", { class: "lead" }, "رأس البرومبت: موضوع الرصد، وقاعدة الصلة (متى تكون المادة مرتبطة)، وإرشادات التصنيف. افصل الفقرات بسطر فارغ."), ta);
+}
+
+// النتائج
+async function loadResults(month) {
+  const host = $("#p-results");
+  host.replaceChildren(skeleton(2));
+  S.month = month || "";
+  const [all, latestAll, files] = await Promise.all([readJSON(`data/${S.project}/summary.json`, null), readJSON(`data/${S.project}/latest.json`, []),
+    gh(`/contents/data/${S.project}`, { allow404: true }).catch(() => null)]);
+  const sm = S.month ? await readJSON(`data/${S.project}/months/summary-${S.month}.json`, all) : all;
+  const latest = S.month ? latestAll.filter(r => (r["تاريخ النشر"] || "").startsWith(S.month)) : latestAll;
+  const csvName = S.month ? `records-${S.month}.csv` : "records.csv";
+  const csvFile = (files || []).find(f => f.name === csvName);
+  const size = b => b > 1048576 ? (b / 1048576).toFixed(1) + " MB" : Math.max(1, Math.round(b / 1024)) + " KB";
+  S.summary = all || {}; if (S.tab === "flow") renderFlow();
+  if (!sm) { host.replaceChildren(el("h2", {}, "النتائج"), el("div", { class: "empty" }, "لا نتائج بعد. اضغط «▶ تشغيل الرصد»؛ تظهر المؤشرات هنا بعد أول تشغيل.")); return; }
+  const k = (l, v, alert) => el("div", { class: "kpi" + (alert ? " alert" : "") }, el("div", { class: "l" }, l), el("div", { class: "v" }, v));
+  const dailyVals = (sm.daily || []).map(d => (d["مادة"] || 0) + (d["تعليق"] || 0));
+  const kpis = el("div", { class: "res-hero" },
+    el("div", { class: "card ring-card" }, toneRing(sm), el("div", { class: "ring-legend" },
+      el("div", {}, el("i", { style: "background:var(--pos)" }), "إيجابي", el("b", {}, pct(sm.positive))),
+      el("div", {}, el("i", { style: "background:var(--neu)" }), "محايد", el("b", {}, pct(sm.neutral))),
+      el("div", {}, el("i", { style: "background:var(--neg)" }), "سلبي", el("b", {}, pct(sm.negative))))),
+    el("div", { class: "kpis" },
+      el("div", { class: "kpi big" }, el("div", { class: "l" }, "إجمالي السجلات"), el("div", { class: "v" }, fmt(sm.total)), sparkline(dailyVals)),
+      ...(isIG() ? [k("المنشورات", fmt(sm.materials)), k("تعليقات الجمهور", fmt(sm.comments)), k("إعجابات + تعليقات", fmt(sm.interactions)),
+        k("تحتاج رداً", fmt(((sm.by_extra || {})["يحتاج رداً"] || []).find(x => x.key === "نعم")?.total || 0)), k("سخرية", fmt(sm.sarcasm || 0))]
+      : [k("المواد", fmt(sm.materials)), k("التعليقات", fmt(sm.comments)), k("المشاهدات", fmt(sm.views)), k("التفاعلات", fmt(sm.interactions)),
+        k("تستدعي التحقق", fmt(sm.verify), sm.verify > 0)])));
+  const legend = () => el("div", { class: "legend" }, el("span", { style: "--c:var(--pos)" }, "إيجابي"), el("span", { style: "--c:var(--neu)" }, "محايد"), el("span", { style: "--c:var(--neg)" }, "سلبي"));
+  const stacked = (title, data) => {
+    const max = Math.max(1, ...data.map(d => d.total));
+    return el("div", { class: "card" }, el("h3", {}, title), legend(), data.length ? el("div", { class: "bars" }, data.slice(0, 10).map(d =>
+      el("div", { class: "bar" }, el("span", { class: "k", title: d.key }, d.key), el("div", { class: "track", style: `width:${(d.total / max) * 100}%` },
+        ["إيجابي", "محايد", "سلبي"].map((t, i) => el("i", { style: `width:${(d[t] / d.total) * 100}%;background:var(${["--pos", "--neu", "--neg"][i]})`, title: `${t}: ${d[t]}` }))),
+        el("span", { class: "n" }, fmt(d.total))))) : el("div", { class: "empty" }, "لا بيانات"));
+  };
+  const daily = () => {
+    const d = sm.daily || []; const W = 560, H = 190, P = 28;
+    if (d.length < 2) return el("div", { class: "card" }, el("h3", {}, "الحجم اليومي"), el("div", { class: "empty" }, "يحتاج يومين على الأقل"));
+    const tot = d.map(x => (x["مادة"] || 0) + (x["تعليق"] || 0)); const max = Math.max(1, ...tot);
+    const x = i => P + (i * (W - 2 * P)) / (d.length - 1), y = v => H - P - (v / max) * (H - 2 * P);
+    const line = key => d.map((r, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(r[key] || 0).toFixed(1)}`).join(" ");
+    const ticks = d.map((r, i) => i % Math.ceil(d.length / 7) === 0 ? `<text x="${x(i)}" y="${H - 8}" text-anchor="middle">${r.day.slice(5)}</text>` : "").join("");
+    const grid = [0, .5, 1].map(f => `<line x1="${P}" x2="${W - P}" y1="${y(max * f)}" y2="${y(max * f)}" stroke="var(--line)"/><text x="${W - P + 4}" y="${y(max * f) + 4}">${fmt(Math.round(max * f))}</text>`).join("");
+    const svg = `<svg viewBox="0 0 ${W + 20} ${H}" width="100%" role="img" aria-label="الحجم اليومي">${grid}<path d="${line("مادة")}" fill="none" stroke="var(--fg)" stroke-width="2"/><path d="${line("تعليق")}" fill="none" stroke="var(--accent)" stroke-width="2"/>${ticks}</svg>`;
+    return el("div", { class: "card" }, el("h3", {}, "الحجم اليومي"), el("div", { class: "legend" }, el("span", { style: "--c:var(--fg)" }, "مواد"), el("span", { style: "--c:var(--accent)" }, "تعليقات")), el("div", { html: svg }));
+  };
+  const sources = el("div", { class: "card" }, el("h3", {}, "أكثر المصادر نشراً"), el("div", { class: "scroll", style: "border:0" }, el("table", {},
+    el("thead", {}, el("tr", {}, el("th", {}, "المصدر"), el("th", {}, "مواد"), el("th", {}, "تفاعلات"))),
+    el("tbody", {}, (sm.top_sources || []).map(s => el("tr", {}, el("td", {}, s.source), el("td", { class: "num" }, fmt(s.count)), el("td", { class: "num" }, fmt(s.interactions))))))));
+  const toneCls = t => t === "إيجابي" ? "tone-pos" : t === "سلبي" ? "tone-neg" : "tone-neu";
+  const topPosts = rows => el("div", { class: "card", style: "grid-column:1/-1" }, el("h3", {}, "أكثر المنشورات تعليقاً"),
+    rows.length ? el("div", { class: "scroll", style: "border:0" }, el("table", {},
+      el("thead", {}, el("tr", {}, ["المنشور", "البرنامج", "تعليقات", "إيجابي", "سلبي", "صافي الانطباع"].map(h => el("th", {}, h)))),
+      el("tbody", {}, rows.map(r => { const net = r.count ? Math.round(((r["إيجابي"] || 0) - (r["سلبي"] || 0)) / r.count * 100) : 0;
+        return el("tr", {}, el("td", { style: "min-width:280px" }, el("a", { href: r.url, target: "_blank", rel: "noopener" }, r.title || r.url)),
+          el("td", {}, r.program || "—"), el("td", { class: "num" }, fmt(r.count)), el("td", { class: "num tone-pos" }, fmt(r["إيجابي"] || 0)),
+          el("td", { class: "num tone-neg" }, fmt(r["سلبي"] || 0)), el("td", { class: "num " + (net > 0 ? "tone-pos" : net < 0 ? "tone-neg" : "") }, (net > 0 ? "+" : "") + net + "٪")); })))) : el("div", { class: "empty" }, "لا بيانات"));
+  let q = "";
+  const tb = el("tbody");
+  const drawLatest = () => tb.replaceChildren(...latest.filter(r => !q || JSON.stringify(r).includes(q)).slice(0, 150).map(r => el("tr", {},
+    el("td", { class: "num" }, r["تاريخ النشر"]), el("td", {}, r["المنصة"]), el("td", {}, r["المصدر / الحساب"]),
+    el("td", { style: "min-width:260px" }, r["الرابط"] ? el("a", { href: r["الرابط"], target: "_blank", rel: "noopener" }, (r["العنوان / النص"] || "").slice(0, 140)) : (r["العنوان / النص"] || "").slice(0, 140)),
+    el("td", {}, r["المحور"] ?? r["محطة الزيارة"]), el("td", { class: toneCls(r["النبرة"]) }, r["النبرة"]), el("td", {}, r["نوع السجل"]))));
+  drawLatest();
+  const latestCard = el("div", { class: "card", style: "grid-column:1/-1" }, el("h3", {}, "أحدث السجلات"),
+    el("div", { class: "tablebar" }, el("input", { type: "search", placeholder: "بحث في أحدث 300 سجل…", "aria-label": "بحث في السجلات", oninput: e => { q = e.target.value.trim(); drawLatest(); } }),
+      el("button", { class: "btn", type: "button", onclick: () => downloadCSV(csvName) }, `⬇ ${S.month ? "ملف " + monthAr(S.month) : "كل السجلات"} (CSV · ${fmt(sm.total)} سجل${csvFile ? " · " + size(csvFile.size) : ""})`),
+      csvFile ? el("a", { class: "btn", href: csvFile.html_url, target: "_blank", rel: "noopener" }, "فتح الملف على GitHub") : null),
+    el("div", { class: "scroll" }, el("table", {}, el("thead", {}, el("tr", {}, ["التاريخ", "المنصة", "المصدر", "العنوان / النص", "المحور", "النبرة", "النوع"].map(h => el("th", {}, h)))), tb)));
+  const months = (all.monthly || []).map(m => m.key);
+  const picker = el("div", { class: "row", style: "margin-bottom:14px" }, el("span", { class: "preview" }, "الفترة:"),
+    el("select", { "aria-label": "اختيار الشهر", onchange: e => loadResults(e.target.value) },
+      el("option", { value: "" }, "كل الشهور"), ...months.slice().reverse().map(m => el("option", { value: m, selected: m === S.month }, monthAr(m)))));
+  const trend = monthlyTrend(all.monthly || [], all.quarterly || []);
+  host.replaceChildren(el("h2", {}, "النتائج"), el("p", { class: "lead" }, el("bdi", {}, S.status.status_period || ""), " · آخر تحديث ", el("bdi", { dir: "ltr" }, S.status.status_updated || "—")), (S.present ? null : diagnosisPanel(S.status.failures)) || "", S.present ? picker : el("div", { class: "row res-tools" }, picker, dedupeTool()), kpis,
+    el("div", { class: "cards" }, ...(S.month ? [] : trend), ...(isIG()
+      ? [stacked("انطباع الجمهور حسب البرنامج", sm.by_segment || []), stacked("انطباع الجمهور حسب المنصة", sm.by_platform || []), ...Object.entries(sm.by_extra || {}).map(([c, d]) => stacked(c + " × الانطباع", d)),
+         topPosts(sm.top_posts || []), stacked("حسب موضوع المنشور", sm.by_topic || []), daily(), stacked("حسب لغة التعليق", sm.by_language || [])]
+      : [stacked("حسب المنصة × النبرة", sm.by_platform || []), stacked("حسب المحور × النبرة", sm.by_segment || []),
+         stacked("حسب الموضوع × النبرة", sm.by_topic || []), daily(), sources, stacked("حسب اللغة × النبرة", sm.by_language || []),
+         ...Object.entries(sm.by_extra || {}).map(([c, d]) => stacked(c + " × النبرة", d))]), latestCard));
+}
+const MONTHS_AR = ["يناير", "فبراير", "مارس", "أبريل", "مايو", "يونيو", "يوليو", "أغسطس", "سبتمبر", "أكتوبر", "نوفمبر", "ديسمبر"];
+const monthAr = m => /^\d{4}-\d{2}$/.test(m) ? `${MONTHS_AR[+m.slice(5) - 1]} ${m.slice(0, 4)}` : m;
+const quarterAr = q => q.replace(/^(\d{4})-Q(\d)$/, (_, y, n) => `الربع ${["الأول", "الثاني", "الثالث", "الرابع"][n - 1]} ${y}`);
+function monthlyTrend(monthly, quarterly) {
+  if (monthly.length < 1) return [];
+  const max = Math.max(1, ...monthly.map(m => m.total));
+  const cols = monthly.slice(-12).map(m => {
+    const seg = ["إيجابي", "محايد", "سلبي"].map((t, i) => el("i", { style: `height:${(m[t] / max) * 100}%;background:var(${["--pos", "--neu", "--neg"][i]})`, title: `${t}: ${fmt(m[t])}` }));
+    const pos = m.total ? Math.round(m["إيجابي"] / m.total * 100) : 0;
+    return el("div", { class: "mcol", title: `${monthAr(m.key)}: ${fmt(m.total)}` }, el("span", { class: "n" }, fmt(m.total)),
+      el("div", { class: "stack" }, ...seg.reverse()), el("span", { class: "k" }, monthAr(m.key).replace(/ \d{4}$/, "")), el("span", { class: "p" }, pos + "٪ +"));
+  });
+  const legend = el("div", { class: "legend" }, el("span", { style: "--c:var(--pos)" }, "إيجابي"), el("span", { style: "--c:var(--neu)" }, "محايد"), el("span", { style: "--c:var(--neg)" }, "سلبي"));
+  const card1 = el("div", { class: "card", style: "grid-column:1/-1" }, el("h3", {}, "الحجم والنبرة شهراً بشهر"), legend, el("div", { class: "months" }, cols));
+  const q = quarterly.slice(-6);
+  const card2 = q.length ? el("div", { class: "card", style: "grid-column:1/-1" }, el("h3", {}, "مقارنة ربع سنوية"), el("div", { class: "scroll", style: "border:0" }, el("table", {},
+    el("thead", {}, el("tr", {}, ["الربع", "المواد", "التعليقات", "إيجابي", "سلبي", "التفاعلات", "التغير"].map(h => el("th", {}, h)))),
+    el("tbody", {}, q.map((r, i) => { const p = q[i - 1]; const ch = p && p.total ? Math.round((r.total - p.total) / p.total * 100) : null;
+      return el("tr", {}, el("td", {}, quarterAr(r.key)), el("td", { class: "num" }, fmt(r.materials)), el("td", { class: "num" }, fmt(r.comments)),
+        el("td", { class: "num tone-pos" }, r.total ? Math.round(r["إيجابي"] / r.total * 100) + "٪" : "—"), el("td", { class: "num tone-neg" }, r.total ? Math.round(r["سلبي"] / r.total * 100) + "٪" : "—"),
+        el("td", { class: "num" }, fmt(r.interactions)), el("td", { class: "num" + (ch > 0 ? " tone-pos" : ch < 0 ? " tone-neg" : "") }, ch == null ? "—" : (ch > 0 ? "▲ " : ch < 0 ? "▼ " : "") + Math.abs(ch) + "٪")); }))))) : null;
+  return [card1, card2].filter(Boolean);
+}
+async function downloadCSV(name = "records.csv") {
+  try {
+    toast("جارٍ تجهيز الملف…");
+    const t = await gh(`/contents/data/${S.project}/${name}`, { raw: true });
+    const a = el("a", { href: URL.createObjectURL(new Blob([t], { type: "text/csv;charset=utf-8" })), download: `${S.project}-${name}` });
+    document.body.append(a); a.click(); a.remove();
+  } catch (e) { toast("تعذّر التنزيل: " + e.message, 6000); }
+}
+
+// السجل
+async function renderReports() {
+  const host = $("#p-reports");
+  const idx = await readJSON(`data/${S.project}/reports/index.json`, []);
+  const open = async (r, dl) => {
+    try {
+      toast("جارٍ فتح التقرير…");
+      const t = await gh(`/contents/data/${S.project}/reports/${r.file}`, { raw: true });
+      const url = URL.createObjectURL(new Blob([t], { type: "text/html;charset=utf-8" }));
+      if (dl) { const a = el("a", { href: url, download: `${S.project}-${r.file}` }); document.body.append(a); a.click(); a.remove(); }
+      else showReport(t, url, r);
+    } catch (e) { toast("تعذّر فتح التقرير: " + e.message, 6000); }
+  };
+  host.replaceChildren(el("h2", {}, "التقارير الشهرية"),
+    el("p", { class: "lead" }, "تُبنى تلقائياً في آخر كل تشغيل لكل شهر تغطيه الفترة. افتح التقرير واطبعه PDF من المتصفح، أو نزّله HTML. العنوان والعلامة من «الإعدادات ← التقرير الشهري»."),
+    idx.length ? el("div", { class: "scroll" }, el("table", {},
+      el("thead", {}, el("tr", {}, ["الشهر", "المواد", "التعليقات", "إيجابي", "سلبي", "قراءة تحليلية", ""].map(h => el("th", {}, h)))),
+      el("tbody", {}, idx.map(r => el("tr", {}, el("td", {}, monthAr(r.month)), el("td", { class: "num" }, fmt(r.materials)), el("td", { class: "num" }, fmt(r.comments)),
+        el("td", { class: "num tone-pos" }, pct(r.positive)), el("td", { class: "num tone-neg" }, pct(r.negative)), el("td", {}, r.narrative ? "✓" : "—"),
+        el("td", {}, el("div", { class: "row" }, el("button", { class: "btn", type: "button", onclick: () => open(r) }, "فتح"),
+          el("button", { class: "btn", type: "button", onclick: () => open(r, true) }, "⬇ تنزيل"),
+          el("button", { class: "btn", type: "button", onclick: () => downloadCSV(`records-${r.month}.csv`) }, "CSV الشهر"))))))))
+      : el("div", { class: "empty" }, "لا تقارير بعد. يُبنى أول تقرير بعد أول تشغيل."));
+}
+// ── الإعداد الأول لحساب العميل: المفاتيح في أسرار المستودع، ثم فحص الاتصال ──
+function setupCard(compact, only) {
+  const c = S.status?.check, items = c?.items || [], tok = S.status?.ig_token;
+  const sec = `https://github.com/${S.repo}/settings/secrets/actions`;
+  const prov = String(S.cfg?.settings?.llm_provider || "gemini").toLowerCase();
+  const llmSecret = prov.startsWith("claude") ? "ANTHROPIC_API_KEY" : "GEMINI_API_KEY";
+  const ok = name => items.some(i => i.name.startsWith(name) && i.ok);
+  const A = (href, t) => el("a", { href, target: "_blank", rel: "noopener" }, " " + t + " ↗");
+  const secretLink = name => el("span", {}, " ← السر ", el("code", { dir: "ltr" }, name), A(sec + "/new", "إضافة سر"));
+  const STEPS = {
+    youtube: ["يوتيوب: مفتاح YouTube Data API", el("p", {}, "من Google Cloud Console: أنشئ مشروعاً، فعّل «YouTube Data API v3»، ثم Credentials ‹ Create credentials ‹ API key. مجاني بحصة 10,000 وحدة يومياً تكفي قناة كاملة. واكتب قناتكم (@handle) في دائرة يوتيوب.",
+      A("https://console.cloud.google.com/apis/library/youtube.googleapis.com", "تفعيل الـ API"), secretLink("YOUTUBE_API_KEY")), "قناة يوتيوب"],
+    instagram: ["إنستجرام: توكن من تطبيق Meta", el("p", {}, "من developers.facebook.com: تطبيق Business ← منتج «Instagram API with Instagram Login» ← اربط حساب المؤسسة (Business أو Creator) بصلاحيتي instagram_business_basic وinstagram_business_manage_comments ← توكن طويل الأجل (60 يوماً، يتمدد مع كل تشغيل).",
+      A("https://developers.facebook.com/apps", "تطبيقات Meta"), secretLink("IG_ACCESS_TOKEN")), "حساب إنستجرام"],
+    facebook: ["فيسبوك: توكن الصفحة", el("p", {}, "من نفس تطبيق Meta: Graph API Explorer ← اختر الصفحة ← صلاحيتا pages_read_engagement وpages_read_user_content ← Page access token، ثم حوّله لتوكن طويل الأجل (Access Token Debugger ‹ Extend).",
+      A("https://developers.facebook.com/tools/explorer/", "Graph API Explorer"), secretLink("FB_PAGE_TOKEN")), "صفحة فيسبوك"],
+    apify: ["TikTok وX (اختياري): توكن Apify", el("p", {}, "من console.apify.com ‹ Settings ‹ API & Integrations انسخ التوكن. وفي تبويب «السوشيال» اكتب اسم حسابكم مكان «اسم_الحساب» وفعّل المصدر. مدفوع حسب عدد التعليقات.",
+      A("https://console.apify.com/settings/integrations", "توكن Apify"), secretLink("APIFY_TOKEN")), "Apify"],
+  };
+  const plats = (only ? [only] : ownedPlats()).filter(k => STEPS[k]);
+  let n = 0;
+  const step = (t, body, done) => el("li", { class: "su-step" + (done ? " ok" : "") }, el("span", { class: "su-n" }, done ? "✓" : ++n), el("div", {}, el("b", {}, t), body));
+  const rows = plats.map(k => step(STEPS[k][0], STEPS[k][1], ok(STEPS[k][2])));
+  if (!only) rows.push(step(`مفتاح نموذج التحليل (${llmSecret})`, el("p", {}, prov.startsWith("claude") ? "مفتاح Anthropic من console.anthropic.com." : "مفتاح Gemini من Google AI Studio.",
+      A(prov.startsWith("claude") ? "https://console.anthropic.com/settings/keys" : "https://aistudio.google.com/apikey", "إنشاء مفتاح"), secretLink(llmSecret)), ok("نموذج التحليل")));
+  rows.push(step("افحص الاتصال", el("div", {}, el("button", { class: "btn primary", type: "button", onclick: runCheck }, "فحص الاتصال"),
+      c ? el("ul", { class: "su-res" }, items.filter(i => !only || i.name.startsWith(STEPS[only][2])).map(i => el("li", { class: i.ok ? "tone-pos" : "tone-neg" }, `${i.ok ? "✓" : "✗"} ${i.name}: ${i.note}`)), el("li", { class: "preview" }, "آخر فحص " + c.time)) : null), c?.ok));
+  return el("section", { class: "setup" + (compact ? " compact" : "") },
+    el("header", {}, el("b", {}, only ? "الربط" : "الإعداد الأول"), el("span", {}, "المفاتيح تُحفظ في أسرار مستودعك على GitHub فقط — لا تُكتب في الواجهة ولا تظهر في الملفات.")),
+    el("ol", {}, rows),
+    tok?.expires && (!only || only === "instagram") ? el("p", { class: "preview" }, `🔑 صلاحية توكن إنستجرام حتى ${tok.expires}` + (tok.note ? ` — ${tok.note}` : "") + " · تتمدد تلقائياً مع كل تشغيل.") : null);
+}
+async function runCheck() {
+  try {
+    await gh(`/actions/workflows/monitor.yml/dispatches`, { method: "POST", body: JSON.stringify({ ref: "main", inputs: { project: S.project, action: "check" } }) });
+    setState("run", "فحص الاتصال…"); toast("بدأ الفحص — النتيجة تظهر هنا خلال دقيقة", 5000); setTimeout(pollRuns, 6000);
+  } catch (e) { toast("تعذّر بدء الفحص: " + e.message, 6000); }
+}
+
+// ── تنظيف التكرار ─────────────────────────────────────────────
+function dedupeTool() {
+  const d = S.status.dedupe;
+  return el("div", { class: "dedupe" },
+    d ? el("span", { class: "preview" }, `آخر تنظيف ${d.time}: حُذف ${fmt(d.removed || 0)}`) : null,
+    el("button", { class: "btn", type: "button", title: "يحذف السجلات المكررة من ملف النتائج ويحفظ المحذوف في ملف منفصل", onclick: runDedupe }, "🧹 تنظيف التكرار"));
+}
+async function runDedupe() {
+  if (S.live) return toast("فيه تشغيل جارٍ — التنظيف يبدأ بعد ما يخلص", 4000);
+  if (!confirm("تنظيف التكرار من ملف النتائج؟\n\nيُحذف كل سجل له نفس الرابط (بعد توحيده) أو نفس العنوان من نفس المصدر في نفس اليوم، ويبقى أول ظهور.\nالمحذوف لا يضيع: يُحفظ في ملف removed-duplicates بجوار records.csv.")) return;
+  try {
+    await gh(`/actions/workflows/monitor.yml/dispatches`, { method: "POST", body: JSON.stringify({ ref: "main", inputs: { project: S.project, action: "dedupe" } }) });
+    setState("run", "تنظيف التكرار…"); toast("بدأ التنظيف — النتائج تتحدّث لما يخلص (دقيقة تقريباً)", 5000); setTimeout(pollRuns, 6000);
+  } catch (e) { toast("تعذّر التنظيف: " + e.message, 6000); }
+}
+
+// ── عرض التقرير داخل الواجهة مع زر رجوع ─────────────────────────────
+function showReport(html, url, r) {
+  const v = $("#reportView"), f = $("#rvFrame");
+  $("#rvTitle").textContent = (S.cfg?.name || S.project) + " — " + (r.month ? monthAr(r.month) : r.file);
+  f.srcdoc = html;
+  $("#rvPrint").onclick = () => { try { f.contentWindow.focus(); f.contentWindow.print(); } catch { window.open(url, "_blank", "noopener"); } };
+  $("#rvDownload").onclick = () => { const a = el("a", { href: url, download: `${S.project}-${r.file}` }); document.body.append(a); a.click(); a.remove(); };
+  $("#rvTab").onclick = () => window.open(url, "_blank", "noopener");
+  v.hidden = false; document.body.classList.add("reading");
+  history.pushState({ report: r.file }, ""); $("#rvBack").focus();
+}
+function closeReport(fromPop) {
+  const v = $("#reportView"); if (v.hidden) return;
+  v.hidden = true; document.body.classList.remove("reading"); $("#rvFrame").srcdoc = "";
+  if (!fromPop && history.state?.report) history.back();
+}
+$("#rvBack").onclick = () => closeReport();
+addEventListener("popstate", () => closeReport(true));
+addEventListener("keydown", e => { if (e.key === "Escape" && !$("#reportView").hidden) closeReport(); });
+
+// ── تعديل وحدة من سير العمل في لوحة جانبية ─────────────────────────────
+function openNode(id) {
+  const n = S.flowNodes?.[id]; if (!n) return;
+  if (S.present) return;
+  const cfg = S.cfg, st = cfg.settings, dlg = $("#nodeDlg"), body = $("#nodeBody");
+  $("#nodeIco").textContent = n.ico; $("#nodeIco").style.background = n.c; $("#nodeTitle").textContent = n.lbl; $("#nodeSub").textContent = n.sub || "";
+  $("#nodeHint").textContent = ""; $("#nodeFull").onclick = () => { dlg.close(); goTab(n.tab); };
+  const touched = () => { markDirty(); $("#nodeHint").textContent = "تعديلات غير محفوظة — اضغط «حفظ الإعدادات» أعلى الصفحة"; };
+  const fld = (label, input, help) => el("label", { class: "nf" }, el("span", {}, label), input, help ? el("small", {}, help) : null);
+  const num = (k, ph) => el("input", { type: "number", value: st[k] ?? "", placeholder: ph || PH[k] || "", oninput: e => { st[k] = e.target.value === "" ? "" : Number(e.target.value); touched(); } });
+  const txt = (k, ph, ltr) => el("input", { type: "text", value: st[k] ?? "", placeholder: ph || PH[k] || "", dir: ltr ? "ltr" : null, oninput: e => { st[k] = e.target.value; touched(); } });
+  const stageToggle = (k, label) => { const set = new Set(st.stages || []);
+    return el("label", { class: "nswitch" }, el("input", { type: "checkbox", checked: set.has(k), onchange: e => { const s2 = new Set(st.stages || []);
+      e.target.checked ? s2.add(k) : s2.delete(k); st.stages = ["news", "social", "comments"].filter(x => s2.has(x)); touched(); } }), el("span", {}, label)); };
+  const rowList = (rows, render, add) => { const wrap = el("div", { class: "nrows" });
+    const draw = () => wrap.replaceChildren(...rows.map((r, i) => render(r, i, draw)), add ? el("button", { class: "btn", type: "button", onclick: () => { add(); touched(); draw(); } }, "＋ إضافة") : "");
+    draw(); return wrap; };
+  const active = (r) => el("input", { type: "checkbox", checked: r.active !== false, title: "مفعّل", onchange: e => { r.active = e.target.checked; touched(); } });
+  let parts = [];
+  if (id === "trigger" || id === "router") {
+    parts = [fld("بداية الفترة", el("input", { type: "date", value: st.window_start || "", oninput: e => { st.window_start = e.target.value; touched(); } })),
+      fld("نهاية الفترة", el("input", { type: "date", value: st.window_end || "", oninput: e => { st.window_end = e.target.value; if (!st.collect_until || st.collect_until < st.window_end) st.collect_until = st.window_end; touched(); } })),
+      el("label", { class: "nswitch" }, el("input", { type: "checkbox", checked: !!st.daily, onchange: e => { st.daily = e.target.checked; touched(); } }), el("span", {}, "تشغيل يومي تلقائي (23:45 القاهرة)")),
+      ...(isIG() ? [] : [el("h3", {}, "المسارات"), stageToggle("news", "الأخبار"), stageToggle("social", "السوشيال"), stageToggle("comments", "تعليقات الجمهور")])];
+  } else if (id.startsWith("n_")) {
+    const k = id.slice(2), rows = cfg.news.filter(r => (r.source || "google") === k);
+    parts = [stageToggle("news", "مسار الأخبار مفعّل"), el("h3", {}, k === "rss" ? "روابط الخلاصات" : "الاستعلامات"),
+      rowList(rows, (r, i, draw) => el("div", { class: "nrow" }, active(r),
+        el("input", { type: "text", value: k === "rss" ? (r.url || r.query || "") : (r.query || ""), dir: k === "rss" ? "ltr" : null, placeholder: k === "rss" ? "https://…/rss" : "كلمات البحث",
+          oninput: e => { if (k === "rss") { r.url = e.target.value; r.query = e.target.value; } else r.query = e.target.value; touched(); } }),
+        k === "rss" || k === "api" ? null : el("input", { class: "mini", type: "text", dir: "ltr", value: r.gl || "", title: "بلد النتائج (gl)", placeholder: "EG", oninput: e => { r.gl = e.target.value.toUpperCase(); touched(); } }),
+        el("button", { class: "btn icon-only danger-ghost", type: "button", title: "حذف", onclick: () => { cfg.news.splice(cfg.news.indexOf(r), 1); rows.splice(i, 1); touched(); draw(); } }, "✕")),
+        () => { const r = { active: true, source: k, language: "العربية", region: "مصر", hl: "ar", gl: "EG", query: "" }; cfg.news.push(r); rows.push(r); })];
+  } else if (id.startsWith("s_")) {
+    const k = id.slice(2), rows = cfg.social.filter(r => r.platform === k);
+    parts = [stageToggle("social", "مسار السوشيال مفعّل"), el("h3", {}, "المصادر"),
+      rowList(rows, r => el("div", { class: "nrow col" }, el("div", { class: "nrow" }, active(r),
+        el("input", { type: "text", value: r.label || "", placeholder: "وصف المصدر", oninput: e => { r.label = e.target.value; touched(); } })),
+        el("details", {}, el("summary", {}, "إدخال الـ actor (JSON)"), el("textarea", { rows: 6, dir: "ltr", oninput: e => { r.input = e.target.value; touched(); } }, r.input || "")))),
+      el("p", { class: "preview" }, "لإضافة مصدر جديد أو تغيير الـ actor استخدم «فتح التبويب الكامل».")];
+  } else if (id.startsWith("own_")) {
+    const k = id.slice(4);
+    const dateF = [fld("بداية الفترة (المنشورات)", el("input", { type: "date", value: st.window_start || "", oninput: e => { st.window_start = e.target.value; touched(); } })),
+      fld("نهاية الفترة", el("input", { type: "date", value: st.window_end || "", oninput: e => { st.window_end = e.target.value; st.collect_until = st.window_end; touched(); } }),
+        "تعليقات منشورات الفترة تُجمع كلها حتى لحظة التشغيل")];
+    const togglePlat = el("label", { class: "nswitch" }, el("input", { type: "checkbox", checked: ownedPlats().includes(k), onchange: e => {
+      const set = new Set(ownedPlats()); e.target.checked ? set.add(k) : set.delete(k); st.owned_platforms = ["youtube", "instagram", "facebook", "apify"].filter(x => set.has(x)); touched(); } }), el("span", {}, "المنصة مفعّلة"));
+    parts = [togglePlat, setupCard(true, k)];
+    if (k === "youtube") parts.push(fld("قناة يوتيوب", txt("yt_channel", "@channel", true), "@handle أو معرّف القناة UC… أو رابطها"));
+    if (k === "instagram") parts.push(fld("طريقة الربط", el("select", { onchange: e => { st.ig_api = e.target.value; touched(); } }, [["instagram", "Instagram Login (مقترح)"], ["facebook", "Facebook Login (صفحة مرتبطة)"]].map(([v, l]) => el("option", { value: v, selected: (st.ig_api || "instagram") === v }, l)))),
+      fld("معرّف حساب إنستجرام (مع Facebook Login فقط)", txt("ig_user_id", "17841400000000000", true)));
+    if (k === "facebook") parts.push(fld("معرّف الصفحة (اختياري)", txt("fb_page_id", "فارغ = صفحة التوكن", true)));
+    if (k === "apify") parts.push(el("p", { class: "preview" }, "مصادر TikTok وX في تبويب «السوشيال»: اكتب اسم حسابكم مكان «اسم_الحساب» وفعّل المصدر. التكلفة على حساب Apify حسب عدد التعليقات."));
+    parts.push(...dateF, fld("حد المنشورات", num("owned_max_posts", "0"), "0 = كل منشورات الفترة"), fld("حد التعليقات لكل منشور", num("owned_max_comments_per_post", "0"), "0 = الكل"));
+    if (k === "apify") $("#nodeFull").onclick = () => { dlg.close(); goTab("social"); };
+  } else if (id === "comments" && isIG()) {
+    const ex = cfg.extra_fields.filter(f => f.for === "تعليق");
+    parts = [el("p", { class: "preview" }, "كل تعليق وكل رد على منشوراتك داخل الفترة، ما عدا ردود حسابك نفسه. النموذج يصنّف كل تعليق في:"),
+      el("ul", { class: "preview" }, ["الانطباع (إيجابي/محايد/سلبي) والعاطفة والسخرية", ...ex.map(f => f.label + ": " + (Array.isArray(f.choices) ? f.choices.join("، ") : f.choices || "نص"))].map(t => el("li", {}, t))),
+      el("p", { class: "preview" }, "لتعديل الفئات افتح «فتح التبويب الكامل» ← التصنيف.")];
+    $("#nodeFull").onclick = () => { dlg.close(); goTab("taxonomy"); };
+  } else if (id === "comments") {
+    parts = [stageToggle("comments", "جمع تعليقات الجمهور"), fld("عدد المواد التي تُجمع تعليقاتها", num("comments_top_posts"), "الأعلى تفاعلاً"),
+      fld("حد التعليقات لكل مادة", num("comments_per_post"))];
+  } else if (id === "filter") {
+    const ex = cfg.exclusions = cfg.exclusions || [];
+    parts = [el("p", { class: "preview" }, "يُحذف المكرر وما خارج الفترة تلقائياً. الاستثناءات تُستبعد قبل التصنيف فلا تُدفع تكلفتها."),
+      el("h3", {}, "الاستثناءات"),
+      rowList(ex, (r, i, draw) => el("div", { class: "nrow" },
+        el("select", { onchange: e => { r.type = e.target.value; touched(); } }, ["نص", "حساب", "نطاق"].map(o => el("option", { selected: r.type === o }, o))),
+        el("input", { type: "text", value: r.value || "", placeholder: "كلمة أو حساب أو موقع", oninput: e => { r.value = e.target.value; touched(); } }),
+        el("button", { class: "btn icon-only danger-ghost", type: "button", title: "حذف", onclick: () => { ex.splice(i, 1); touched(); draw(); } }, "✕")),
+        () => ex.push({ type: "نص", value: "" }))];
+  } else if (id === "ai") {
+    parts = [fld("المزوّد", el("select", { onchange: e => { st.llm_provider = e.target.value; touched(); } }, ["gemini", "claude"].map(o => el("option", { selected: (st.llm_provider || "gemini") === o }, o)))),
+      fld("النموذج", txt("llm_model", "", true)), fld("مواد في كل نداء", num("batch_size"), "كلما زاد قلّت التكلفة وطال النداء"),
+      el("label", { class: "nswitch" }, el("input", { type: "checkbox", checked: !!st.keep_irrelevant, onchange: e => { st.keep_irrelevant = e.target.checked; touched(); } }), el("span", {}, "احتفظ بالمواد غير المرتبطة")),
+      el("p", { class: "preview" }, "تصنيفات المحور والموضوع والسياق في تبويبي «التصنيف» و«السياق».")];
+  } else if (id === "csv") {
+    parts = [el("p", {}, "كل مادة مصنّفة تُكتب في records.csv، ومعها ملف لكل شهر."),
+      el("div", { class: "row" }, el("button", { class: "btn primary", type: "button", onclick: () => { dlg.close(); goTab("results"); } }, "النتائج"),
+        el("button", { class: "btn", type: "button", onclick: () => { dlg.close(); goTab("reports"); } }, "التقارير"))];
+  }
+  body.replaceChildren(...parts.filter(Boolean));
+  dlg.showModal();
+}
+$("#nodeClose").onclick = $("#nodeDone").onclick = () => $("#nodeDlg").close();
+$("#nodeDlg").addEventListener("close", () => { if (S.tab === "flow") renderFlow(); });
+$("#nodeDlg").addEventListener("click", e => { if (e.target.id === "nodeDlg") e.target.close(); });
+
+// ── تشخيص الأخطاء: نجمّع الفشل حسب السبب، ونقول الحل، ونعرض زر الإعادة المناسب ──
+const CAUSES = [
+  { k: "apify_limit", t: "رصيد Apify الشهري خلص", re: /apify_limit|usage hard limit|Monthly usage|حد الاستخدام|\(402\)/i, stages: "social,comments",
+    fix: "Apify رفض كل الطلبات لأن حد الاستخدام الشهري للحساب انتهى، فالسوشيال والتعليقات لم تُجمع. ارفع الحد الشهري من صفحة الفوترة في Apify (Billing ‹ Limits) أو رقِّ الخطة، أو انتظر بداية الدورة الجديدة، ثم أعد جمع السوشيال فقط.",
+    link: ["صفحة الفوترة والحدود في Apify", "https://console.apify.com/billing"] },
+  { k: "rate_limit", t: "Google News رفض جزءاً من الطلبات", re: /rate_limit|حظر مؤقت|تعذّر الجلب مرتين|صفحة تحقق/, stages: "news",
+    fix: "Google يحدّ عدد الطلبات القادمة من خوادم GitHub. المحرك الآن يبطّئ تلقائياً، ثم يُكمل ما تعذّر من Bing بنفس الكلمات. لتقليلها: احذف الاستعلامات المكررة لنفس الكلمات في دول كثيرة (اترك 3–4 دول رئيسية)، أو كبّر «أيام كل جزء» في الإعدادات. الإعادة الآن آمنة: المكرر لا يُكتب مرتين." },
+  { k: "key", t: "مفتاح ناقص في GitHub Secrets", re: /NEWSSCOPE_KEY|BROADCAST_API_KEY|APIFY_TOKEN|GEMINI_API_KEY|غير موجود/, stages: "news",
+    fix: "أضف المفتاح المذكور من صفحة أسرار المستودع ثم أعد التشغيل. المفاتيح لا تُكتب في الواجهة أبداً.", secrets: true },
+  { k: "auth", t: "رفض الصلاحية", re: /HTTP 40[13]\b/, stages: "",
+    fix: "المفتاح موجود لكنه مرفوض (منتهٍ أو بلا صلاحية). جدّده من حساب الخدمة وحدّثه في أسرار المستودع.", secrets: true },
+  { k: "timeout", t: "مصادر بطيئة لم تكتمل في الوقت", re: /انتهت المهلة|Timeout/i, stages: "social",
+    fix: "الـ actor أخذ وقتاً أطول من المسموح حتى بعد التشغيل الطويل. ارفع «دقائق إعادة المحاولة» في الإعدادات، أو قلّل عدد النتائج (maxItems) في إدخال المصدر." },
+  { k: "input", t: "إدخال مصدر غير صالح", re: /إدخال غير صالح|JSON|broadcast_api_url/, stages: "",
+    fix: "إدخال المصدر فيه خطأ صياغة. افتح التبويب المعني وصحّح الحقل (اضغط على اسم المصدر في القائمة بالأسفل)." },
+  { k: "other", t: "أخطاء أخرى", re: /./, stages: "",
+    fix: "أسباب متفرقة؛ افتح سجل التشغيل على GitHub لتفاصيل أكثر، وأعد المحاولة. لو تكرر نفس المصدر عطّله مؤقتاً." },
+];
+function diagnose(list) {
+  const bad = (list || []).filter(f => !f.ok), fixed = (list || []).filter(f => f.ok);
+  const groups = new Map();
+  for (const f of bad) {
+    const c = CAUSES.find(c => c.re.test((f.code || "") + " " + f.reason)) || CAUSES.at(-1);
+    if (!groups.has(c)) groups.set(c, []); groups.get(c).push(f);
+  }
+  return { bad, fixed, groups: [...groups.entries()] };
+}
+async function retryStages(stages, label) {
+  if (!stages) return;
+  if (!confirm(`إعادة ${label} فقط لنفس الفترة؟ ما جُمع من قبل لا يتكرر.`)) return;
+  try {
+    await gh(`/actions/workflows/monitor.yml/dispatches`, { method: "POST", body: JSON.stringify({ ref: "main", inputs: { project: S.project, action: "run", stages } }) });
+    setState("run", "أُرسل طلب الإعادة…"); toast("بدأت الإعادة — تتحدث الحالة هنا تلقائياً"); setTimeout(pollRuns, 6000);
+  } catch (e) { toast("تعذّرت الإعادة: " + e.message, 6000); }
+}
+const STAGE_AR = { news: "الأخبار", social: "السوشيال", comments: "التعليقات", "social,comments": "السوشيال والتعليقات" };
+function diagnosisPanel(list, compact) {
+  const d = diagnose(list);
+  if (!d.bad.length) return d.fixed.length && !compact ? el("p", { class: "diag-ok" }, `✓ ${d.fixed.length} مصدر تعثّر ثم اكتمل تلقائياً (إعادة أو بديل)`) : null;
+  return el("section", { class: "diag" + (compact ? " compact" : "") },
+    el("header", {}, el("b", {}, `اكتمل التشغيل مع ${d.bad.length} خطأ`), el("span", {}, "ما جُمع محفوظ. هذه الأسباب وحلولها:")),
+    d.groups.map(([c, fs]) => {
+      const names = [...new Set(fs.map(f => f.source))];
+      const skipped = fs.flatMap(f => f.skipped || []);
+      return el("article", { class: "diag-item " + c.k },
+        el("div", { class: "diag-h" }, el("b", {}, c.t), el("span", { class: "chip bad" }, `${skipped.length || names.length} مصدر`)),
+        el("p", {}, c.fix),
+        el("div", { class: "acts" },
+          c.stages ? el("button", { class: "btn primary", type: "button", onclick: () => retryStages(c.stages, STAGE_AR[c.stages]) }, `↻ إعادة ${STAGE_AR[c.stages]} فقط`) : null,
+          c.link ? el("a", { class: "btn", href: c.link[1], target: "_blank", rel: "noopener" }, c.link[0] + " ↗") : null,
+          c.secrets ? el("a", { class: "btn", href: `https://github.com/${S.repo}/settings/secrets/actions`, target: "_blank", rel: "noopener" }, "أسرار المستودع ↗") : null),
+        el("details", {}, el("summary", {}, "المصادر المتأثرة"),
+          el("ul", {}, (skipped.length ? skipped : names).slice(0, 60).map(n => el("li", {}, n)))));
+    }));
+}
+function failuresList(list) {
+  const bad = (list || []).filter(f => !f.ok);
+  if (!list || !list.length) return null;
+  return el("details", { class: "fails" }, el("summary", {}, `${bad.length ? "⚠️ " + bad.length + " مصدر فشل" : "✓ لا أخطاء نهائية"}${list.length - bad.length ? ` · ${list.length - bad.length} نجح بعد إعادة المحاولة` : ""}`),
+    el("ul", {}, list.map(f => el("li", { class: f.ok ? "tone-pos" : "tone-neg" }, `${f.stage} · ${f.source}: ${f.reason}${f.retried ? (f.ok ? " ← نجح بعد الإعادة" : " ← فشل بعد الإعادة") : ""}`))));
+}
+async function renderRuns() {
+  const runsLog = await readJSON(`data/${S.project}/runs.json`, []);
+  const gr = S.runs.filter(r => r.event !== "push");
+  const stateChip = r => el("span", { class: "chip " + (r.status !== "completed" ? "run" : r.conclusion === "success" ? "ok" : "bad") },
+    r.status !== "completed" ? "يعمل" : r.conclusion === "success" ? "نجح" : "فشل");
+  $("#p-runs").replaceChildren(el("h2", {}, "سجل التشغيل"), el("p", { class: "lead" }, "تشغيلات GitHub الأخيرة، وملخص ما كتبه كل تشغيل لهذا المشروع."),
+    el("div", { class: "cards" },
+      el("div", { class: "card" }, el("h3", {}, "تشغيلات GitHub"), el("div", { class: "scroll", style: "border:0" }, el("table", {},
+        el("thead", {}, el("tr", {}, el("th", {}, "الوقت"), el("th", {}, "الحالة"), el("th", {}, ""))),
+        el("tbody", {}, gr.map(r => el("tr", {}, el("td", { class: "num" }, new Date(r.created_at).toLocaleString("en-GB")), el("td", {}, stateChip(r)),
+          el("td", {}, el("a", { href: r.html_url, target: "_blank", rel: "noopener" }, "التفاصيل")))))))),
+      el("div", { class: "card" }, el("h3", {}, "ما كُتب في كل تشغيل"), runsLog.length ? el("div", { class: "scroll", style: "border:0" }, el("table", {},
+        el("thead", {}, el("tr", {}, ["الوقت", "أخبار", "سوشيال", "تعليقات", "دقائق", "الحالة"].map(h => el("th", {}, h)))),
+        el("tbody", {}, runsLog.map(r => el("tr", {}, el("td", { class: "num" }, r.time), el("td", { class: "num" }, r.news), el("td", { class: "num" }, r.social),
+          el("td", { class: "num" }, r.comments), el("td", { class: "num" }, r.minutes), el("td", { class: r.state === "فشل" ? "tone-neg" : "" }, r.state, r.note ? " — " + r.note : "", failuresList(r.failures))))))) : el("div", { class: "empty" }, "لا تشغيلات بعد"))));
+}
+
+// مشروع جديد
+// ── عناصر التصميم: أيقونات، هياكل تحميل، وضع العرض ─────────────────
+const ICONS = {
+  flow: '<circle cx="5" cy="12" r="2.4"/><circle cx="19" cy="6" r="2.4"/><circle cx="19" cy="18" r="2.4"/><path d="M7.3 11 16.7 6.9M7.3 13l9.4 4.1"/>',
+  settings: '<path d="M4 6h10M18 6h2M4 12h4M12 12h8M4 18h12M20 18h0"/><circle cx="16" cy="6" r="2"/><circle cx="10" cy="12" r="2"/><circle cx="18" cy="18" r="2"/>',
+  news: '<rect x="3" y="4" width="15" height="16" rx="2"/><path d="M18 8h3v10a2 2 0 0 1-2 2M7 8h7M7 12h7M7 16h4"/>',
+  social: '<path d="M5 9h14M5 15h14M10 4 8 20M16 4l-2 16"/>',
+  exclusions: '<path d="M4 5h16l-6 7.5V19l-4 1v-7.5Z"/>',
+  taxonomy: '<path d="M3 12V4h8l10 10-8 8Z"/><circle cx="7.5" cy="8" r="1.4"/>',
+  context: '<path d="M6 3h9l4 4v14H6Z"/><path d="M14 3v5h5M9 12h7M9 16h7"/>',
+  results: '<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>',
+  reports: '<path d="M6 3h12v18l-6-3.5L6 21Z"/>',
+  cost: '<circle cx="12" cy="12" r="9"/><path d="M15 9.2c-.5-1-1.6-1.6-3-1.6-1.8 0-3 .9-3 2.2 0 3 6 1.6 6 4.6 0 1.3-1.3 2.2-3 2.2-1.5 0-2.6-.7-3.1-1.7M12 6v1.6M12 16.6V18"/>',
+  runs: '<path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 3v5h5M12 7v5l3 2"/>',
+};
+const icon = (k, size = 16) => el("span", { class: "ico", "aria-hidden": "true", html: `<svg viewBox="0 0 24 24" width="${size}" height="${size}" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">${ICONS[k] || ""}</svg>` });
+function skeleton(n = 3) {
+  return el("div", { class: "skel-wrap", "aria-busy": "true", "aria-label": "جارٍ التحميل" },
+    el("div", { class: "skel", style: "width:38%;height:22px" }), el("div", { class: "skel", style: "width:62%;height:14px" }),
+    el("div", { class: "kpis" }, Array.from({ length: 4 }, () => el("div", { class: "skel", style: "height:84px" }))),
+    ...Array.from({ length: n }, () => el("div", { class: "skel", style: "height:160px" })));
+}
+// وضع العرض للعميل: يخفي أدوات التعديل ويُبقي سير العمل والنتائج والتقارير
+const PRESENT_TABS = new Set(["flow", "results", "reports"]);
+function setPresent(on) {
+  S.present = on; document.body.classList.toggle("present", on); store.set("present", on ? "1" : "");
+  $("#presentBtn").setAttribute("aria-pressed", String(on));
+  $("#presentBtn").lastChild.textContent = on ? " إنهاء العرض" : " وضع العرض";
+  if (on && S.view !== "home" && !PRESENT_TABS.has(S.tab)) goTab("results");
+  if (S.view === "home") renderHome(); else renderTabs();
+}
+// مؤشر نسبة النبرة كحلقة
+function toneRing(sm, size = 132) {
+  const p = (sm.positive || 0) * 100, n = (sm.negative || 0) * 100, u = Math.max(0, 100 - p - n);
+  return el("div", { class: "ring", style: `--s:${size}px;background:conic-gradient(var(--pos) 0 ${p}%, var(--neu) ${p}% ${p + u}%, var(--neg) ${p + u}% 100%)` },
+    el("div", { class: "hole" }, el("b", {}, Math.round(p) + "٪"), el("span", {}, "إيجابي")));
+}
+function sparkline(values, w = 120, h = 34) {
+  if (!values || values.length < 2) return null;
+  const mx = Math.max(...values, 1), x = i => i * (w - 4) / (values.length - 1) + 2, y = v => h - 3 - v / mx * (h - 8);
+  const d = values.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(" ");
+  return el("span", { class: "spark", html: `<svg viewBox="0 0 ${w} ${h}" width="${w}" height="${h}" aria-hidden="true"><path d="${d} L${x(values.length - 1)},${h} L2,${h} Z" class="a"/><path d="${d}" class="l"/></svg>` });
+}
+
+// ── التكلفة: الأسعار، والتقدير قبل التشغيل، وتبويب «التكلفة» ──────────────
+const DEFAULT_PRICING = {
+  currency: "USD", monthly_cap_usd: 0,
+  llm: { "gemini-3.5-flash-lite": [0.10, 0.40], "gemini-2.5-flash-lite": [0.10, 0.40], "gemini-2.5-flash": [0.30, 2.50], "gemini-3.5-flash": [0.30, 2.50],
+         "claude-haiku-4-5": [1.00, 5.00], "claude-sonnet-4-5": [3.00, 15.00], default: [0.30, 2.50] },
+  apify: { "kaitoeasyapi~twitter-x-data-tweet-scraper-pay-per-result-cheapest": 0.25, "scraper_one~facebook-posts-search": 3.00, "apify~facebook-posts-scraper": 5.00,
+           "apify~facebook-comments-scraper": 2.50, "apify~instagram-hashtag-scraper": 2.30, "apify~instagram-scraper": 2.30, "apify~instagram-comment-scraper": 2.30,
+           "clockworks~tiktok-scraper": 4.00, "clockworks~tiktok-comments-scraper": 2.00, "streamers~youtube-scraper": 5.00, "streamers~youtube-comments-scraper": 2.00,
+           "harvestapi~linkedin-post-search": 2.00, "harvestapi~linkedin-company-posts": 2.00, default: 4.00 },
+  tokens_per_item: { in: 450, out: 220 }, system_tokens: 1800 };
+const usd = (v, d = 2) => "$" + (+v || 0).toFixed(d);
+async function loadPricing(force) {
+  if (S.pricing && !force) return S.pricing;
+  const p = structuredClone(DEFAULT_PRICING);
+  const f = await gh(`/contents/config/pricing.json`, { allow404: true }).catch(() => null);
+  if (f) { try { const u = JSON.parse(b64d(f.content)); for (const [k, v] of Object.entries(u)) p[k] = v && typeof v === "object" && !Array.isArray(v) && p[k] ? { ...p[k], ...v } : v; S.pricingSha = f.sha; } catch {} }
+  S.pricing = p; return p;
+}
+function expectedResults(payload) {
+  let n = 0;
+  for (const k of ["maxItems", "resultsLimit", "resultsCount", "maxPosts", "maxResults", "resultsPerPage", "maxComments", "commentsPerPost"])
+    if (typeof payload[k] === "number" && payload[k] > 0) n = Math.max(n, payload[k]);
+  const lists = ["searchTerms", "searchQueries", "hashtags", "startUrls", "directUrls", "targetUrls", "postURLs"].map(k => payload[k]).filter(Array.isArray);
+  const mult = Math.max(1, ...lists.map(l => l.length));
+  if (payload.maxResultsShorts) n += payload.maxResultsShorts;
+  return Math.max(n, 50) * ("maxItems" in payload ? 1 : mult);
+}
+function llmPrice(pr, model) {
+  model = model || ""; const t = pr.llm;
+  return t[model] || Object.entries(t).find(([k]) => k !== "default" && model.startsWith(k))?.[1] || t.default;
+}
+const monthKey = () => new Date().toISOString().slice(0, 7);
+async function usageOf(slug) { return readJSON(`data/${slug}/usage.json`, { months: {}, runs: [] }).catch(() => ({ months: {}, runs: [] })); }
+async function accountSpend() {
+  const all = await Promise.all(S.projects.map(p => usageOf(p)));
+  return all.reduce((a, u) => a + ((u.months || {})[monthKey()]?.usd || 0), 0);
+}
+async function estimateRun(cfg, slug) {
+  const pr = await loadPricing(), st = cfg.settings || {}, stages = new Set(st.stages || ["news", "social", "comments"]);
+  const rows = [];
+  const span = Math.max(1, Math.round((new Date(st.collect_until || st.window_end) - new Date(st.window_start)) / 864e5) + 1 + (+st.news_lookback_days || 0));
+  const chunk = +st.news_chunk_days || 7;
+  let newsItems = 0, newsCalls = 0;
+  if (stages.has("news")) for (const q of cfg.news.filter(r => r.active !== false)) {
+    const src = q.source || "google", w = src === "google" || src === "newsscope" ? Math.ceil(span / chunk) : 1;
+    newsCalls += w; newsItems += w * (src === "rss" ? 20 : src === "bing" ? 25 : 35);
+  }
+  if (newsCalls) rows.push({ label: "الأخبار", sub: `${fmt(newsCalls)} بحث مجاني`, n: newsItems, usd: 0 });
+  let socialItems = 0;
+  if (stages.has("social")) for (const s of cfg.social.filter(r => r.active !== false)) {
+    let payload = {}; try { payload = JSON.parse((s.input || "{}").replaceAll("{START}", st.window_start || "").replaceAll("{END}", st.window_end || "")); } catch {}
+    const n = expectedResults(payload), price = pr.apify[s.actor] ?? pr.apify.default;
+    socialItems += n; rows.push({ label: s.label || s.platform, sub: `Apify · ${usd(price)} لكل 1000`, n, usd: n / 1000 * price, platform: s.platform });
+  }
+  if (stages.has("comments") && socialItems) {
+    const n = (+st.comments_top_posts || 40) * (+st.comments_per_post || 50);
+    rows.push({ label: "التعليقات", sub: `أعلى ${st.comments_top_posts || 40} مادة`, n, usd: n / 1000 * 2.3 }); socialItems += n;
+  }
+  if (isIG(cfg)) {  // حساب العميل: الجمع مجاني من API إنستجرام؛ التقدير من آخر تشغيلة أو افتراض متوسط
+    const sm = S.meta?.[slug]?.summary || {}, days = span;
+    const posts = sm.materials ? Math.round(sm.materials / Math.max(1, (sm.monthly || []).length) * days / 30) || 30 : Math.max(10, days * 2);
+    const per = sm.materials ? Math.max(5, Math.round((sm.comments || 0) / sm.materials)) : 40;
+    rows.push({ label: "منشورات وتعليقات حساباتنا", sub: `${ownedPlats(cfg).filter(k => k !== "apify").join(" + ")} · API الرسمي · مجاني · نحو ${fmt(posts)} منشور × ${fmt(per)} تعليق`, n: posts * (per + 1), usd: 0 });
+    socialItems = posts * (per + 1);
+  }
+  const toClassify = Math.round((newsItems + socialItems) * (isIG(cfg) ? 1 : 0.7)), calls = Math.ceil(toClassify / (+st.batch_size || 25));
+  const [pin, pout] = llmPrice(pr, st.llm_model), t = pr.tokens_per_item;
+  rows.push({ label: "التصنيف بالنموذج", sub: `${st.llm_model || "gemini"} · ${fmt(calls)} نداء`, n: toClassify,
+    usd: (toClassify * t.in + calls * pr.system_tokens) / 1e6 * pin + toClassify * t.out / 1e6 * pout });
+  const total = rows.reduce((a, r) => a + r.usd, 0);
+  const u = await usageOf(slug), spentProject = (u.months || {})[monthKey()]?.usd || 0, spentAccount = await accountSpend();
+  const caps = { run: +st.budget_run_usd || 0, month: +st.budget_month_usd || 0, account: +pr.monthly_cap_usd || 0 };
+  const left = [caps.run && caps.run, caps.month && caps.month - spentProject, caps.account && caps.account - spentAccount].filter(v => v !== 0 && v !== false);
+  return { rows, total, spentProject, spentAccount, caps, left: left.length ? Math.min(...left) : null, toClassify };
+}
+async function confirmRun(slug, cfg) {
+  const dlg = $("#runDlg");
+  $("#runBody").replaceChildren(el("p", { class: "lead" }, "جارٍ حساب التقدير…"));
+  dlg.showModal();
+  let e;
+  try { e = await estimateRun(cfg, slug); } catch (err) { $("#runBody").replaceChildren(el("p", { class: "lead" }, "تعذّر التقدير: " + err.message)); }
+  if (e) {
+    const max = Math.max(...e.rows.map(r => r.usd), 0.0001);
+    const over = e.left != null && e.total > e.left;
+    $("#runBody").replaceChildren(
+      el("div", { class: "est-total" }, el("div", {}, el("div", { class: "l" }, "التكلفة المتوقعة (حد أقصى تقديري)"), el("div", { class: "v" }, usd(e.total))),
+        el("div", {}, el("div", { class: "l" }, "مصروف المشروع هذا الشهر"), el("div", { class: "v sm" }, usd(e.spentProject))),
+        el("div", {}, el("div", { class: "l" }, "مصروف الحساب هذا الشهر"), el("div", { class: "v sm" }, usd(e.spentAccount)))),
+      e.left != null ? el("div", { class: "est-cap" + (over ? " over" : "") }, over
+        ? `التقدير يتخطى المتبقي من السقف (${usd(Math.max(e.left, 0))}). المحرك سيوقف الجمع تلقائياً عند السقف ويحفظ ما اكتمل.`
+        : `المتبقي من أقل سقف: ${usd(e.left)}. لو قربت التكلفة منه يتوقف الجمع تلقائياً.`)
+        : el("div", { class: "est-cap muted" }, "لا يوجد سقف إنفاق لهذا المشروع. تقدر تحدده من «الإعدادات ← الميزانية»."),
+      el("div", { class: "est-rows" }, e.rows.map(r => el("div", { class: "est-row" },
+        el("div", { class: "k" }, el("b", {}, r.label), el("small", {}, r.sub)),
+        el("div", { class: "bar" }, el("i", { style: `width:${Math.max(2, r.usd / max * 100)}%` })),
+        el("div", { class: "n" }, el("b", {}, r.usd ? usd(r.usd) : "مجاني"), el("small", {}, `~${fmt(r.n)} مادة`))))),
+      el("p", { class: "preview", style: "margin:6px 0 0" }, "التقدير يفترض أقصى عدد نتائج لكل مصدر، فالتكلفة الفعلية غالباً أقل. الأسعار من تبويب «التكلفة»، وبعد التشغيل تظهر التكلفة الفعلية."));
+  }
+  return new Promise(res => { dlg.onclose = () => res(dlg.returnValue === "ok"); });
+}
+async function renderCost() {
+  const host = $("#p-cost");
+  host.replaceChildren(skeleton(3));
+  const [pr, u, acc] = await Promise.all([loadPricing(), usageOf(S.project), accountSpend()]);
+  const st = S.cfg.settings, months = Object.entries(u.months || {}).sort((a, b) => b[0].localeCompare(a[0]));
+  const cur = (u.months || {})[monthKey()] || { usd: 0, llm_usd: 0, apify_usd: 0, runs: 0, apify_items: 0, llm_in: 0, llm_out: 0 };
+  const capBar = (spent, cap, label) => el("div", { class: "capbar" }, el("div", { class: "row" }, el("span", {}, label), el("b", { style: "margin-inline-start:auto" }, cap ? `${usd(spent)} من ${usd(cap)}` : `${usd(spent)} · بلا سقف`)),
+    el("div", { class: "pr-track" }, el("i", { style: `width:${cap ? Math.min(100, spent / cap * 100) : 0}%;background:var(${cap && spent / cap > .85 ? "--neg" : "--accent"})` })));
+  const k = (l, v, s) => el("div", { class: "kpi" }, el("div", { class: "l" }, l), el("div", { class: "v" }, v), s ? el("div", { class: "s" }, s) : null);
+  const last = S.status.cost;
+  const bySrc = last && last.by_source ? Object.entries(last.by_source).sort((a, b) => b[1].usd - a[1].usd) : [];
+  const priceRows = (obj, unit) => Object.entries(obj).map(([key, v]) => el("tr", {}, el("td", { class: "mono", dir: "ltr" }, key),
+    ...(Array.isArray(v) ? v.map((x, i) => el("td", {}, el("input", { type: "number", step: "0.01", value: x, "aria-label": unit[i], oninput: ev => { v[i] = +ev.target.value; S.pricingDirty = true; } })))
+      : [el("td", {}, el("input", { type: "number", step: "0.01", value: v, "aria-label": unit[0], oninput: ev => { obj[key] = +ev.target.value; S.pricingDirty = true; } }))])));
+  const savePricing = async () => {
+    try {
+      const body = { ...pr }; const r = await gh(`/contents/config/pricing.json`, { method: "PUT", body: JSON.stringify({ message: "تحديث الأسعار وسقف الحساب",
+        content: b64e(JSON.stringify(body, null, 2) + "\n"), ...(S.pricingSha ? { sha: S.pricingSha } : {}) }) });
+      S.pricingSha = r.content.sha; S.pricingDirty = false; toast("حُفظت الأسعار ✓");
+    } catch (e) { toast("تعذّر الحفظ: " + e.message, 6000); }
+  };
+  host.replaceChildren(el("h2", {}, "التكلفة والاستهلاك"),
+    el("p", { class: "lead" }, "تكلفة كل تشغيلة محسوبة من التوكنز الفعلية للنموذج وعدد نتائج Apify. السقف يوقف الجمع قبل ما يتخطاه ويحفظ ما اكتمل."),
+    el("div", { class: "kpis" }, k("هذا الشهر", usd(cur.usd), `${fmt(cur.runs)} تشغيل`), k("النموذج", usd(cur.llm_usd), `${fmt((cur.llm_in || 0) + (cur.llm_out || 0))} توكن`),
+      k("Apify", usd(cur.apify_usd), `${fmt(cur.apify_items)} نتيجة`), k("تكلفة السجل", cur.usd && S.summary?.total ? usd(cur.usd / Math.max(1, (S.summary.monthly || []).slice(-1)[0]?.total || S.summary.total), 4) : "—", "متوسط")),
+    el("div", { class: "cards" },
+      el("div", { class: "card" }, el("h3", {}, "السقوف"), capBar(cur.usd, +st.budget_month_usd || 0, "المشروع هذا الشهر"), capBar(acc, +pr.monthly_cap_usd || 0, "الحساب كله هذا الشهر"),
+        el("div", { class: "grid", style: "margin-top:12px" },
+          el("div", { class: "field" }, el("label", {}, "سقف التشغيلة الواحدة ($)"), el("input", { type: "number", step: "0.5", min: "0", value: st.budget_run_usd || "", placeholder: "بلا سقف", oninput: ev => { st.budget_run_usd = +ev.target.value || 0; markDirty(); } })),
+          el("div", { class: "field" }, el("label", {}, "سقف المشروع الشهري ($)"), el("input", { type: "number", step: "1", min: "0", value: st.budget_month_usd || "", placeholder: "بلا سقف", oninput: ev => { st.budget_month_usd = +ev.target.value || 0; markDirty(); } })),
+          el("div", { class: "field" }, el("label", {}, "سقف الحساب الشهري ($)"), el("input", { type: "number", step: "1", min: "0", value: pr.monthly_cap_usd || "", placeholder: "بلا سقف", oninput: ev => { pr.monthly_cap_usd = +ev.target.value || 0; S.pricingDirty = true; } }))),
+        el("small", { class: "preview" }, "سقف المشروع يُحفظ مع «حفظ الإعدادات»، وسقف الحساب مع «حفظ الأسعار».")),
+      el("div", { class: "card" }, el("h3", {}, "آخر تشغيلة حسب المصدر"), bySrc.length ? el("div", { class: "bars" }, bySrc.slice(0, 10).map(([l, v]) =>
+        el("div", { class: "bar" }, el("span", { class: "k", title: l }, l), el("div", { class: "track", style: `width:${v.usd / bySrc[0][1].usd * 100}%` }, el("i", { style: "width:100%;background:var(--accent)" })), el("span", { class: "n" }, usd(v.usd, 3)))))
+        : el("div", { class: "empty" }, "تظهر بعد أول تشغيلة بالتحديث الجديد")),
+      el("div", { class: "card", style: "grid-column:1/-1" }, el("h3", {}, "التشغيلات"), (u.runs || []).length ? el("div", { class: "scroll", style: "border:0" }, el("table", {},
+        el("thead", {}, el("tr", {}, ["الوقت", "التكلفة", "النموذج", "Apify", "نتائج Apify", "ملاحظة"].map(h => el("th", {}, h)))),
+        el("tbody", {}, u.runs.slice(0, 30).map(r => el("tr", {}, el("td", { class: "num" }, r.time), el("td", { class: "num" }, el("b", {}, usd(r.usd, 3))), el("td", { class: "num" }, usd(r.llm_usd, 3)),
+          el("td", { class: "num" }, usd(r.apify_usd, 3)), el("td", { class: "num" }, fmt(r.apify_items)), el("td", { class: r.stopped ? "tone-neg" : "" }, r.stopped || "")))))) : el("div", { class: "empty" }, "لا تشغيلات محسوبة بعد")),
+      months.length > 1 ? el("div", { class: "card" }, el("h3", {}, "حسب الشهر"), el("table", {}, el("tbody", {}, months.map(([m, v]) => el("tr", {}, el("td", {}, monthAr(m)), el("td", { class: "num" }, usd(v.usd)), el("td", { class: "num" }, `${fmt(v.runs)} تشغيل`)))))) : null,
+      el("details", { class: "card", style: "grid-column:1/-1" }, el("summary", {}, el("b", {}, "جدول الأسعار"), el("span", { class: "preview" }, " — مشترك بين كل المشاريع، عدّله من فواتيرك")),
+        el("div", { class: "cards", style: "margin-top:12px" },
+          el("div", {}, el("h3", {}, "النماذج ($ لكل مليون توكن)"), el("table", {}, el("thead", {}, el("tr", {}, el("th", {}, "النموذج"), el("th", {}, "إدخال"), el("th", {}, "إخراج"))), el("tbody", {}, priceRows(pr.llm, ["إدخال", "إخراج"])))),
+          el("div", {}, el("h3", {}, "Apify ($ لكل 1000 نتيجة)"), el("table", {}, el("thead", {}, el("tr", {}, el("th", {}, "actor"), el("th", {}, "السعر"))), el("tbody", {}, priceRows(pr.apify, ["السعر"]))))),
+        el("div", { class: "row", style: "margin-top:12px" }, el("button", { class: "btn primary", type: "button", onclick: savePricing }, "حفظ الأسعار وسقف الحساب")))));
+}
+
+// ── الصفحة الرئيسية: كل المشاريع ────────────────────────────
+const cadenceOf = c => (c && c.settings && c.settings.cadence) || (c && c.settings && c.settings.daily ? "يومي" : "حدث");
+const CAD = { "شهري": ["m", "المشاريع الشهرية", "ثابتة تُشغَّل كل شهر"], "يومي": ["d", "الرصد اليومي", "يعمل تلقائياً كل ليلة"], "حدث": ["e", "الأحداث والحملات", "فترة محددة لحدث أو زيارة"] };
+function showHome(on) {
+  S.view = on ? "home" : "project"; store.set("view", S.view);
+  document.body.classList.toggle("home", on);
+  $("#home").hidden = !on;
+  if (on) renderHome(); else { renderTabs(); showTab(); }
+}
+async function loadMeta(force) {
+  if (S.meta && !force) return S.meta;
+  const rows = await Promise.all(S.projects.map(async p => {
+    const [f, st, sm, us] = await Promise.all([gh(`/contents/config/projects/${p}.json`).catch(() => null),
+      readJSON(`data/${p}/status.json`, {}).catch(() => ({})), readJSON(`data/${p}/summary.json`, null).catch(() => null), usageOf(p)]);
+    let cfg = null; try { cfg = f ? JSON.parse(b64d(f.content)) : null; } catch {}
+    return { slug: p, cfg, sha: f && f.sha, status: st || {}, summary: sm, spend: (us.months || {})[monthKey()]?.usd || 0 };
+  }));
+  S.meta = Object.fromEntries(rows.map(r => [r.slug, r]));
+  return S.meta;
+}
+function projectCard(m) {
+  const c = m.cfg || { settings: {} }, st = c.settings || {}, sm = m.summary || {}, cad = cadenceOf(c), arch = !!st.archived;
+  const live = S.runs.some(r => r.status !== "completed" && r.event !== "push" && (r.display_title || "").includes(m.slug));
+  const last = (sm.monthly || []).slice(-1)[0];
+  const tone = sm.total ? [["--pos", sm.positive], ["--neu", sm.neutral], ["--neg", sm.negative]] : [];
+  const srcN = (c.news || []).filter(r => r.active !== false).length + (c.social || []).filter(r => r.active !== false).length;
+  const state = (m.status.status_state || "لم يُشغّل بعد").replace(/^[^\p{L}]+/u, "");
+  const acts = arch
+    ? [el("button", { class: "btn primary", type: "button", onclick: () => setArchived(m.slug, false) }, "↺ استعادة للقائمة الشهرية"),
+       el("button", { class: "btn", type: "button", onclick: () => openProject(m.slug, "results") }, "النتائج"),
+       el("button", { class: "btn danger-ghost", type: "button", title: "حذف المشروع نهائياً", onclick: () => deleteProject(m.slug) }, "حذف")]
+    : S.present ? [el("button", { class: "btn", type: "button", onclick: () => openProject(m.slug, "results") }, "النتائج"),
+       el("button", { class: "btn", type: "button", onclick: () => openProject(m.slug, "reports") }, "التقارير")]
+    : [el("button", { class: "btn", type: "button", onclick: () => openProject(m.slug, "flow") }, "فتح"),
+       el("button", { class: "btn", type: "button", onclick: () => runProject(m.slug) }, live ? "يعمل…" : "▶ تشغيل"),
+       el("button", { class: "btn", type: "button", onclick: () => openProject(m.slug, "reports") }, "التقارير"),
+       el("button", { class: "btn", type: "button", title: "نقل إلى الأرشيف", onclick: () => setArchived(m.slug, true) }, "أرشفة"),
+       el("button", { class: "btn danger-ghost icon-only", type: "button", title: "حذف المشروع نهائياً", "aria-label": "حذف المشروع", onclick: () => deleteProject(m.slug) }, "🗑")];
+  return el("article", { class: "pcard" + (arch ? " arch" : "") + (live ? " live" : "") },
+    el("div", { class: "meta" }, el("span", { class: "tag " + CAD[cad][0] }, cad), arch ? el("span", { class: "tag" }, "مؤرشف" + (st.archived_at ? " · " + st.archived_at : "")) : null,
+      el("bdi", { dir: "ltr" }, `${st.window_start || "؟"} ← ${st.window_end || "؟"}`)),
+    el("h3", {}, el("a", { href: "#", onclick: e => { e.preventDefault(); openProject(m.slug, arch ? "results" : "flow"); } }, c.name || m.slug)),
+    el("div", { class: "nums" },
+      el("div", {}, el("b", {}, fmt(sm.total || 0)), el("span", {}, "كل السجلات")),
+      el("div", {}, el("b", {}, last ? fmt(last.total) : "—"), el("span", {}, last ? monthAr(last.key) : "آخر شهر")),
+      S.present ? el("div", {}, el("b", {}, pct(sm.positive)), el("span", {}, "إيجابي")) : el("div", {}, el("b", {}, usd(m.spend || 0)), el("span", {}, "إنفاق الشهر"))),
+    tone.length ? el("div", { class: "tone", title: `إيجابي ${pct(sm.positive)} · سلبي ${pct(sm.negative)}` }, tone.map(([v, x]) => el("i", { style: `width:${(x || 0) * 100}%;background:var(${v})` }))) : null,
+    el("div", { class: "meta" }, live ? el("span", { class: "chip run" }, "يعمل الآن") : el("span", {}, state), m.status.status_updated ? el("bdi", { dir: "ltr" }, m.status.status_updated) : null),
+    el("div", { class: "acts" }, acts));
+}
+async function renderHome(force) {
+  const host = $("#home");
+  if (!S.meta || force) host.replaceChildren(skeleton(2));
+  const meta = Object.values(await loadMeta(force));
+  const active = meta.filter(m => !m.cfg?.settings?.archived), archived = meta.filter(m => m.cfg?.settings?.archived);
+  const now = new Date(), thisMonth = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, "0")}`, prevKey = monthRange(-1).window_start.slice(0, 7);
+  const monthTotal = active.reduce((a, m) => a + (((m.summary?.monthly || []).find(x => x.key === prevKey) || {}).total || 0), 0);
+  const liveN = S.runs.filter(r => r.status !== "completed" && r.event !== "push").length;
+  const stat = (v, l) => el("div", { class: "stat" }, el("div", { class: "v" }, v), el("div", { class: "l" }, l));
+  const hero = el("section", { class: "hero" },
+    el("div", {}, el("span", { class: "eyebrow" }, new Date().toLocaleDateString("ar-EG-u-nu-latn", { weekday: "long", day: "numeric", month: "long", year: "numeric" })), el("h1", {}, "مشاريع الرصد الإعلامي"),
+      el("div", { class: "actions" }, el("button", { class: "btn primary", type: "button", onclick: newProject }, "＋ مشروع جديد"),
+        el("button", { class: "btn", type: "button", onclick: () => renderHome(true) }, "↻ تحديث"))),
+    el("div", { class: "stats" }, stat(fmt(active.length), "مشروع نشط"), stat(fmt(monthTotal), `سجل في ${monthAr(prevKey)}`),
+      S.present ? stat(fmt(liveN), "تشغيل جارٍ الآن") : stat(usd(meta.reduce((a, m) => a + (m.spend || 0), 0)), "إنفاق هذا الشهر")));
+  const groups = ["شهري", "يومي", "حدث"].map(cad => {
+    const list = active.filter(m => cadenceOf(m.cfg) === cad).sort((a, b) => (a.cfg?.name || a.slug).localeCompare(b.cfg?.name || b.slug, "ar"));
+    if (!list.length && cad !== "شهري") return null;
+    return el("section", { class: "group" }, el("header", {}, el("h2", {}, CAD[cad][1]), el("span", {}, `${list.length} · ${CAD[cad][2]}`)),
+      list.length ? el("div", { class: "pcards" }, list.map(projectCard)) : el("div", { class: "empty" }, "لا مشاريع شهرية بعد. اختر «شهري» من «الإعدادات ← نوع المشروع»."));
+  });
+  const arch = el("details", { class: "group archive", open: archived.length && archived.length < 4 ? true : null },
+    el("summary", {}, el("header", {}, el("h2", {}, "الأرشيف"), el("span", {}, `${archived.length} · مشاريع انتهت، بياناتها وتقاريرها محفوظة`))),
+    archived.length ? el("div", { class: "pcards" }, archived.map(projectCard)) : el("div", { class: "empty" }, "لا مشاريع مؤرشفة."));
+  host.replaceChildren(hero, ...groups.filter(Boolean), S.present ? null : arch);
+}
+async function openProject(slug, tab) {
+  if (S.project !== slug || !S.cfg) await loadProject(slug);
+  S.tab = tab || S.tab; store.set("tab", S.tab); showHome(false);
+}
+async function setArchived(slug, on) {
+  const m = S.meta?.[slug]; if (!m || !m.cfg) return;
+  if (on && !confirm(`أرشفة «${m.cfg.name || slug}»؟ يختفي من القائمة ويتوقف تشغيله اليومي، وتبقى بياناته وتقاريره كما هي.`)) return;
+  const cfg = structuredClone(m.cfg); cfg.settings = cfg.settings || {};
+  if (on) { cfg.settings.archived = true; cfg.settings.archived_at = new Date().toISOString().slice(0, 10); cfg.settings.daily = false; }
+  else { delete cfg.settings.archived; delete cfg.settings.archived_at; cfg.settings.cadence = "شهري"; Object.assign(cfg.settings, monthRange(-1)); }
+  try {
+    const r = await gh(`/contents/config/projects/${slug}.json`, { method: "PUT", body: JSON.stringify({
+      message: `${on ? "أرشفة" : "استعادة"} ${slug}`, content: b64e(JSON.stringify(cfg, null, 2) + "\n"), sha: m.sha }) });
+    m.cfg = cfg; m.sha = r.content.sha;
+    if (S.project === slug) { S.cfg = cfg; S.sha = m.sha; renderAll(); }
+    fillProjects(); renderHome();
+    toast(on ? "نُقل إلى الأرشيف ✓" : "عاد إلى القائمة الشهرية ✓ — الفترة مضبوطة على الشهر الماضي", 4500);
+  } catch (e) { toast("تعذّر الحفظ: " + e.message, 6000); }
+}
+// ── حذف مشروع: commit واحد يحذف الإعدادات (والبيانات اختيارياً) ──────────
+async function projectPaths(slug) {
+  const ref = await gh(`/git/ref/heads/main`), head = ref.object.sha;
+  const commit = await gh(`/git/commits/${head}`);
+  const tree = await gh(`/git/trees/${commit.tree.sha}?recursive=1`);
+  const files = (tree.tree || []).filter(t => t.type === "blob");
+  const pick = pre => files.filter(t => pre.some(x => x.endsWith("/") ? t.path.startsWith(x) : t.path === x));
+  const cfg = pick([`config/projects/${slug}.json`, `config/keywords/${slug}.txt`, `progress/${slug}.json`]);
+  const data = pick([`data/${slug}/`]);
+  return { head, base: commit.tree.sha, cfg, data, truncated: tree.truncated };
+}
+async function deleteProject(slug) {
+  const m = S.meta?.[slug] || {}, name = m.cfg?.name || slug;
+  if (S.runs.some(r => r.status !== "completed" && r.event !== "push" && (r.display_title || "").includes(slug)))
+    return toast("المشروع يعمل الآن — أوقفه أولاً ثم احذفه", 5000);
+  const dlg = $("#delDlg"), body = $("#delBody"), ok = $("#delOk");
+  body.replaceChildren(skeleton(0)); ok.disabled = true; dlg.showModal();
+  let P;
+  try { P = await projectPaths(slug); } catch (e) { body.replaceChildren(el("p", {}, "تعذّر قراءة ملفات المشروع: " + e.message)); return; }
+  const kb = n => n > 1048576 ? (n / 1048576).toFixed(1) + " م.ب" : Math.max(1, Math.round(n / 1024)) + " ك.ب";
+  const dataSize = P.data.reduce((a, t) => a + (t.size || 0), 0);
+  const csvs = P.data.filter(t => t.path.endsWith(".csv")).length, reps = P.data.filter(t => t.path.includes("/reports/")).length;
+  const mode = el("div", { class: "del-modes" },
+    el("label", { class: "del-opt" }, el("input", { type: "radio", name: "delmode", value: "cfg" }),
+      el("div", {}, el("b", {}, "حذف المشروع فقط"), el("span", {}, `تُحذف الإعدادات والكلمات المفتاحية، وتبقى البيانات في data/${slug} (${P.data.length} ملف).`))),
+    el("label", { class: "del-opt" }, el("input", { type: "radio", name: "delmode", value: "all", checked: true }),
+      el("div", {}, el("b", {}, "حذف المشروع وكل بياناته"), el("span", {}, `${P.data.length} ملف · ${kb(dataSize)} — منها ${csvs} ملف CSV و${reps} تقرير شهري.`))));
+  const inp = el("input", { type: "text", placeholder: slug, dir: "ltr", autocomplete: "off", style: "width:100%" });
+  inp.oninput = () => { ok.disabled = inp.value.trim() !== slug; };
+  body.replaceChildren(...[
+    el("p", {}, "سيُحذف «", el("b", {}, name), "» من القائمة ولن يعمل بعد ذلك. لا يمكن التراجع من الواجهة، وإن احتجت تحتفظ به دون أن يظهر فاستخدم «أرشفة» بدلاً من الحذف."),
+    mode,
+    P.truncated ? el("p", { class: "est-cap over" }, "المستودع كبير جداً ولم تُقرأ كل الملفات؛ قد تبقى بعض ملفات البيانات.") : null,
+    el("label", { style: "display:grid;gap:6px" }, el("span", {}, "للتأكيد اكتب اسم المشروع: ", el("code", { dir: "ltr" }, slug)), inp)].filter(Boolean));
+  setTimeout(() => inp.focus(), 50);
+  const choice = await new Promise(res => dlg.addEventListener("close", () => res(dlg.returnValue), { once: true }));
+  if (choice !== "ok") return;
+  const all = (document.querySelector('input[name="delmode"]:checked') || {}).value === "all";
+  const paths = [...P.cfg, ...(all ? P.data : [])].map(t => t.path);
+  toast("جارٍ الحذف…", 2500);
+  try {
+    for (let attempt = 0; attempt < 2; attempt++) {
+      const cur = attempt ? await projectPaths(slug) : P;
+      const tree = await gh(`/git/trees`, { method: "POST", body: JSON.stringify({ base_tree: cur.base,
+        tree: paths.map(path => ({ path, mode: "100644", type: "blob", sha: null })) }) });
+      const c = await gh(`/git/commits`, { method: "POST", body: JSON.stringify({ message: `حذف مشروع ${slug}${all ? " وبياناته" : ""}`, tree: tree.sha, parents: [cur.head] }) });
+      try { await gh(`/git/refs/heads/main`, { method: "PATCH", body: JSON.stringify({ sha: c.sha }) }); break; }
+      catch (e) { if (attempt) throw e; }
+    }
+  } catch (e) { return toast("تعذّر الحذف: " + e.message, 7000); }
+  S.projects = S.projects.filter(p => p !== slug); if (S.meta) delete S.meta[slug];
+  if (S.project === slug) { S.project = S.projects[0] || ""; S.cfg = null; store.set("project", S.project); }
+  fillProjects(); showHome(true);
+  toast(`حُذف «${name}» ✓${all ? " مع بياناته" : " — البيانات باقية في data/" + slug}`, 5000);
+}
+async function runProject(slug) {
+  if (S.meta?.[slug]?.cfg?.settings?.archived) return toast("المشروع مؤرشف — استعده أولاً", 4000);
+  if (!(await confirmRun(slug, S.meta[slug].cfg))) return;
+  try {
+    await gh(`/actions/workflows/monitor.yml/dispatches`, { method: "POST", body: JSON.stringify({ ref: "main", inputs: { project: slug, action: "run" } }) });
+    toast(`بدأ تشغيل ${S.meta?.[slug]?.cfg?.name || slug}`); setTimeout(pollRuns, 6000);
+  } catch (e) { toast("تعذّر التشغيل: " + e.message, 6000); }
+}
+
+// ── الفترات الجاهزة ─────────────────────────────────────────
+const iso = d => d.toISOString().slice(0, 10);
+function monthRange(offset) {
+  const now = new Date(), a = new Date(Date.UTC(now.getFullYear(), now.getMonth() + offset, 1));
+  const b = new Date(Date.UTC(a.getUTCFullYear(), a.getUTCMonth() + 1, 0));
+  const end = offset === 0 ? new Date(Date.UTC(now.getFullYear(), now.getMonth(), now.getDate())) : b;
+  return { window_start: iso(a), window_end: iso(end), collect_until: iso(end) };
+}
+function lastDays(n) {
+  const e = new Date(); const a = new Date(Date.now() - (n - 1) * 864e5);
+  return { window_start: iso(a), window_end: iso(e), collect_until: iso(e) };
+}
+
+// ── الوضع الفاتح/الداكن ──────────────────────────────────────
+function applyTheme(t) {
+  if (t === "light" || t === "dark") document.documentElement.dataset.theme = t; else delete document.documentElement.dataset.theme;
+  const dark = t === "dark" || (t !== "light" && matchMedia("(prefers-color-scheme: dark)").matches);
+  $("#theme").textContent = dark ? "☀ الوضع الفاتح" : "☾ الوضع الداكن";
+}
+function toggleTheme() {
+  const dark = document.documentElement.dataset.theme === "dark" || (!document.documentElement.dataset.theme && matchMedia("(prefers-color-scheme: dark)").matches);
+  const t = dark ? "light" : "dark"; store.set("theme", t); applyTheme(t);
+}
+
+// ── المصادر: ألوان وأيقونات (مثل وحدات Make) ─────────────────
+const SRC = {
+  google:    { label: "Google News", ico: "G",  c: "#4285F4", kind: "news" },
+  bing:      { label: "Bing News",   ico: "b",  c: "#00897B", kind: "news" },
+  newsscope: { label: "NewsScope",   ico: "N",  c: "#c0392b", kind: "news" },
+  rss:       { label: "RSS",         ico: "◉",  c: "#F26522", kind: "news" },
+  api:       { label: "تلفزيون",     ico: "📺", c: "#5E35B1", kind: "news" },
+  X:         { label: "X",           ico: "𝕏",  c: "#14171A", kind: "social" },
+  Facebook:  { label: "Facebook",    ico: "f",  c: "#1877F2", kind: "social" },
+  Instagram: { label: "Instagram",   ico: "◎",  c: "#D62976", kind: "social" },
+  TikTok:    { label: "TikTok",      ico: "♪",  c: "#111111", kind: "social" },
+  YouTube:   { label: "YouTube",     ico: "▶",  c: "#FF0000", kind: "social" },
+  LinkedIn:  { label: "LinkedIn",    ico: "in", c: "#0A66C2", kind: "social" },
+};
+
+// ── سير العمل بأسلوب Make ───────────────────────────────────
+function renderFlow() {
+  const host = $("#p-flow"); if (!host || !S.cfg) return;
+  const cfg = S.cfg, st = new Set(cfg.settings.stages || []), sm = S.summary || {}, p = S.progress, live = !!S.live;
+  const newsBy = {}, socBy = {};
+  for (const r of cfg.news) if (r.active !== false) { const k = (r.source || "google"); newsBy[k] = (newsBy[k] || 0) + 1; }
+  for (const r of cfg.social) if (r.active !== false) socBy[r.platform] = (socBy[r.platform] || 0) + 1;
+  const stage = (p && p.stage) || "";
+  const W = 1100, H = 480, R = 26;
+  const nodes = [], edges = [];
+  const N = (id, x, y, o) => { nodes.push({ id, x, y, ...o }); return id; };
+  N("trigger", 1045, 215, { ico: "⏱", c: "#6D00CC", lbl: "التشغيل", sub: cfg.settings.daily ? "يومياً 23:45" : "يدوي", tab: "settings" });
+  N("router", 930, 215, { ico: "⑂", c: "#8f8b80", lbl: "توزيع", sub: "المسارات", r: 22, tab: "settings" });
+  edges.push(["trigger", "router"]);
+  const newsKeys = Object.keys(newsBy), socKeys = Object.keys(socBy);
+  const xs = (n, from, to) => n <= 1 ? [(from + to) / 2] : Array.from({ length: n }, (_, i) => from - i * Math.min(95, (from - to) / (n - 1)));
+  const bub = (k) => {
+    if (p && p.by_source && p.by_source[k] != null) return { n: p.by_source[k], done: false };
+    const fromSum = k in SRC && SRC[k].kind === "news" ? (sm.by_collector || {})[SRC[k].label] : (sm.by_platform || []).find(b => b.key === k)?.total;
+    return fromSum != null ? { n: fromSum, done: true } : null;
+  };
+  if (isIG(cfg)) {
+    const coms = sm.comments, plats = ownedPlats(cfg).filter(k => OWN[k]);
+    const byP = Object.fromEntries((sm.by_platform || []).map(x => [x.key.toLowerCase(), x.total]));
+    const ys = plats.length === 1 ? [215] : plats.map((_, i) => 70 + i * (290 / Math.max(1, plats.length - 1)));
+    plats.forEach((k, i) => { const o = OWN[k], key = k === "apify" ? null : o.stage;
+      const got = p && p.collected && key && p.collected[key] != null ? { n: p.collected[key] } : null;
+      N("own_" + k, 760, ys[i], { ico: o.ico, c: o.c, lbl: o.lbl, sub: o.sub, tab: k === "apify" ? "social" : "settings",
+        live: live && stage.startsWith(o.stage), bubble: got });
+      edges.push(["router", "own_" + k], ["own_" + k, "comments"]); });
+    N("comments", 560, 215, { ico: "💬", c: "#E8710A", lbl: "تعليقات الجمهور", sub: "والردود · بلا ردود حساباتنا", tab: "settings",
+      live: live && /التعليقات/.test(stage), bubble: coms ? { n: coms, done: true } : null });
+    N("filter", 360, 215, { ico: "⧩", c: "#7a776d", lbl: "فلترة", sub: "التكرار والسبام والاستثناءات", tab: "exclusions", live: live && /فلترة/.test(stage) });
+    edges.push(["comments", "filter"]);
+  } else {
+    let prevNews = "router";
+    xs(newsKeys.length, 820, 470).forEach((x, i) => {
+      const k = newsKeys[i], id = N("n_" + k, x, 95, { ico: SRC[k]?.ico || "?", c: SRC[k]?.c || "#888", lbl: SRC[k]?.label || k, sub: `${newsBy[k]} بحث`, tab: "news",
+        off: !st.has("news"), live: live && stage.startsWith("الأخبار: جمع"), bubble: bub(k) });
+      edges.push([prevNews, id]); prevNews = id;
+    });
+    let prevSoc = "router";
+    xs(socKeys.length, 820, 470).forEach((x, i) => {
+      const k = socKeys[i], id = N("s_" + k, x, 270, { ico: SRC[k]?.ico || k[0], c: SRC[k]?.c || "#888", lbl: k, sub: `${socBy[k]} مصدر`, tab: "social",
+        off: !st.has("social"), live: live && stage.startsWith("السوشيال: جمع"), bubble: bub(k) });
+      edges.push([prevSoc, id]); prevSoc = id;
+    });
+    N("filter", 360, 215, { ico: "⧩", c: "#7a776d", lbl: "فلترة", sub: "التكرار والفترة والاستثناءات", tab: "exclusions",
+      live: live && /فلترة/.test(stage) });
+    if (prevNews !== "router") edges.push([prevNews, "filter"]);
+    if (prevSoc !== "router") edges.push([prevSoc, "filter"]);
+    if (prevSoc !== "router") {
+      N("comments", 470, 405, { ico: "💬", c: "#E8710A", lbl: "التعليقات", sub: `أعلى ${cfg.settings.comments_top_posts || 40} مادة`, tab: "social",
+        off: !st.has("comments"), live: live && stage.startsWith("التعليقات"), bubble: p && p.collected && p.collected["التعليقات"] != null ? { n: p.collected["التعليقات"] } : (sm.comments ? { n: sm.comments, done: true } : null) });
+      edges.push([prevSoc, "comments"]); edges.push(["comments", "filter"]);
+    }
+  }
+  const prov = (cfg.settings.llm_provider || "gemini").toLowerCase();
+  const classified = p && /تصنيف/.test(stage) && p.total ? { n: `${fmt(p.done)}/${fmt(p.total)}` } : null;
+  N("ai", 245, 215, { ico: "✦", c: prov.startsWith("claude") ? "#D97757" : "#7C4DFF", lbl: prov.startsWith("claude") ? "Claude" : "Gemini",
+    sub: `${cfg.settings.batch_size || 25} مادة في كل نداء`, tab: "taxonomy", live: live && /تصنيف/.test(stage), bubble: classified });
+  const written = p && p.written ? Object.values(p.written).reduce((a, b) => a + b, 0) : null;
+  N("csv", 120, 215, { ico: "▦", c: "#1E8E3E", lbl: "records.csv", sub: "ملف النتائج", tab: "results",
+    bubble: written != null ? { n: written } : (sm.total != null ? { n: sm.total, done: true } : null) });
+  edges.push(["filter", "ai"], ["ai", "csv"]);
+  const at = Object.fromEntries(nodes.map(n => [n.id, n]));
+  const path = (a, b) => { const A = at[a], B = at[b], mx = (A.x + B.x) / 2; return `M${A.x},${A.y} C${mx},${A.y} ${mx},${B.y} ${B.x},${B.y}`; };
+  const esc = t => String(t).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
+  const liveEdge = (a, b) => live && (at[b].live || at[a].live);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="سير عمل الرصد">`;
+  svg += edges.map(([a, b]) => `<path class="edge${liveEdge(a, b) ? " live" : ""}" d="${path(a, b)}"/>`).join("");
+  if (newsKeys.length) svg += `<text class="branch" x="645" y="40">الأخبار</text>`;
+  for (const n of nodes) {
+    const r = n.r || R;
+    svg += `<g class="node${n.off ? " off" : ""}${n.live ? " live" : ""}" data-tab="${n.tab}" data-id="${esc(n.id)}" tabindex="0" role="button" aria-label="${esc(n.lbl)}">`
+      + `<circle class="ring" cx="${n.x}" cy="${n.y}" r="${r + 5}"/><circle cx="${n.x}" cy="${n.y}" r="${r}" fill="${n.c}"/>`
+      + `<text class="ico" x="${n.x}" y="${n.y}" font-size="${n.ico.length > 1 ? 17 : 22}">${esc(n.ico)}</text>`
+      + `<text class="lbl" x="${n.x}" y="${n.y + r + 22}">${esc(n.lbl)}</text>`
+      + (n.sub ? `<text class="sub" x="${n.x}" y="${n.y + r + 37}">${esc(n.sub)}</text>` : "");
+    if (n.bubble && n.bubble.n != null) {
+      const t = typeof n.bubble.n === "number" ? fmt(n.bubble.n) : n.bubble.n, w = Math.max(24, String(t).length * 7.5 + 12);
+      const bx = n.x - r * 0.75, by = n.y - r * 0.85;
+      svg += `<g class="bub${n.bubble.done ? " done" : ""}"><rect x="${bx - w / 2}" y="${by - 10}" width="${w}" height="20" rx="10"/>`
+        + `<text x="${bx}" y="${by}">${esc(t)}</text></g>`;
+    }
+    svg += `</g>`;
+  }
+  svg += "</svg>";
+  const box = el("div", { class: "flow", html: svg });
+  S.flowNodes = Object.fromEntries(nodes.map(n => [n.id, n]));
+  box.querySelectorAll(".node").forEach(g => { const go = () => openNode(g.dataset.id); g.addEventListener("click", go); g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); go(); } }); });
+  const per = `${cfg.settings.window_start || "؟"} ← ${cfg.settings.window_end || "؟"}`;
+  const coll = p && p.collected ? Object.values(p.collected).reduce((a, b) => a + b, 0) : null;
+  const k = (l, v) => el("div", { class: "kpi" }, el("div", { class: "l" }, l), el("div", { class: "v", style: "font-size:1.3rem" }, v));
+  host.replaceChildren(el("h2", {}, cfg.name || S.project), isIG(cfg) && !S.present && !S.status?.check?.ok ? setupCard() : "",
+    el("p", { class: "lead" }, "مسار البيانات من المصادر إلى ملف النتائج. اضغط أي دائرة لتعديلها في مكانها. أثناء التشغيل تتلوّن الوحدة العاملة، والفقاعات تعدّ ما سُحب لحظة بلحظة، وبعده تعرض الأخضر ما كُتب في الملف."),
+    box,
+    el("div", { class: "flowstats" },
+      k("الفترة", el("bdi", { dir: "ltr", style: "font-size:1rem;white-space:nowrap" }, per)),
+      k(live ? "سُحب حتى الآن" : "سجلات الملف", fmt(live ? (coll || 0) : (sm.total || 0))),
+      k(live ? "المرحلة" : "آخر تشغيل", live ? (stage || "يبدأ…") : (S.status.status_state || "—")),
+      isIG(cfg) ? k("تعليقات محلّلة", fmt(sm.comments || 0)) : k("المصادر المفعّلة", fmt(cfg.news.filter(r => r.active !== false).length + cfg.social.filter(r => r.active !== false).length))));
+}
+
+// ── ملف الكلمات المفتاحية ───────────────────────────────────
+const KW_TEMPLATE = `# ملف كلمات مشروع رصد — السطور التي تبدأ بـ # ملاحظات.
+# كل قسم يبدأ باسمه بين قوسين مربعين، وتحته سطر لكل قيمة.
+
+[الكلمات]
+# كلمة أو عبارة في كل سطر. ضع العبارة بين "..." للمطابقة الحرفية.
+"خطيرة"
+"Khateera"
+"بلا سكّر"
+
+[استبعاد]
+# أي مادة فيها هذه الكلمات تُستبعد من البحث ومن النتائج.
+إعلان ممول
+
+[الأسواق]
+# لغة-بلد لبحث الأخبار: ar-EG ar-SA ar-AE en-US en-GB fr-FR …
+ar-EG
+en-US
+
+[الهاشتاجات]
+خطيرة
+
+[الحسابات]
+# المنصة | رابط الصفحة أو الحساب (LinkedIn وFacebook وInstagram)
+Instagram | https://www.instagram.com/khateera__/
+Facebook | https://www.facebook.com/khateera.mena/
+
+[خلاصات RSS]
+# رابط خلاصة RSS لموقع بعينه
+https://feeds.bbci.co.uk/news/world/middle_east/rss.xml
+
+[استعلامات]
+# بحث متقدم كما هو: المصدر | لغة-بلد | الاستعلام  (المصدر: google أو bing أو newsscope)
+google | ar-EG | ("خطيرة" OR "Khateera") "بودكاست"
+`;
+const SECTIONS = { "الكلمات": "kw", "كلمات": "kw", "استبعاد": "ex", "الاستبعاد": "ex", "الأسواق": "mk", "اسواق": "mk", "الهاشتاجات": "ht",
+  "هاشتاجات": "ht", "الحسابات": "ac", "حسابات": "ac", "خلاصات rss": "rss", "rss": "rss", "استعلامات": "q", "الاستعلامات": "q" };
+function parseKw(text) {
+  const out = { kw: [], ex: [], mk: [], ht: [], ac: [], rss: [], q: [] }; let cur = "kw";
+  for (let line of text.split(/\r?\n/)) {
+    line = line.trim(); if (!line || line.startsWith("#")) continue;
+    const m = line.match(/^\[(.+)\]$/); if (m) { cur = SECTIONS[m[1].trim().toLowerCase()] || "kw"; continue; }
+    out[cur].push(line);
+  }
+  out.ht = out.ht.map(h => h.replace(/^#/, ""));
+  out.ac = out.ac.map(l => { const [pl, ...u] = l.split("|"); return { platform: pl.trim(), url: u.join("|").trim() }; }).filter(a => a.url);
+  out.q = out.q.map(l => { const [src, mk, ...q] = l.split("|").map(x => x.trim()); return { src: (src || "google").toLowerCase(), mk, q: q.join(" | ") }; }).filter(x => x.q);
+  if (!out.mk.length) out.mk = ["ar-EG", "en-US"];
+  return out;
+}
+const LANG = { ar: "العربية", en: "الإنجليزية", fr: "الفرنسية", de: "الألمانية", es: "الإسبانية", it: "الإيطالية", tr: "التركية", ko: "الكورية", ms: "الملايوية", id: "الإندونيسية" };
+const REGION = { EG: "مصر", SA: "السعودية", AE: "الإمارات", OM: "عُمان", KW: "الكويت", QA: "قطر", BH: "البحرين", JO: "الأردن", IQ: "العراق", LY: "ليبيا", MA: "المغرب",
+  TN: "تونس", DZ: "الجزائر", SD: "السودان", US: "الولايات المتحدة", GB: "بريطانيا", FR: "فرنسا", DE: "ألمانيا", CA: "كندا", KE: "كينيا", NG: "نيجيريا" };
+const q1 = k => k.includes('"') || !/\s/.test(k) ? k : `"${k}"`;
+function orGroups(words, max = 380) {   // نجمع الكلمات بـ OR في بحث واحد بطول معقول
+  const groups = []; let cur = [];
+  for (const w of words.map(q1)) { if (cur.length && (cur.join(" OR ").length + w.length > max)) { groups.push(cur); cur = []; } cur.push(w); }
+  if (cur.length) groups.push(cur);
+  return groups.map(g => g.length > 1 ? `(${g.join(" OR ")})` : g[0]);
+}
+const COMMENTS = {"Facebook": {"comment_actor": "apify~facebook-comments-scraper", "comment_key": "url", "comment_sep": "\"},{\"url\":\"", "comment_input": "{\"startUrls\":[{\"url\":\"{ITEMS}\"}],\"resultsLimit\":50,\"includeNestedComments\":false,\"viewOption\":\"RANKED_UNFILTERED\"}"}, "YouTube": {"comment_actor": "streamers~youtube-comments-scraper", "comment_key": "url", "comment_sep": "\"},{\"url\":\"", "comment_input": "{\"startUrls\":[{\"url\":\"{ITEMS}\"}],\"maxComments\":50,\"sortCommentsBy\":\"TOP_COMMENTS\"}"}, "TikTok": {"comment_actor": "clockworks~tiktok-comments-scraper", "comment_key": "webVideoUrl", "comment_sep": "\",\"", "comment_input": "{\"postURLs\":[\"{ITEMS}\"],\"commentsPerPost\":50,\"maxRepliesPerComment\":0}"}, "Instagram": {"comment_actor": "apify~instagram-comment-scraper", "comment_key": "url", "comment_sep": "\",\"", "comment_input": "{\"directUrls\":[\"{ITEMS}\"],\"resultsLimit\":50}"}, "X": {"comment_actor": "kaitoeasyapi~twitter-x-data-tweet-scraper-pay-per-result-cheapest", "comment_key": "id", "comment_sep": "\",\"conversation_id:", "comment_input": "{\"searchTerms\":[\"conversation_id:{ITEMS}\"],\"maxItems\":{MAX},\"queryType\":\"Latest\"}"}};
+function commentCfg(platform) {
+  const fromCur = (S.cfg?.social || []).find(r => r.platform === platform && r.comment_actor);
+  return fromCur ? { comment_actor: fromCur.comment_actor, comment_key: fromCur.comment_key, comment_sep: fromCur.comment_sep, comment_input: fromCur.comment_input }
+    : (COMMENTS[platform] || { comment_actor: "", comment_key: "", comment_sep: "", comment_input: "" });
+}
+function buildFromKw(k, sources) {
+  const has = s => sources.includes(s), news = [], social = [];
+  const exQ = k.ex.map(e => `-${q1(e)}`).join(" ");
+  const groups = orGroups(k.kw);
+  for (const src of ["google", "bing", "newsscope"]) if (has(src)) for (const mk of k.mk) {
+    const [hl, gl = ""] = mk.split("-"); const lang = hl.toLowerCase();
+    for (const g of groups) news.push({ active: true, source: src, language: LANG[lang] || lang, region: REGION[gl.toUpperCase()] || gl, hl: src === "google" ? mk : lang, gl: gl.toUpperCase(), query: `${g} ${exQ}`.trim() });
+  }
+  for (const x of k.q) if (has(x.src)) { const [hl, gl = ""] = (x.mk || "ar-EG").split("-"); news.push({ active: true, source: x.src, language: LANG[hl] || hl, region: REGION[gl.toUpperCase()] || gl, hl: x.src === "google" ? x.mk : hl, gl: gl.toUpperCase(), query: x.q }); }
+  if (has("rss")) for (const u of k.rss) news.push({ active: true, source: "rss", language: "", region: "", hl: "", gl: "", query: u });
+  const J = o => JSON.stringify(o);
+  const S_ = (platform, label, actor, input) => social.push({ active: true, platform, label, actor, input: J(input), ...commentCfg(platform) });
+  const acc = pl => k.ac.filter(a => a.platform.toLowerCase() === pl.toLowerCase()).map(a => a.url);
+  const top = k.kw.slice(0, 8).map(w => w.replace(/^"|"$/g, ""));
+  if (has("X")) S_("X", "X – بحث بالكلمات", "kaitoeasyapi~twitter-x-data-tweet-scraper-pay-per-result-cheapest",
+    { searchTerms: orGroups(k.kw, 300).map(g => `${g} ${exQ} since:{START}_00:00:00_UTC until:{END}_00:00:00_UTC`.replace(/\s+/g, " ")), maxItems: 1000, queryType: "Latest" });
+  if (has("Facebook")) {
+    top.slice(0, 6).forEach(w => S_("Facebook", `Facebook – بحث «${w}»`, "scraper_one~facebook-posts-search", { query: w, resultsCount: 100, searchType: "latest", startDate: "{START}", endDate: "{END}" }));
+    if (acc("Facebook").length) S_("Facebook", "Facebook – الصفحات", "apify~facebook-posts-scraper", { startUrls: acc("Facebook").map(url => ({ url })), resultsLimit: 150, onlyPostsNewerThan: "{START}", onlyPostsOlderThan: "{END}" });
+  }
+  if (has("Instagram")) {
+    if (k.ht.length) S_("Instagram", "Instagram – هاشتاجات", "apify~instagram-hashtag-scraper", { hashtags: k.ht, resultsType: "posts", resultsLimit: 100 });
+    if (acc("Instagram").length) S_("Instagram", "Instagram – حسابات", "apify~instagram-scraper", { directUrls: acc("Instagram"), resultsType: "posts", resultsLimit: 150, onlyPostsNewerThan: "{START}", addParentData: true });
+  }
+  if (has("TikTok")) S_("TikTok", "TikTok – بحث وهاشتاجات", "clockworks~tiktok-scraper", { searchQueries: top, hashtags: k.ht, searchSection: "/video", resultsPerPage: 100,
+    oldestPostDateUnified: "{START}", newestPostDate: "{END}", shouldDownloadVideos: false, shouldDownloadCovers: false, videoSearchSorting: "LATEST" });
+  if (has("YouTube")) S_("YouTube", "YouTube – بحث", "streamers~youtube-scraper", { searchQueries: top, maxResults: 50, maxResultsShorts: 30, maxResultStreams: 0, sortingOrder: "date", oldestPostDate: "{START}" });
+  if (has("LinkedIn")) {
+    S_("LinkedIn", "LinkedIn – بحث المنشورات", "harvestapi~linkedin-post-search", { searchQueries: [...k.kw, ...k.ht.map(h => "#" + h)].slice(0, 15), maxPosts: 60, postedLimit: "month", sortBy: "date" });
+    if (acc("LinkedIn").length) S_("LinkedIn", "LinkedIn – صفحات الشركات", "harvestapi~linkedin-company-posts", { targetUrls: acc("LinkedIn"), maxPosts: 150, includeReposts: true, includeQuotePosts: true, postedLimitDate: "{START}" });
+  }
+  return { news, social, exclusions: k.ex.map(v => ({ type: "نص", value: v.replace(/^"|"$/g, "") })) };
+}
+const DEFAULT_TAX = { "نوع الوسيلة": ["صحيفة", "وكالة أنباء", "موقع إخباري", "تلفزيون", "سوشيال ميديا"], "بلد المصدر": ["مصر", "السعودية", "الإمارات", "دولة عربية أخرى", "دولي", "غير محدد"],
+  "اللغة": ["العربية", "الإنجليزية", "الفرنسية", "أخرى"], "المحور": [], "الموضوع": [], "النبرة": ["إيجابي", "محايد", "سلبي"],
+  "العاطفة": ["بلا عاطفة", "فخر واعتزاز", "إعجاب وتقدير", "تفاؤل وأمل", "فضول واهتمام", "قلق وتشكك", "غضب واستياء"] };
+function slugify(t) { return String(t).trim().toLowerCase().replace(/[^a-z0-9-]+/g, "-").replace(/^-|-$/g, ""); }
+async function createProject(slug, cfg, msg) {
+  await gh(`/contents/config/projects/${slug}.json`, { method: "PUT", body: JSON.stringify({ message: msg || `مشروع جديد: ${slug}`, content: b64e(JSON.stringify(cfg, null, 2) + "\n") }) });
+  if (!S.projects.includes(slug)) S.projects.push(slug);
+  S.meta = null; await loadMeta(true);
+}
+function kwButtons() {
+  return [
+    el("button", { class: "btn", type: "button", onclick: () => importIntoCurrent() }, "⇪ استيراد ملف كلمات"),
+    el("button", { class: "btn", type: "button", onclick: () => {
+      const a = el("a", { href: URL.createObjectURL(new Blob([JSON.stringify(S.cfg, null, 2)], { type: "application/json" })), download: `${S.project}.json` });
+      document.body.append(a); a.click(); a.remove(); } }, "⬇ تصدير المشروع (JSON)")];
+}
+function importIntoCurrent() {
+  openWizard({ replace: true });
+}
+
+// ── معالج المشروع الجديد ────────────────────────────────────
+function openWizard(opts = {}) {
+  const dlg = $("#newDlg");
+  const cur = S.cfg || {}, curSrc = new Set([...(cur.news || []).map(r => r.source || "google"), ...(cur.social || []).map(r => r.platform)]);
+  const defaults = opts.replace ? curSrc : new Set(["google", "bing", "X", "Facebook", "Instagram", "TikTok", "YouTube", "LinkedIn"]);
+  $("#newSources").replaceChildren(...Object.entries(SRC).map(([k, v]) => el("label", {}, el("input", { type: "checkbox", value: k, checked: defaults.has(k) }),
+    el("span", { class: "dot", style: `background:${v.c}` }), v.label)));
+  dlg.querySelector("h2").textContent = opts.replace ? `استيراد كلمات إلى «${cur.name || S.project}»` : "مشروع رصد جديد";
+  for (const id of ["newName", "newSlug", "newPeriod"]) $("#" + id).closest(".field").hidden = !!opts.replace;
+  $("#newCtx").closest(".field").hidden = !!opts.replace;
+  dlg.querySelector("button[value=ok]").textContent = opts.replace ? "استبدال الاستعلامات والمصادر" : "إنشاء المشروع";
+  const preview = () => {
+    const t = $("#newKw").value.trim(); if (!t) { $("#kwPreview").textContent = "الصق الملف بالتنسيق أعلاه، أو ملف JSON لمشروع كامل."; return; }
+    if (t.startsWith("{")) { try { const j = JSON.parse(t); $("#kwPreview").textContent = `ملف مشروع كامل: ${j.news?.length || 0} بحث أخبار · ${j.social?.length || 0} مصدر سوشيال.`; } catch { $("#kwPreview").textContent = "JSON غير صالح."; } return; }
+    const k = parseKw(t), b = buildFromKw(k, chosen());
+    $("#kwPreview").textContent = `${k.kw.length} كلمة · ${k.mk.length} سوق · ${k.ex.length} استبعاد ← ${b.news.length} بحث أخبار · ${b.social.length} مصدر سوشيال`;
+  };
+  const chosen = () => [...$("#newSources").querySelectorAll("input:checked")].map(i => i.value);
+  $("#newKw").oninput = preview; $("#newSources").onchange = preview;
+  $("#kwTemplate").onclick = () => { $("#newKw").value = KW_TEMPLATE; preview(); };
+  $("#kwFile").onchange = async e => { const f = e.target.files[0]; if (f) { $("#newKw").value = await f.text(); preview(); } e.target.value = ""; };
+  $("#newName").oninput = () => { if (!$("#newSlug").dataset.touched) $("#newSlug").value = slugify($("#newName").value); };
+  $("#newSlug").oninput = () => { $("#newSlug").dataset.touched = "1"; };
+  const ig = () => !opts.replace && dlg.querySelector('input[name="ntype"]:checked')?.value === "ig";
+  const syncType = () => { const on = ig();
+    $("#newIgF").hidden = !on; $("#newLead").hidden = on; for (const id of ["newSources", "newKw", "newCtx"]) $("#" + id).closest(".field").hidden = on || (!!opts.replace && id === "newCtx");
+    dlg.querySelector("h2").textContent = opts.replace ? `استيراد كلمات إلى «${cur.name || S.project}»` : on ? "مشروع تعليقات حساباتنا" : "مشروع رصد جديد"; };
+  $("#newTypeF").hidden = !!opts.replace; dlg.querySelectorAll('input[name="ntype"]').forEach(r => r.onchange = syncType);
+  if (!opts.replace) dlg.querySelector('input[name="ntype"][value="media"]').checked = true;
+  syncType();
+  preview(); dlg.showModal();
+  dlg.onclose = async () => {
+    if (dlg.returnValue === "ok" && ig()) {
+      const name = $("#newName").value.trim() || "انطباعات الجمهور على حساباتنا";
+      const slug = slugify($("#newSlug").value) || "owned-comments";
+      if (S.projects.includes(slug)) return toast("المعرّف مستخدم — اختر معرّفاً آخر", 5000);
+      const per = $("#newPeriod").value, period = per === "copy" ? {} : monthRange(per === "prev" ? -1 : 0);
+      const cfg = structuredClone(IG_TEMPLATE); cfg.name = name;
+      const on = new Set([...document.querySelectorAll("#newIgF .own > input[type=checkbox]:checked")].map(i => i.value));
+      const handle = v => v.trim().replace(/^@/, "").replace(/^https?:\/\/[^/]+\/@?/, "").split(/[/?]/)[0];
+      const tt = handle($("#newTt").value), xx = handle($("#newX").value);
+      cfg.social.forEach(src => { const h = src.platform === "TikTok" ? tt : src.platform === "X" ? xx : "";
+        if (h) src.input = src.input.replaceAll("اسم_الحساب", h); src.active = !!h && on.has(src.platform.toLowerCase()); });
+      const plats = ["youtube", "instagram", "facebook"].filter(k => on.has(k)).concat(cfg.social.some(x => x.active) ? ["apify"] : []);
+      if (!plats.length) return toast("اختر منصة واحدة على الأقل", 5000);
+      Object.assign(cfg.settings, period, { project_name: name, owned_platforms: plats, ig_api: $("#newIgApi").value,
+        yt_channel: $("#newYt").value.trim(), fb_page_id: $("#newFb").value.trim(), report_title: "انطباعات الجمهور — " + name });
+      try { await createProject(slug, cfg); S.dirty = false; fillProjects(); await loadProject(slug); goTab("flow"); toast("أُنشئ المشروع ✓ — أكمل «الإعداد الأول»", 5000); }
+      catch (e) { toast("تعذّر الإنشاء: " + e.message, 6000); }
+      return;
+    }
+    if (dlg.returnValue !== "ok") return;
+    const t = $("#newKw").value.trim();
+    let built;
+    if (t.startsWith("{")) { try { built = JSON.parse(t); } catch { return toast("ملف JSON غير صالح", 5000); } }
+    else built = t ? buildFromKw(parseKw(t), chosen()) : { news: [], social: [], exclusions: [] };
+    if (opts.replace) {
+      S.cfg.news = built.news || []; S.cfg.social = built.social || [];
+      if (built.exclusions?.length) S.cfg.exclusions = built.exclusions;
+      if (built.context) S.cfg.context = built.context; if (built.taxonomy) S.cfg.taxonomy = built.taxonomy;
+      if (built.extra_fields) S.cfg.extra_fields = built.extra_fields;
+      markDirty(); renderAll(); return toast("استُبدلت الاستعلامات والمصادر — راجعها ثم «حفظ الإعدادات»", 5000);
+    }
+    const name = $("#newName").value.trim() || built.name || "مشروع رصد";
+    const slug = slugify($("#newSlug").value) || slugify(built.slug || "");
+    if (!slug || S.projects.includes(slug)) return toast("اختر معرّفاً جديداً بحروف إنجليزية", 5000);
+    const per = $("#newPeriod").value, period = per === "copy" ? {} : monthRange(per === "prev" ? -1 : 0);
+    const base = structuredClone(S.cfg?.settings || {});
+    const cfg = { name, settings: { ...base, ...(built.settings || {}), ...period, project_name: name, daily: false },
+      news: built.news || [], social: built.social || [], exclusions: built.exclusions || [],
+      taxonomy: built.taxonomy || DEFAULT_TAX, extra_fields: built.extra_fields || [],
+      context: built.context || ($("#newCtx").value.trim() ? $("#newCtx").value.trim().split(/\n\s*\n/) : [`أنت محلل رصد إعلامي لمشروع «${name}». قاعدة الصلة: «نعم» إذا كانت المادة عن موضوع الرصد أو كياناته، و«لا» إذا كان التشابه في الاسم فقط.`]) };
+    try { await createProject(slug, cfg); S.dirty = false; fillProjects(); await loadProject(slug); goTab("flow"); toast("أُنشئ المشروع ✓", 4000); }
+    catch (e) { toast("تعذّر الإنشاء: " + e.message, 6000); }
+  };
+}
+async function newProject() { $("#newKw").value = ""; $("#newName").value = ""; $("#newSlug").value = ""; delete $("#newSlug").dataset.touched; openWizard(); }
+
+// ── استيراد مشاريع من Make (رسالة من تبويب Make بعد موافقتك) ─────
+let pendingImport = null;
+window.addEventListener("message", e => {
+  if (!/^https:\/\/([a-z0-9-]+\.)*make\.com$/.test(e.origin)) return;
+  const d = e.data; if (!d || d.type !== "monitor-import" || !Array.isArray(d.projects)) return;
+  e.source?.postMessage({ type: "monitor-import-received" }, e.origin);
+  if ($("#importDlg").open) return;
+  pendingImport = d.projects;
+  if (!S.token) return toast("اربط الواجهة أولاً ثم أعد الاستيراد", 6000);
+  $("#importLead").textContent = `وصلت ${d.projects.length} مشاريع من Make. اختر ما تريد إنشاءه هنا (المفاتيح لا تُنقل؛ المحرك يستخدم Secrets).`;
+  $("#importRows").replaceChildren(...d.projects.map((p, i) => el("tr", {},
+    el("td", {}, el("input", { type: "checkbox", checked: !S.projects.includes(p.slug), "data-i": i })),
+    el("td", {}, p.cfg.name), el("td", { class: "num", dir: "ltr" }, p.slug + (S.projects.includes(p.slug) ? " (موجود)" : "")),
+    el("td", { class: "num" }, fmt(p.cfg.news.length)), el("td", { class: "num" }, fmt(p.cfg.social.length)))));
+  const dlg = $("#importDlg"); dlg.showModal();
+  dlg.onclose = async () => {
+    if (dlg.returnValue !== "ok") return;
+    const pick = [...$("#importRows").querySelectorAll("input:checked")].map(i => pendingImport[+i.dataset.i]);
+    for (const p of pick) {
+      try { await createProject(p.slug, p.cfg, `استيراد من Make: ${p.slug}`); toast(`استُورد ${p.cfg.name} ✓`); }
+      catch (err) { toast(`تعذّر ${p.slug}: ${err.message}`, 6000); }
+    }
+    fillProjects(); if (pick[0]) await loadProject(pick[0].slug);
+    e.source?.postMessage({ type: "monitor-import-done", count: pick.length }, e.origin);
+  };
+});
+
+// ربط الأحداث
+$("#connectBtn").onclick = connect;
+$("#settings").onclick = () => { $("#connect").hidden = !$("#connect").hidden; $("#repo").value = S.repo; };
+$("#save").onclick = () => save().catch(e => toast("تعذّر الحفظ: " + e.message, 6000));
+$("#run").onclick = run;
+$("#project").onchange = e => loadProject(e.target.value);
+$("#newProject").onclick = newProject;
+$("#theme").onclick = toggleTheme;
+$("#presentBtn").onclick = () => setPresent(!S.present);
+$("#presentExit").onclick = () => setPresent(false);
+$("#newTop").onclick = newProject;
+{ const btn = $("#menuBtn"), pop = $("#menuPop");
+  const close = () => { pop.hidden = true; btn.setAttribute("aria-expanded", "false"); };
+  btn.onclick = e => { e.stopPropagation(); pop.hidden = !pop.hidden; btn.setAttribute("aria-expanded", String(!pop.hidden)); if (!pop.hidden) pop.querySelector(".mi:not([hidden])")?.focus(); };
+  pop.addEventListener("click", e => { if (e.target.closest(".mi")) close(); });
+  document.addEventListener("click", e => { if (!e.target.closest(".menu")) close(); });
+  document.addEventListener("keydown", e => { if (e.key === "Escape" && !pop.hidden) { close(); btn.focus(); } }); }
+if (store.get("present") === "1" || new URLSearchParams(location.search).has("present")) { S.present = true; document.body.classList.add("present"); }
+$("#token").addEventListener("keydown", e => { if (e.key === "Enter") connect(); });
+$("#homeBtn").onclick = () => showHome(true);
+$("#homeLink").onclick = e => { e.preventDefault(); showHome(true); };
+$("#project").addEventListener("change", () => { if (S.view === "home") showHome(false); });
+applyTheme(store.get("theme"));
+window.addEventListener("beforeunload", e => { if (S.dirty) { e.preventDefault(); e.returnValue = ""; } });
+$("#repo").value = S.repo;
+document.body.classList.toggle("signedout", !S.token);
+if (S.token) connect(); else { $("#connect").hidden = false; }
+</script>
+</body>
+</html>
