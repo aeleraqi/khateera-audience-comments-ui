@@ -358,6 +358,9 @@ dialog.drawer[open] { animation:slidein .22s var(--ease); } @keyframes slidein {
 .own:has(> input:checked) { border-color:var(--accent); background:var(--accent-soft); }
 .own > input[type=checkbox] { accent-color:var(--accent); width:17px; height:17px; } .own .dot { width:10px; height:10px; border-radius:50%; }
 .own input[type=text], .own select { min-width:0; }
+.own .own-hint bdi { display:inline-block; direction:ltr; unicode-bidi:isolate; }
+.own .own-hint { grid-column:1 / -1; color:var(--fg2); font-size:.8rem; line-height:1.7; padding-inline-start:27px; }
+@media (max-width:560px) { .own { grid-template-columns:auto auto 1fr; } .own > input[type=text], .own > select { grid-column:1 / -1; } .own .own-hint { padding-inline-start:0; } }
 
 /* الإعداد الأول */
 .setup { border:1px solid var(--line); background:var(--surface); border-radius:var(--rl); padding:16px; display:grid; gap:10px; margin-bottom:14px; }
@@ -561,14 +564,14 @@ header.top .brand b { padding-inline-start:10px; border-inline-start:1px solid r
     <div class="field" id="newTypeF"><label>نوع المشروع</label><div class="seg" role="radiogroup" id="newType">
       <label><input type="radio" name="ntype" value="media" checked><span><b>رصد إعلامي</b><small>أخبار وسوشيال بكلمات مفتاحية</small></span></label>
       <label><input type="radio" name="ntype" value="ig"><span><b>تعليقات حسابات خطيرة</b><small>انطباعات جمهور خطيرة على محتواها في يوتيوب وإنستجرام وفيسبوك وغيرها — بمفاتيح خطيرة نفسها</small></span></label></div></div>
-    <div class="field" id="newIgF" hidden><label>المنصات</label>
+    <div class="field" id="newIgF" hidden><label>المنصات</label><small class="preview" style="margin-top:-4px">علّم المنصات التي تُجمع منها تعليقات جمهور خطيرة، واكتب بجانب كل منها حساب خطيرة عليها. للتجربة الأولى يكفي يوتيوب وإنستجرام.</small>
       <div class="own-grid">
-        <label class="own"><input type="checkbox" value="youtube" checked><span class="dot" style="background:#FF0000"></span><b>يوتيوب</b><input type="text" id="newYt" dir="ltr" placeholder="@channel"></label>
+        <label class="own"><input type="checkbox" value="youtube" checked><span class="dot" style="background:#FF0000"></span><b>يوتيوب</b><input type="text" id="newYt" dir="ltr" placeholder="@Khateera"><small class="own-hint">اسم قناة خطيرة على يوتيوب كما يظهر في رابطها، مثل <bdi dir="ltr">@Khateera</bdi>. مجاني، ومفتاحه <bdi dir="ltr">YOUTUBE_API_KEY</bdi> يُضاف بعد الإنشاء من «الإعداد الأول».</small></label>
         <label class="own"><input type="checkbox" value="instagram" checked><span class="dot" style="background:#E1306C"></span><b>إنستجرام</b>
-          <select id="newIgApi"><option value="instagram">Instagram Login</option><option value="facebook">Facebook Login</option></select></label>
-        <label class="own"><input type="checkbox" value="facebook"><span class="dot" style="background:#1877F2"></span><b>فيسبوك</b><input type="text" id="newFb" dir="ltr" placeholder="معرّف الصفحة (اختياري)"></label>
-        <label class="own"><input type="checkbox" value="tiktok"><span class="dot" style="background:#111"></span><b>TikTok</b><input type="text" id="newTt" dir="ltr" placeholder="اسم الحساب · Apify"></label>
-        <label class="own"><input type="checkbox" value="x"><span class="dot" style="background:#111"></span><b>X</b><input type="text" id="newX" dir="ltr" placeholder="اسم الحساب · Apify"></label>
+          <select id="newIgApi"><option value="instagram">Instagram Login (مقترح)</option><option value="facebook">Facebook Login</option></select><small class="own-hint">طريقة ربط حساب خطيرة على إنستجرام <bdi dir="ltr">@khateera__</bdi>: «Instagram Login» إذا كان الحساب Business أو Creator ويُربط مباشرة، و«Facebook Login» إذا كان مربوطاً بصفحة خطيرة على فيسبوك. مجاني، والتوكن <bdi dir="ltr">IG_ACCESS_TOKEN</bdi> يُضاف بعد الإنشاء.</small></label>
+        <label class="own"><input type="checkbox" value="facebook"><span class="dot" style="background:#1877F2"></span><b>فيسبوك</b><input type="text" id="newFb" dir="ltr" placeholder="معرّف الصفحة (اختياري)"><small class="own-hint">رقم معرّف صفحة خطيرة <bdi dir="ltr">(Page ID)</bdi> من «About ← Page transparency» في الصفحة. يمكن تركه فارغاً فتُؤخذ الصفحة المرتبطة بالتوكن. مجاني، والتوكن <bdi dir="ltr">FB_PAGE_TOKEN</bdi> يُضاف بعد الإنشاء.</small></label>
+        <label class="own"><input type="checkbox" value="tiktok"><span class="dot" style="background:#111"></span><b>TikTok</b><input type="text" id="newTt" dir="ltr" placeholder="khateera"><small class="own-hint">اسم حساب خطيرة على TikTok بدون @، مثل <bdi dir="ltr">khateera</bdi>. مدفوع عبر Apify حسب عدد التعليقات، ويتطلب توكن Apify في أسفل النموذج.</small></label>
+        <label class="own"><input type="checkbox" value="x"><span class="dot" style="background:#111"></span><b>X</b><input type="text" id="newX" dir="ltr" placeholder="khateeramena"><small class="own-hint">اسم حساب خطيرة على X بدون @، مثل <bdi dir="ltr">khateeramena</bdi>. مدفوع عبر Apify، ويتطلب توكن Apify في أسفل النموذج.</small></label>
       </div>
       <small>يوتيوب وإنستجرام وفيسبوك بالـ API الرسمي ومجاناً. TikTok وX عبر Apify بتوكن خطيرة ومدفوعة حسب عدد التعليقات. مفتاحا Gemini وApify يُدخلان أدناه لهذا المشروع، وبعد الإنشاء «الإعداد الأول» يرشدك لباقي المفاتيح ثم «فحص الاتصال».</small></div>
     <p class="lead" id="newLead" style="margin:0">اكتب الاسم، واختر مصادر الجمع، والصق ملف الكلمات المفتاحية. المحرك يبني استعلامات الأخبار وإعدادات Apify لكل منصة تلقائياً، وتقدر تعدّل أي صف بعدها.</p>
